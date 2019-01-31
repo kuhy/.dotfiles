@@ -1,0 +1,140 @@
+#+TITLE: Vim config
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments no
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.vimrc"
+
+* Basic
+With the =relativenumber= option, each line in your file is numbered relative to
+the cursor’s current position to show the distance to that line.
+#+BEGIN_SRC conf
+set number relativenumber
+#+END_SRC
+
+True Color support:
+#+BEGIN_SRC conf
+set termguicolors
+#+END_SRC
+
+Open files ending with =.pl= as prolog files:
+#+BEGIN_SRC conf
+let g:filetype_pl="prolog"
+#+END_SRC
+
+* Plugins
+- tidal (live coding support)^{[[https://github.com/tidalcycles/vim-tidal][🔗]]}
+- [[#gruvbox][gruvbox]] (retro groove color scheme)^{[[https://github.com/morhetz/gruvbox][🔗]]}
+- [[#indentline][indentLine]] (visually displaying indent levels)^{[[https://github.com/Yggdroot/indentLine][🔗]]}
+- gitgutter (shows a git diff in the sign column)^{[[https://github.com/airblade/vim-gitgutter][🔗]]}
+- airline (status line)^{[[https://github.com/vim-airline/vim-airline][🔗]]}
+- [[#syntastic][syntastic]] (syntax checking)^{[[https://github.com/vim-syntastic/syntastic][🔗]]}
+- [[#nerdtree][NERDTree]] (tree explorer)^{[[https://github.com/scrooloose/nerdtree][🔗]]}
+- OrgMode (support for org-mode)^{[[https://github.com/jceb/vim-orgmode][🔗]]}
+    - speeddating (incrementing dates)^{[[https://github.com/tpope/vim-speeddating][🔗]]}
+    - utl (Univeral Text Linking)^{[[https://github.com/vim-scripts/utl.vim][🔗]]}
+- [[#startify][Startify]] (fancy start screen)^{[[https://github.com/mhinz/vim-startify][🔗]]}
+- EditorConfig (EditorConfig support)^{[[https://github.com/editorconfig/editorconfig-vim][🔗]]}
+
+Download plugins with vim-plug:
+#+BEGIN_SRC conf
+call plug#begin('~/.vim/plugged')
+
+Plug 'tidalcycles/vim-tidal'
+Plug 'morhetz/gruvbox'
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-syntastic/syntastic'
+Plug 'scrooloose/nerdtree'
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
+Plug 'vim-scripts/utl.vim'
+Plug 'mhinz/vim-startify'
+Plug 'editorconfig/editorconfig-vim'
+
+call plug#end()
+#+END_SRC
+
+** Gruvbox
+:PROPERTIES:
+:CUSTOM_ID: gruvbox
+:END:
+Apply gruvbox theme:
+#+BEGIN_SRC conf
+colorscheme gruvbox
+#+END_SRC
+
+** indentLine
+:PROPERTIES:
+:CUSTOM_ID: indentline
+:END:
+Change indent character:
+#+BEGIN_SRC conf
+let g:indentLine_char = '┆'
+#+END_SRC
+
+** Syntastic
+:PROPERTIES:
+:CUSTOM_ID: syntastic
+:END:
+Recommended settings for syntastic:
+#+BEGIN_SRC conf
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+#+END_SRC
+
+** NERDTree
+:PROPERTIES:
+:CUSTOM_ID: nerdtree
+:END:
+Open NERDTree automatically when vim starts up on opening a directory:
+#+BEGIN_SRC conf
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) &&
+    \ !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+#+END_SRC
+
+Close when only NERDTree window left open:
+#+BEGIN_SRC conf
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
+    \ b:NERDTree.isTabTree()) | q | endif
+#+END_SRC
+
+Close NERDTree when I open a file:
+#+BEGIN_SRC conf
+let NERDTreeQuitOnOpen = 1
+#+END_SRC
+
+Open NERDTree with Ctrl+n:
+#+BEGIN_SRC conf
+map <C-n> :NERDTreeToggle<CR>
+#+END_SRC
+
+Hide =Press ? for help= in NERDTree menu:
+#+BEGIN_SRC conf
+let NERDTreeMinimalUI = 1
+#+END_SRC
+
+** Startify
+:PROPERTIES:
+:CUSTOM_ID: startify
+:END:
+Define custom header:
+#+BEGIN_SRC conf
+let g:ascii = [
+    \ ".------..------..------..------.",
+    \ "|K.--. ||U.--. ||H.--. ||Y.--. |",
+    \ "| :/\\: || (\\/) || :/\\: || (\\/) |",
+    \ "| :\\/: || :\\/: || (__) || :\\/: |",
+    \ "| '--'K|| '--'U|| '--'H|| '--'Y|",
+    \ "`------'`------'`------'`------'",
+    \ ]
+let g:startify_custom_header = map(g:ascii, '"   ".v:val')
+#+END_SRC
+

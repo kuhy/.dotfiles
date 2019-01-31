@@ -1,0 +1,13 @@
+#+TITLE: Dotfiles
+
+- [[file:git.org][Git]]
+- [[file:vim.org][Vim]]
+
+* Prerequisites
+You need only Emacs with =org-mode= and =git=.
+
+* Instalation
+#+BEGIN_SRC sh
+curl -L https://github.com/kuhy/.dotfiles/raw/master/install.sh | sh
+#+END_SRC
+
