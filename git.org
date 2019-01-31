@@ -1,0 +1,135 @@
+#+TITLE: Git config
+#+AUTHOR: Kuhy
+
+* Basic
+:PROPERTIES:
+:header-args: :tangle ~/.gitconfig :comments both :mkdirp yes
+:END:
+** User
+#+BEGIN_SRC conf
+[user]
+#+END_SRC
+
+Set my name:
+#+BEGIN_SRC conf
+name = Ondřej Kuhejda
+#+END_SRC
+
+Set my email:
+#+BEGIN_SRC conf
+email = ondrejkuhejda@gmail.com
+#+END_SRC
+
+** Core
+#+BEGIN_SRC conf
+[core]
+#+END_SRC
+
+Set my default editor to vim:
+#+BEGIN_SRC conf
+editor = vim
+#+END_SRC
+
+Use global .gitignore:
+#+BEGIN_SRC conf
+excludesfile = ~/.gitignore
+#+END_SRC
+
+** Alias
+#+BEGIN_SRC conf
+[alias]
+#+END_SRC
+
+Alias for graphical log:
+#+BEGIN_SRC conf
+grog = log --graph --abbrev-commit --decorate --all \
+    --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white \
+        ) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow \
+        )%d%C(reset)%n %C(white)%s%C(reset)'
+#+END_SRC
+
+** Diff
+Change diff tool to [[https://github.com/jeffkaufman/icdiff][icdiff]]:
+#+BEGIN_SRC conf
+[diff]
+  tool = icdiff
+[difftool]
+  prompt = false
+[difftool "icdiff"]
+  cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
+#+END_SRC
+
+* Global .gitignore
+:PROPERTIES:
+:header-args: :tangle ~/.gitignore :comments both :mkdirp yes
+:END:
+** Diff
+Patch files:
+#+BEGIN_SRC conf
+*.patch
+#+END_SRC
+
+Diff files:
+#+BEGIN_SRC conf
+*.diff
+#+END_SRC
+
+** Jetbrain
+Project settings:
+#+BEGIN_SRC conf
+.idea/
+#+END_SRC
+
+Module files:
+#+BEGIN_SRC conf
+*.iml
+#+END_SRC
+
+** Linux
+Temporary files of some editors:
+#+BEGIN_SRC conf
+*~
+#+END_SRC
+
+Temporary files which can be created if a process still has a handle open of
+a deleted file:
+#+BEGIN_SRC conf
+.fuse_hidden*
+#+END_SRC
+
+Linux trash folder which might appear on any partition or disk:
+#+BEGIN_SRC conf
+.Trash-*
+#+END_SRC
+
+=.nfs= files are created when an open file is removed but is still being
+accessed:
+#+BEGIN_SRC conf
+.nfs*
+#+END_SRC
+
+** Vim
+Swap files:
+#+BEGIN_SRC conf
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+#+END_SRC
+
+Session file:
+#+BEGIN_SRC conf
+Session.vim
+#+END_SRC
+
+Temporary files:
+#+BEGIN_SRC conf
+.netrwhist
+#+END_SRC
+
+Persistent undo files:
+#+BEGIN_SRC conf
+[._]*.un~
+#+END_SRC
+
