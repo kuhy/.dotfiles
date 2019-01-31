@@ -1,5 +1,7 @@
 #+TITLE: Dotfiles
+#+AUTHOR: Kuhy
 
+- [[file:editorconfig.org][EditorConfig]]
 - [[file:git.org][Git]]
 - [[file:vim.org][Vim]]
 
