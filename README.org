@@ -3,7 +3,11 @@
 
 - [[file:editorconfig.org][EditorConfig]]
 - [[file:git.org][Git]]
+- [[file:sway.org][Sway]]
+- [[file:i3blocks.org][i3blocks]]
 - [[file:vim.org][Vim]]
+
+Colors are shared between multiple files via [[file:colors.org][colors.org]].
 
 * Prerequisites
 You need only Emacs with =org-mode= and =git=.
