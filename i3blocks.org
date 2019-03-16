@@ -1,0 +1,34 @@
+#+TITLE: I3blocks config
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/i3blocks/config"
+
+* Global
+#+BEGIN_SRC conf
+align=center
+#+END_SRC
+
+* Time
+#+BEGIN_SRC conf
+[Time]
+command=date "+%a %d.%m. %T"
+interval=1
+min_width=200
+#+END_SRC
+
+* Volume
+#+BEGIN_SRC conf
+[volume]
+command=amixer | grep -m 1 -o -E [[:digit:]]+% | tr -d "%"
+interval=1
+min_width=50
+#+END_SRC
+
+* Battery
+#+BEGIN_SRC conf
+[battery]
+command=cat /sys/class/power_supply/BAT0/capacity
+interval=10
+min_width=50
+#+END_SRC

@@ -1,0 +1,11 @@
+First color
+#+name: color1
+#+begin_src conf
+#d7907b
+#+end_src
+
+Second color
+#+name: color2
+#+begin_src conf
+#330036
+#+end_src
