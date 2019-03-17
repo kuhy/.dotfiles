@@ -1,3 +1,6 @@
+#+TITLE: Colors
+Here are defined colors for all configuration files.
+
 First color
 #+name: color1
 #+begin_src conf
