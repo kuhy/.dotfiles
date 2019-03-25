@@ -1,0 +1,59 @@
+#+TITLE: Variables
+#+OPTIONS: prop:t
+
+Here are defined global variables for all configuration files.
+
+* Default applications
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+
+Your preferred terminal emulator
+#+NAME: terminal
+#+BEGIN_SRC conf
+termite
+#+END_SRC
+
+Your preferred application launcher
+#+NAME: menu
+#+BEGIN_SRC conf
+rofi -show run
+#+END_SRC
+
+Your preferred web browser
+#+NAME: web_browser
+#+BEGIN_SRC conf
+qutebrowser
+#+END_SRC
+
+Your preferred file browser
+#+NAME: file_browser
+#+BEGIN_SRC conf
+termite -e ranger
+#+END_SRC
+
+* Appearance
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+
+** Colors
+First color
+#+name: color1
+#+begin_src conf
+#d7907b
+#+end_src
+
+Second color
+#+name: color2
+#+begin_src conf
+#330036
+#+end_src
+
+** Font
+Font
+#+name: font
+#+begin_src conf
+unifont
+#+end_src
+

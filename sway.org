@@ -6,12 +6,7 @@
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
 
-* Colors
-:PROPERTIES:
-:header-args: :tangle no
-:END:
-Colors are included from [[file:colors.org][colors.org]].
-#+INCLUDE: "colors.org"
+#+INCLUDE: "variables.org"
 
 * Variables
 Logo key. Use Mod1 for Alt.
@@ -27,31 +22,11 @@ set $up k
 set $right l
 #+END_SRC
 
-Your preferred terminal emulator
-#+BEGIN_SRC conf
-set $term termite
-#+END_SRC
-
-Your preferred application launcher
-#+BEGIN_SRC conf
-set $menu rofi -show run
-#+END_SRC
-
-Your preferred web browser
-#+BEGIN_SRC conf
-set $web_browser qutebrowser
-#+END_SRC
-
-Your preferred file browser
-#+BEGIN_SRC conf
-set $file_browser termite -e ranger
-#+END_SRC
-
 * Key bindings
 ** Basics
 start a terminal
 #+BEGIN_SRC conf
-    bindsym $mod+Return exec $term
+    bindsym $mod+Return exec <<terminal>>
 #+END_SRC
 
 kill focused window
@@ -61,17 +36,17 @@ kill focused window
 
 start your launcher
 #+BEGIN_SRC conf
-    bindsym $mod+d exec $menu
+    bindsym $mod+d exec <<menu>>
 #+END_SRC
 
 start your web browser
 #+BEGIN_SRC conf
-    bindsym $mod+w exec $web_browser
+    bindsym $mod+w exec <<web_browser>>
 #+END_SRC
 
 start your file browser
 #+BEGIN_SRC conf
-    bindsym $mod+f exec $file_browser
+    bindsym $mod+f exec <<file_browser>>
 #+END_SRC
 
 start emacs
@@ -293,7 +268,7 @@ client.background       #ffffff
 #+BEGIN_SRC conf
 smart_borders on
 default_border normal 5
-font unifont 15
+font <<font>> 15
 #+END_SRC
 
 ** Gaps
