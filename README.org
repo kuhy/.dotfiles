@@ -7,7 +7,7 @@
 - [[file:i3blocks.org][i3blocks]]
 - [[file:vim.org][Vim]]
 
-Colors are shared between multiple files via [[file:colors.org][colors.org]].
+Variables and colors are shared between multiple files via [[file:variables.org][variables.org]].
 
 * Prerequisites
 You need only Emacs with =org-mode= and =git=.
