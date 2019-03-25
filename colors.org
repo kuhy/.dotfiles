@@ -1,4 +1,5 @@
 #+TITLE: Colors
+#+OPTIONS: prop:t
 Here are defined colors for all configuration files.
 
 First color

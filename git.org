@@ -1,5 +1,6 @@
 #+TITLE: Git config
 #+AUTHOR: Kuhy
+#+OPTIONS: prop:t
 
 * Basic
 :PROPERTIES:
