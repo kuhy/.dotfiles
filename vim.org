@@ -3,6 +3,7 @@
 #+PROPERTY: header-args+ :comments no
 #+PROPERTY: header-args+ :mkdirp yes
 #+PROPERTY: header-args+ :tangle "~/.vimrc"
+#+OPTIONS: prop:t
 
 * Basic
 With the =relativenumber= option, each line in your file is numbered relative to

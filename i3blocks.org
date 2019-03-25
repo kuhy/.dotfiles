@@ -3,6 +3,7 @@
 #+PROPERTY: header-args+ :comments yes
 #+PROPERTY: header-args+ :mkdirp yes
 #+PROPERTY: header-args+ :tangle "~/.config/i3blocks/config"
+#+OPTIONS: prop:t
 
 * Global
 #+BEGIN_SRC conf

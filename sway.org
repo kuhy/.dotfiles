@@ -42,6 +42,11 @@ Your preferred web browser
 set $web_browser qutebrowser
 #+END_SRC
 
+Your preferred file browser
+#+BEGIN_SRC conf
+set $file_browser termite -e ranger
+#+END_SRC
+
 * Key bindings
 ** Basics
 start a terminal
@@ -61,7 +66,17 @@ start your launcher
 
 start your web browser
 #+BEGIN_SRC conf
-    bindsym $mod+q exec $web_browser
+    bindsym $mod+w exec $web_browser
+#+END_SRC
+
+start your file browser
+#+BEGIN_SRC conf
+    bindsym $mod+f exec $file_browser
+#+END_SRC
+
+start emacs
+#+BEGIN_SRC conf
+    bindsym $mod+e exec emacs
 #+END_SRC
 
 Drag floating windows by holding down $mod and left mouse button.
@@ -162,13 +177,13 @@ respectively.
 Switch the current container between different layout styles
 #+BEGIN_SRC conf
     bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+t layout tabbed
+    bindsym $mod+c layout toggle split
 #+END_SRC
 
 Make the current focus fullscreen
 #+BEGIN_SRC conf
-    bindsym $mod+f fullscreen
+    bindsym $mod+Shift+f fullscreen
 #+END_SRC
 
 Toggle the current focus between tiling and floating mode
@@ -278,6 +293,7 @@ client.background       #ffffff
 #+BEGIN_SRC conf
 smart_borders on
 default_border normal 5
+font unifont 15
 #+END_SRC
 
 ** Gaps
