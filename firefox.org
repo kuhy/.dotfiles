@@ -1,0 +1,151 @@
+#+TITLE: Firefox config
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :noweb tangle
+#+PROPERTY: header-args+ :tangle ~/.mozilla/firefox/pe9uph24.default/chrome/userChrome.css
+#+OPTIONS: prop:t
+
+#+INCLUDE: "variables.org"
+
+* Styles
+Declaring color variables
+#+BEGIN_SRC css
+:root {
+    --main-color: <<color1>>;
+    --text-color: #ffffff;
+
+    --shade1:#b3efff;
+    --shade2:#80e5ff;
+    --shade3:#4ddbff;
+    --shade4:#1ad0ff;
+    --shade5:#00b7e6;
+    --shade6:#008eb3;
+    --shade7:#006680;
+    --shade8:#003d4d;
+    --shade9:#00141a;
+}
+#+END_SRC
+
+hiding useless stuffs
+#+BEGIN_SRC css
+.titlebar-placeholder,#wrapper-alltabs-button,.tab-close-button,.tab-icon-image,#main-window :-moz-any(#back-button, #forward-button) {
+	display: none;
+}
+#identity-box,.urlbar-history-dropmarker,#pageActionButton{
+display: none !important
+}
+.tab-throbber{
+    margin: 0!important;
+    padding: 0!important;
+}
+#tabbrowser-tabs .tabs-newtab-button {
+	visibility: collapse !important;
+}
+#+END_SRC
+
+hides a ugly black bottom background under each unfocused tab
+#+BEGIN_SRC css
+#navigator-toolbox{
+	--tabs-border-color: none !important;
+}
+#+END_SRC
+
+tab occupy all space
+tab title font is reduced
+#+BEGIN_SRC css
+.tabbrowser-tab[fadein]:not([pinned]) {
+	max-width: 100% !important;
+	font-size: 0.8em !important;
+}
+#+END_SRC
+
+url bar font size is reduced
+no borders
+no shadow
+no round edges
+#+BEGIN_SRC css
+#urlbar {
+  font-size: 0.8em !important;
+  border: none !important;
+  box-shadow: none !important;
+  --toolbarbutton-border-radius: 0px !important;
+  color: var(--text-color) !important;
+  text-align: center !important;
+}
+#+END_SRC
+
+i don't really know what this do but removing it gives a weired behaviour when opening and closing tabs any analysis are welcome ^^
+#+BEGIN_SRC css
+.tabbrowser-tab::after, .tabbrowser-tab::before {
+   border:none !important;
+}
+#+END_SRC
+
+center tab text title
+#+BEGIN_SRC css
+.tab-label {
+	-moz-box-flex: 1 !important;
+	text-align: center !important;
+    color : var(--text-color);
+}
+#+END_SRC
+
+here is a serie of color background
+#+BEGIN_SRC css
+.tab-line{
+	/*background-color: var(--main-color) !important;
+	height: 1px !important;*/
+    visibility: collapse !important;
+}
+
+.tab-background {
+	border: none !important;
+    background-attachment: none!important;
+    background-color: var(--main-color) !important;
+    background-image: none!important;
+}
+
+.tabbrowser-tab:not([selected]) .tab-background {
+	border: none !important;
+    background-color: var(--shade8) !important;
+}
+#nav-bar,#urlbar-container,#urlbar,#PanelUI-menu-button{
+    background-color: var(--main-color) !important;
+}
+#+END_SRC
+
+hides another ugly black bottom background under the urlbar container
+#+BEGIN_SRC css
+:root:-moz-lwtheme-brighttext {
+    --toolbox-border-bottom-color: none !important;
+}
+#+END_SRC
+
+reducing the tabs height more
+#+BEGIN_SRC css
+:root[uidensity="compact"] #titlebar, :root[uidensity="compact"] #tabbrowser-tabs {
+    --tab-min-height: 18px !important;
+}
+#+END_SRC
+
+removing the useless padding and marging between elements of the urlbar etc..
+#+BEGIN_SRC css
+#nav-bar,#urlbar,#PanelUI-menu-button{
+    padding: 0px !important;
+    margin:  0px !important;
+    height: 24px !important;
+}
+#+END_SRC
+
+make the tabs hidden when there is only one tab open
+#+BEGIN_SRC css
+#tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox {
+	min-height: 0 !important;
+}
+
+#tabbrowser-tabs tab[first-visible-tab="true"][last-visible-tab="true"] {
+	visibility: collapse;
+}
+#+END_SRC
+
