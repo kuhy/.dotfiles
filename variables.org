@@ -23,13 +23,19 @@ rofi -show run
 Your preferred web browser
 #+NAME: web_browser
 #+BEGIN_SRC conf
-qutebrowser
+firefox
 #+END_SRC
 
 Your preferred file browser
 #+NAME: file_browser
 #+BEGIN_SRC conf
 termite -e ranger
+#+END_SRC
+
+Your preferred music player
+#+NAME: music_player
+#+BEGIN_SRC conf
+termite -e cmus
 #+END_SRC
 
 * Appearance
@@ -40,20 +46,20 @@ termite -e ranger
 ** Colors
 First color
 #+name: color1
-#+begin_src conf
-#d7907b
+#+begin_src css
+#79740E
 #+end_src
 
 Second color
 #+name: color2
-#+begin_src conf
-#330036
+#+begin_src css
+#504945
 #+end_src
 
 ** Font
 Font
 #+name: font
 #+begin_src conf
-unifont
+monoid, siji
 #+end_src
 

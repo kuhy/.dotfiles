@@ -1,0 +1,57 @@
+#+TITLE: Qutebrowser config
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/qutebrowser/config.py"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+
+#+INCLUDE: "variables.org"
+
+* Variables
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+
+Set =font_size= to:
+#+NAME: font_size
+#+BEGIN_SRC python :tangle no
+14pt
+#+END_SRC
+
+* Basics 
+Leave insert mode when starting a new page load.
+Needed because of Google Translate.
+#+BEGIN_SRC python
+c.input.insert_mode.leave_on_load = False
+#+END_SRC
+
+Force a Qt platform to use. This sets the `QT_QPA_PLATFORM`
+environment variable and is useful to force using the XCB plugin when
+running QtWebEngine on Wayland.
+#+BEGIN_SRC python
+c.qt.force_platform = 'xcb'
+#+END_SRC
+
+* Appearance
+** Font
+Set UI font:
+#+BEGIN_SRC python
+c.fonts.monospace = '<<font>>'
+#+END_SRC
+
+And apply font size to these elements:
+#+BEGIN_SRC python
+c.fonts.completion.category = 'bold <<font_size>> monospace'
+c.fonts.completion.entry = '<<font_size>> monospace'
+c.fonts.debug_console = '<<font_size>> monospace'
+c.fonts.downloads = '<<font_size>> monospace'
+c.fonts.hints = 'bold <<font_size>> monospace'
+c.fonts.keyhint = '<<font_size>> monospace'
+c.fonts.messages.error = '<<font_size>> monospace'
+c.fonts.messages.info = '<<font_size>> monospace'
+c.fonts.messages.warning = '<<font_size>> monospace'
+c.fonts.statusbar = '<<font_size>> monospace'
+c.fonts.tabs = '<<font_size>> monospace'
+#+END_SRC
+
