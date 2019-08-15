@@ -8,28 +8,37 @@
 * Global
 #+BEGIN_SRC conf
 align=center
+markup=pango
 #+END_SRC
 
 * Time
 #+BEGIN_SRC conf
 [Time]
-command=date "+%a %d.%m. %T"
+command=echo '<span font=""> </span>'$(date "+%a %d.%m. %T")
 interval=1
-min_width=200
+min_width=250
+#+END_SRC
+
+* Keyboard
+#+BEGIN_SRC conf
+[Keyboard]
+command=echo '<span font=""> </span>'$(swaymsg -t get_inputs | grep -m 1 -o '"xkb_active_layout_name":.*",' | awk '{print  substr ($2, 2, 2)}')
+interval=1
+min_width=70
 #+END_SRC
 
 * Volume
 #+BEGIN_SRC conf
 [volume]
-command=amixer | grep -m 1 -o -E [[:digit:]]+% | tr -d "%"
+command=echo '<span font=""> </span>'$(amixer | grep -m 1 -o -E [[:digit:]]+% | tr -d "%")
 interval=1
-min_width=50
+min_width=70
 #+END_SRC
 
 * Battery
 #+BEGIN_SRC conf
 [battery]
-command=cat /sys/class/power_supply/BAT0/capacity
+command=echo '<span font=""> </span>'$(cat /sys/class/power_supply/BAT0/capacity)
 interval=10
-min_width=50
+min_width=70
 #+END_SRC
