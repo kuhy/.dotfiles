@@ -17,6 +17,11 @@ True Color support:
 set termguicolors
 #+END_SRC
 
+Spell checking
+#+BEGIN_SRC conf
+set spell spelllang=en,cs
+#+END_SRC
+
 Open files ending with =.pl= as prolog files:
 #+BEGIN_SRC conf
 let g:filetype_pl="prolog"
@@ -35,6 +40,8 @@ let g:filetype_pl="prolog"
     - utl (Univeral Text Linking)^{[[https://github.com/vim-scripts/utl.vim][🔗]]}
 - [[#startify][Startify]] (fancy start screen)^{[[https://github.com/mhinz/vim-startify][🔗]]}
 - EditorConfig (EditorConfig support)^{[[https://github.com/editorconfig/editorconfig-vim][🔗]]}
+- Grammarous (grammar checker)^{[[https://github.com/rhysd/vim-grammarous][🔗]]}
+- numbertoggle (toggles between hybrid and absolute line numbers))^{[[https://github.com/jeffkreeftmeijer/vim-numbertoggle][🔗]]}
 
 Download plugins with vim-plug:
 #+BEGIN_SRC conf
@@ -52,6 +59,8 @@ Plug 'tpope/vim-speeddating'
 Plug 'vim-scripts/utl.vim'
 Plug 'mhinz/vim-startify'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'rhysd/vim-grammarous'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 call plug#end()
 #+END_SRC
