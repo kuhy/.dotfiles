@@ -22,6 +22,16 @@ set $up k
 set $right l
 #+END_SRC
 
+* IO
+Set keyboard layout:
+#+BEGIN_SRC conf
+input * {
+    xkb_layout us,cz
+    xkb_variant ,qwerty
+    xkb_options grp:win_space_toggle,ctrl:nocaps
+}
+#+END_SRC
+
 * Key bindings
 ** Basics
 start a terminal
@@ -54,6 +64,11 @@ start emacs
     bindsym $mod+e exec emacs
 #+END_SRC
 
+start music player
+#+BEGIN_SRC conf
+    bindsym $mod+m exec <<music_player>>
+#+END_SRC
+
 Drag floating windows by holding down $mod and left mouse button.
 Resize them with right mouse button + $mod.
 Despite the name, also works for non-floating windows.
@@ -66,6 +81,11 @@ mouse button for dragging.
 reload the configuration file
 #+BEGIN_SRC conf
     bindsym $mod+Shift+c reload
+#+END_SRC
+
+print screen
+#+BEGIN_SRC conf
+    bindsym Print exec grim ~/Pictures/screen-shots/$(date +%F-%H:%M-%S).png
 #+END_SRC
 
 exit sway (logs you out of your Wayland session)
@@ -250,7 +270,7 @@ bindsym XF86KbdBrightnessUp exec light -k -A 40
 ** Colors
 Set background color
 #+BEGIN_SRC conf
-output * bg "#00897B" solid_color
+output * bg "#FBF1C7" solid_color
 #+END_SRC
 
 #+BEGIN_SRC conf
@@ -267,8 +287,8 @@ client.background       #ffffff
 ** Basics
 #+BEGIN_SRC conf
 smart_borders on
-default_border normal 5
-font <<font>> 15
+default_border pixel 5
+font <<font>> 12
 #+END_SRC
 
 ** Gaps
@@ -294,12 +314,12 @@ status_command i3blocks
 
 #+BEGIN_SRC conf
     colors {
-        background #330036
+        background <<color2>>
 #        statusline #ffffff
 #        separator #666666
 
 #       colorclass         border  background text
-        focused_workspace  #d7907b #d7907b #ffffff
+        focused_workspace  <<color1>> <<color1>> #ffffff
 #        active_workspace   #d7907b #d7907b #ffffff
         inactive_workspace #32323200 #32323200 #5c5c5c
 #        urgent_workspace   #2f343a #900000 #ffffff
