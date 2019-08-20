@@ -14,6 +14,12 @@ Hide toolbars.
   (tool-bar-mode -1))
 #+END_SRC
 
+Fix problem with downloading =undo-tree=.
+=undo-tree= is required by Evil and other packages.
+#+BEGIN_SRC elisp
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+#+END_SRC
+
 Load package manager, add the Melpa package registry.
 #+BEGIN_SRC elisp
 (require 'package)
