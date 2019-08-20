@@ -4,7 +4,7 @@
 #+PROPERTY: header-args+ :mkdirp yes
 #+PROPERTY: header-args+ :tangle "~/.config/termite/config"
 #+PROPERTY: header-args+ :noweb tangle
-#+OPTIONS: prop:t                                                                        
+#+OPTIONS: prop:t
 
 #+INCLUDE: "variables.org"
 
@@ -20,7 +20,7 @@
 
 Set font:
 #+BEGIN_SRC conf
-font = <<font>> 13
+font = <<font>> 10
 #+END_SRC
 
 #+BEGIN_SRC conf
@@ -83,27 +83,49 @@ scrollback_lines = -1
 
 If unset, will reverse foreground and background
 #+BEGIN_SRC conf
-highlight = #2f2f2f
+#highlight = #2f2f2f
 #+END_SRC
 
 Colors from color0 to color254 can be set
 #+BEGIN_SRC conf
-color0 = #3f3f3f
-color1 = #705050
-color2 = #60b48a
-color3 = #dfaf8f
-color4 = #506070
-color5 = #dc8cc3
-color6 = #8cd0d3
-color7 = #dcdccc
-color8 = #709080
-color9 = #dca3a3
-color10 = #c3bf9f
-color11 = #f0dfaf
-color12 = #94bff3
-color13 = #ec93d3
-color14 = #93e0e3
-color15 = #ffffff
+# hard contrast: background = #f9f5d7
+background = #fbf1c7
+# soft contrast: background = #f2e5bc
+foreground = #3c3836
+foreground_bold = #3c3836
+
+# light0 + gray
+color0 = #fbf1c7
+color8 = #928374
+
+# neutral_red + faded_red
+color1 = #cc241d
+color9 = #9d0006
+
+# neutral_green + faded_green
+color2 = #98971a
+color10 = #79740e
+
+# neutral_yellow + faded_yellow
+color3 = #d79921
+color11 = #b57614
+
+# neutral_blue + faded_blue
+color4 = #458588
+color12 = #076678
+
+# neutral_purple + faded_purple
+color5 = #b16286
+color13 = #8f3f71
+
+# neutral_aqua + faded_aqua
+color6 = #689d6a
+color14 = #427b58
+
+# dark4 + dark1
+color7 = #7c6f64
+color15 = #3c3836
+
 #+END_SRC
 
 * Hints
