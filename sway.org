@@ -36,7 +36,7 @@ input * {
 ** Basics
 start a terminal
 #+BEGIN_SRC conf
-    bindsym $mod+Return exec <<terminal>>
+    bindsym $mod+Return exec <<terminal>> -e "tmux -2"
 #+END_SRC
 
 kill focused window
