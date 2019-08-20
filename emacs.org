@@ -1,0 +1,157 @@
+#+TITLE: Emacs config
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.emacs.d/init.el"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+
+Hide toolbars.
+#+BEGIN_SRC elisp
+(when window-system
+  (menu-bar-mode -1)
+  (toggle-scroll-bar -1)
+  (tool-bar-mode -1))
+#+END_SRC
+
+Load package manager, add the Melpa package registry.
+#+BEGIN_SRC elisp
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+#+END_SRC
+
+Bootstrap use-package.
+#+BEGIN_SRC elisp
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+#+END_SRC
+
+Hide default welcome screen.
+#+BEGIN_SRC elisp
+(setq inhibit-startup-screen t)
+#+END_SRC
+
+Install package autoatically if not already present on your system.
+#+BEGIN_SRC elisp
+(setq use-package-always-ensure t)
+#+END_SRC
+
+Setup font.
+#+BEGIN_SRC elisp
+(add-to-list 'default-frame-alist
+  '(font . "monoid-13"))
+#+END_SRC
+
+Alow to run dot files from =org-mode=.
+#+BEGIN_SRC elisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((dot . t))) ; this line activates dot
+#+END_SRC
+
+Change org-mode exporting process to pdf.
+Needed for bibtex support.
+#+BEGIN_SRC elisp
+(setq org-latex-pdf-process
+      '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
+#+END_SRC
+
+Run org-mode code snippets without confirmation.
+#+BEGIN_SRC elisp
+(setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
+Install gruvbox theme.
+#+BEGIN_SRC elisp
+(use-package gruvbox-theme
+  :config
+  (load-theme 'gruvbox-light-medium t))
+#+END_SRC
+
+Use dashboard as a welcome screen.
+#+BEGIN_SRC elisp
+(use-package dashboard
+  :config
+  (setq dashboard-startup-banner 3)
+  (dashboard-setup-startup-hook))
+#+END_SRC
+
+Use editorconfig.
+#+BEGIN_SRC elisp
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+#+END_SRC
+
+Alows managing window configurations similary to tiling WMs.
+#+BEGIN_SRC elisp
+(use-package eyebrowse
+  :config
+  (eyebrowse-mode)
+  (eyebrowse-setup-opinionated-keys))
+#+END_SRC
+
+Support for vim keybindings.
+#+BEGIN_SRC elisp
+(use-package evil
+  :defer .1
+  :config
+  (evil-mode))
+#+END_SRC
+
+Tool for minibuffer completion.
+#+BEGIN_SRC elisp
+(use-package ivy
+  :defer .1
+  :custom
+  (ivy-use-virtual-buffers t)
+  (ivy-count-format "%d/%d ")
+  :config
+  (ivy-mode))
+#+END_SRC
+
+=Counsel=, a collection of Ivy-enhanced versions of common Emacs commands.
+#+BEGIN_SRC elisp
+(use-package counsel
+  :after ivy
+  :config (counsel-mode))
+#+END_SRC
+
+More friendly interface for ivy.
+#+BEGIN_SRC elisp
+(use-package ivy-rich
+  :after ivy
+  :custom
+  (ivy-rich-path-style 'abbrev)
+  :config
+  (ivy-rich-mode 1))
+#+END_SRC
+
+Package that displays available keybindings in popup.
+#+BEGIN_SRC elisp
+(use-package which-key
+  :defer 0.2
+  :diminish
+  :config (which-key-mode))
+#+END_SRC
+
+=Git= interface.
+#+BEGIN_SRC elisp
+(use-package magit)
+#+END_SRC
+
+=Magit= support for =evil-mode=.
+#+BEGIN_SRC elisp
+(use-package evil-magit
+  :after (evil magit))
+#+END_SRC
+
+Package for highlighting uncommitted changes.
+#+BEGIN_SRC elisp
+(use-package diff-hl
+  :hook (magit-post-refresh diff-hl-magit-post-refresh)
+  :config (global-diff-hl-mode))
+#+END_SRC
