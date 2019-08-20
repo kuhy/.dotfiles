@@ -11,7 +11,7 @@ if [ ! -e $DOTFILES_HOME ]; then
     echo "Installing dependencies..."
     sudo dnf install emacs git
     echo "Installing dotfiles to $DOTFILES_HOME."
-    git clone git@github.com:kuhy/.dotfiles.git $DOTFILES_HOME
+    git clone https://github.com/kuhy/.dotfiles.git $DOTFILES_HOME
 fi
 
 cd $DOTFILES_HOME
