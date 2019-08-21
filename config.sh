@@ -24,6 +24,7 @@ dnf -y copr enable skidnik/termite
   # manage complex tmux sessions easily
   # screen locker
   # Wayland clipboard utilities
+  # Idle management daemon for Wayland
 dnf -y install \
   sway \
   i3blocks \
@@ -34,7 +35,8 @@ dnf -y install \
   tmux \
   tmuxinator \
   swaylock \
-  wl-clipboard
+  wl-clipboard \
+  swayidle
 
 # set default browser
 xdg-settings set default-web-browser firefox.desktop
