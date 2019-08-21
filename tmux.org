@@ -1,0 +1,99 @@
+#+TITLE: Tmux config
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.tmux.conf"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+
+set fish as a default shell
+#+BEGIN_SRC conf
+set-option -g default-shell /usr/bin/fish
+#+END_SRC
+
+Add truecolor support
+#+BEGIN_SRC conf
+set -g default-terminal 'xterm-termite'
+set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
+#+END_SRC
+
+Start windows and panes at 1, not 0
+#+BEGIN_SRC conf
+set -g base-index 1
+setw -g pane-base-index 1
+#+END_SRC
+
+tell tmux to handle interactions with the clipboard for you
+#+BEGIN_SRC conf
+set -g set-clipboard on
+#+END_SRC
+
+use vim shortcuts
+#+BEGIN_SRC conf
+set -g status-keys vi
+#+END_SRC
+
+set inactive/active window styles
+#+BEGIN_SRC conf
+# set -g window-style fg=colour247,bg=colour236
+# set -g window-active-style fg=colour255,bg=colour235
+#+END_SRC
+
+set the pane border colors
+#+BEGIN_SRC conf
+# set -g pane-border-style fg=colour235,bg=colour238
+# set -g pane-active-border-style fg=colour236,bg=colour250
+#+END_SRC
+
+or if you a brighter active border, uncomment the following line:
+#+BEGIN_SRC conf
+# set -g pane-active-border-bg colour51
+#+END_SRC
+
+Configure Vim mode for navigating text and selection
+#+BEGIN_SRC conf
+setw -g mode-keys vi
+bind-key -T copy-mode-vi 'v' send -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'wl-copy'
+bind-key -n M-c copy-mode
+#+END_SRC
+
+panes spliting and closing
+#+BEGIN_SRC conf
+bind-key -n M-- splitw -v
+bind-key -n M-| splitw -h
+bind-key -n M-q killp
+#+END_SRC
+
+command execution
+#+BEGIN_SRC conf
+bind-key -n M-x command-prompt
+#+END_SRC
+
+vim keybinding to move between panes
+#+BEGIN_SRC conf
+bind-key -n M-h select-pane -L
+bind-key -n M-j select-pane -D
+bind-key -n M-k select-pane -U
+bind-key -n M-l select-pane -R
+#+END_SRC
+
+switch windows alt+number
+#+BEGIN_SRC conf
+bind-key -n M-1 if-shell 'tmux select-window -t :1' '' 'new-window -t :1'
+bind-key -n M-2 if-shell 'tmux select-window -t :2' '' 'new-window -t :2'
+bind-key -n M-3 if-shell 'tmux select-window -t :3' '' 'new-window -t :3'
+bind-key -n M-4 if-shell 'tmux select-window -t :4' '' 'new-window -t :4'
+bind-key -n M-5 if-shell 'tmux select-window -t :5' '' 'new-window -t :5'
+bind-key -n M-6 if-shell 'tmux select-window -t :6' '' 'new-window -t :6'
+bind-key -n M-7 if-shell 'tmux select-window -t :7' '' 'new-window -t :7'
+bind-key -n M-8 if-shell 'tmux select-window -t :8' '' 'new-window -t :8'
+bind-key -n M-9 if-shell 'tmux select-window -t :9' '' 'new-window -t :9'
+bind-key -n M-0 if-shell 'tmux select-window -t :0' '' 'new-window -t :0'
+#+END_SRC
+
+TODO notify when command exits
+#+BEGIN_SRC conf
+set-window-option -g visual-bell on
+set-window-option -g bell-action other
+#+END_SRC

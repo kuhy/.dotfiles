@@ -34,9 +34,19 @@ input * {
 
 * Key bindings
 ** Basics
-start a terminal
+start a tmux in terminal
 #+BEGIN_SRC conf
     bindsym $mod+Return exec <<terminal>> -e "tmux -2"
+#+END_SRC
+
+attach a tmux session
+#+BEGIN_SRC conf
+    bindsym $mod+u exec <<terminal>> -e "tmux -2 attach"
+#+END_SRC
+
+start a terminal
+#+BEGIN_SRC conf
+    bindsym $mod+t exec <<terminal>> -e fish
 #+END_SRC
 
 kill focused window
@@ -172,7 +182,6 @@ respectively.
 Switch the current container between different layout styles
 #+BEGIN_SRC conf
     bindsym $mod+s layout stacking
-    bindsym $mod+t layout tabbed
     bindsym $mod+c layout toggle split
 #+END_SRC
 

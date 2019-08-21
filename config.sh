@@ -21,7 +21,9 @@ dnf -y copr enable skidnik/termite
   # web browser
   # window switcher, application launcher and dmenu replacement
   # terminal multiplexer
+  # manage complex tmux sessions easily
   # screen locker
+  # Wayland clipboard utilities
 dnf -y install \
   sway \
   i3blocks \
@@ -30,7 +32,9 @@ dnf -y install \
   firefox \
   rofi \
   tmux \
-  swaylock
+  tmuxinator \
+  swaylock \
+  wl-clipboard
 
 # set default browser
 xdg-settings set default-web-browser firefox.desktop
