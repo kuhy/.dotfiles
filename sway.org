@@ -32,6 +32,18 @@ input * {
 }
 #+END_SRC
 
+* Idle
+This will lock your screen after 300 seconds of inactivity, then turn off
+your displays after another 300 seconds, and turn your screens back on when
+resumed. It will also lock your screen before your computer goes to sleep.
+#+BEGIN_SRC conf
+exec swayidle -w \
+       timeout 300 'swaylock -f' \
+       timeout 600 'swaymsg "output * dpms off"' \
+            resume 'swaymsg "output * dpms on"' \
+       before-sleep 'swaylock -f'
+#+END_SRC
+
 * Key bindings
 ** Basics
 start a tmux in terminal
@@ -105,6 +117,11 @@ exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+p exec swaynag -t warning -m 'Power-off?' -b 'Yes' 'shutdown -P "now"'
 
 bindsym $mod+Shift+r exec swaynag -t warning -m 'Reboot?' -b 'Yes' 'shutdown -r "now"'
+#+END_SRC
+
+lock screen
+#+BEGIN_SRC conf
+bindsym $mod+Shift+s exec swaylock
 #+END_SRC
 
 ** Moving around
