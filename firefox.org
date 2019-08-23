@@ -1,14 +1,80 @@
 #+TITLE: Firefox config
 #+AUTHOR: Kuhy
-#+PROPERTY: header-args+ :comments yes
-#+PROPERTY: header-args+ :mkdirp yes
-#+PROPERTY: header-args+ :noweb tangle
-#+PROPERTY: header-args+ :tangle ~/.mozilla/firefox/pe9uph24.default/chrome/userChrome.css
 #+OPTIONS: prop:t
 
 #+INCLUDE: "variables.org"
 
+* Profiles
+:PROPERTIES:
+:header-args: :tangle ~/.mozilla/firefox/profiles.ini :comments both :mkdirp yes :noweb tangle
+:END:
+Use only one profile called "default".
+#+BEGIN_SRC conf
+[General]
+StartWithLastProfile=1
+
+[Profile0]
+Name=default
+IsRelative=1
+Path=default
+Default=1
+#+END_SRC
+
+* General
+:PROPERTIES:
+:header-args: :tangle ~/.mozilla/firefox/default/user.js :comments both :mkdirp yes :noweb tangle
+:END:
+make Tridactyl work on addons.mozilla.org and some other Mozilla domains
+#+BEGIN_SRC js
+user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
+user_pref("extensions.webextensions.restrictedDomains", "");
+#+END_SRC
+
+allow stylesheets modifications (userChrome.css, userContent.css)
+#+BEGIN_SRC js
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+#+END_SRC
+
+printing with no headers and footers
+#+BEGIN_SRC js
+user_pref("print.print_footerleft", "");
+user_pref("print.print_footerright", "");
+user_pref("print.print_headerleft", "");
+user_pref("print.print_headerright", "");
+#+END_SRC
+
+turn on caret browsing mode
+#+BEGIN_SRC js
+user_pref("accessibility.browsewithcaret", true);
+#+END_SRC
+
+* Tridactyl
+:PROPERTIES:
+:header-args: :tangle ~/.config/tridactyl/tridactylrc :comments both :mkdirp yes :noweb tangle
+:END:
+
+Use old reddit.
+#+BEGIN_SRC conf
+autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
+#+END_SRC
+
+Website shortcuts:
+#+BEGIN_SRC conf
+set searchurls.g https://google.com/search?q=%s
+set searchurls.y https://youtube.com/results?search_query=%s
+set searchurls.d https://duckduckgo.com/?q=%s
+set searchurls.s https://stackoverflow.com/search?q=%s
+set searchurls.r https://old.reddit.com/r/%s
+set searchurls.w https://en.wikipedia.org/w/index.php?search=%s
+
+quickmark m https://mail.google.com
+quickmark f https://facebook.com
+#+END_SRC
+
 * Styles
+:PROPERTIES:
+:header-args: :tangle ~/.mozilla/firefox/default/chrome/userChrome.css :comments both :mkdirp yes :noweb tangle
+:END:
 Declaring color variables
 #+BEGIN_SRC css
 :root {
@@ -50,6 +116,19 @@ hides a ugly black bottom background under each unfocused tab
 	--tabs-border-color: none !important;
 }
 #+END_SRC
+
+show tab numbers
+#+BEGIN_SRC css
+tabs {
+  counter-reset: tab-counter;
+}
+
+.tab-label::before {
+  counter-increment: tab-counter;
+  content: counter(tab-counter) ": ";
+}
+#+END_SRC
+
 
 tab occupy all space
 tab title font is reduced
