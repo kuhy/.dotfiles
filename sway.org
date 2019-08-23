@@ -29,6 +29,14 @@ input * {
     xkb_layout us,cz
     xkb_variant ,qwerty
     xkb_options grp:win_space_toggle,ctrl:nocaps
+#+END_SRC
+
+Setup touchpad:
+#+BEGIN_SRC conf
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
 }
 #+END_SRC
 
