@@ -27,6 +27,7 @@ dnf -y copr enable skidnik/termite
   # Idle management daemon for Wayland
   # wallpaper utility for Wayland compositors
   # Grab images from a Wayland compositor
+  # A lightweight Wayland notification daemon
 dnf -y install \
   sway \
   i3blocks \
@@ -40,7 +41,8 @@ dnf -y install \
   wl-clipboard \
   swayidle \
   swaybg \
-  grim
+  grim \
+  mako
 
 # set default browser
 xdg-settings set default-web-browser firefox.desktop
