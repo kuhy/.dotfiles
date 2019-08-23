@@ -25,6 +25,8 @@ dnf -y copr enable skidnik/termite
   # screen locker
   # Wayland clipboard utilities
   # Idle management daemon for Wayland
+  # wallpaper utility for Wayland compositors
+  # Grab images from a Wayland compositor
 dnf -y install \
   sway \
   i3blocks \
@@ -36,7 +38,9 @@ dnf -y install \
   tmuxinator \
   swaylock \
   wl-clipboard \
-  swayidle
+  swayidle \
+  swaybg \
+  grim
 
 # set default browser
 xdg-settings set default-web-browser firefox.desktop
