@@ -40,6 +40,12 @@ Setup touchpad:
 }
 #+END_SRC
 
+* Notifications
+start mako
+#+BEGIN_SRC conf
+exec mako
+#+END_SRC
+
 * Idle
 This will lock your screen after 300 seconds of inactivity, then turn off
 your displays after another 300 seconds, and turn your screens back on when
