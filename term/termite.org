@@ -6,7 +6,7 @@
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
 
-#+INCLUDE: "variables.org"
+#+INCLUDE: "../variables.org"
 
 * Options
 #+BEGIN_SRC conf
