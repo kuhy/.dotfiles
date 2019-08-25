@@ -2,7 +2,7 @@
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
 
-#+INCLUDE: "variables.org"
+#+INCLUDE: "../variables.org"
 
 * Profiles
 :PROPERTIES:
