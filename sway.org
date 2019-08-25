@@ -310,18 +310,17 @@ bindsym XF86KbdBrightnessUp exec light -k -A 40
 ** Colors
 Set background color
 #+BEGIN_SRC conf
-output * bg "#FBF1C7" solid_color
+output * bg <<base03>> solid_color
 #+END_SRC
 
 #+BEGIN_SRC conf
-# class                 border     backgr.    text    indicator child_border
-client.focused          <<color1>> <<color1>> #ffffff #2e9ef4   <<color1>>
-client.focused_inactive <<color2>> <<color2>> #ffffff #484e50   <<color2>>
-client.unfocused        <<color2>> <<color2>> #888888 #292d2e   <<color2>>
-# client.urgent         <<color2>> <<color2>> #ffffff #900000   <<color2>>
-# client.placeholder    #000000    #0c0c0c    #ffffff #000000   #0c0c0c
-
-client.background       #ffffff
+# Property Name         Border  BG      Text    Indicator Child Border
+client.focused          <<base05>> <<base0D>> <<base00>> <<base0D>> <<base0D>>
+client.focused_inactive <<base01>> <<base01>> <<base05>> <<base03>> <<base01>>
+client.unfocused        <<base01>> <<base00>> <<base05>> <<base01>> <<base01>>
+client.urgent           <<base08>> <<base08>> <<base00>> <<base08>> <<base08>>
+client.placeholder      <<base00>> <<base00>> <<base05>> <<base00>> <<base00>>
+client.background       <<base07>>
 #+END_SRC
 
 ** Basics
@@ -349,27 +348,21 @@ set position of status bar
 
 show i3blocks inside a status bar
 #+BEGIN_SRC conf
-status_command i3blocks
+    status_command i3blocks
 #+END_SRC
 
 #+BEGIN_SRC conf
     colors {
-        background <<color2>>
-#        statusline #ffffff
-#        separator #666666
+        background <<base00>>
+        separator  <<base01>>
+        statusline <<base04>>
 
-#       colorclass         border  background text
-        focused_workspace  <<color1>> <<color1>> #ffffff
-#        active_workspace   #d7907b #d7907b #ffffff
-        inactive_workspace #32323200 #32323200 #5c5c5c
-#        urgent_workspace   #2f343a #900000 #ffffff
-#        binding_mode       #2f343a #900000 #ffffff
+        # State             Border  BG      Text
+        focused_workspace   <<base05>> <<base0D>> <<base00>>
+        active_workspace    <<base05>> <<base03>> <<base00>>
+        inactive_workspace  <<base03>> <<base01>> <<base05>>
+        urgent_workspace    <<base08>> <<base08>> <<base00>>
+        binding_mode        <<base00>> <<base0A>> <<base00>>
     }
-}
-#+END_SRC
-
-* Include
-#+BEGIN_SRC conf
-include @sysconfdir@/sway/config.d/*
 #+END_SRC
 

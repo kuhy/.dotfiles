@@ -8,14 +8,19 @@
 :PROPERTIES:
 :header-args: :tangle ~/.config/swaylock/config :comments both :mkdirp yes :noweb tangle
 :END:
-#+BEGIN_SRC sh
+#+BEGIN_SRC conf
 daemonize
 hide-keyboard-layout
 disable-caps-lock-text
 image=/tmp/screen.png
 scaling=fill
-font=monoid, siji
+font=<<font>>
 indicator-radius=150
+#+END_SRC
+
+** Colors
+#+BEGIN_SRC conf
+
 #+END_SRC
 
 * Script
