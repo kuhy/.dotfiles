@@ -349,6 +349,9 @@ here is a serie of color background
 #nav-bar,#urlbar-container,#urlbar,#PanelUI-menu-button{
     background-color: var(--bar-color) !important;
 }
+#navigator-toolbox toolbarbutton {
+    fill: var(--bar-text-color) !important;
+}
 #+END_SRC
 
 hides another ugly black bottom background under the urlbar container
