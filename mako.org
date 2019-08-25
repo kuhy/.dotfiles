@@ -1,0 +1,39 @@
+#+TITLE: Mako config
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle ~/.config/mako/config
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+
+#+INCLUDE: "variables.org"
+
+* General
+Timeout:
+#+BEGIN_SRC conf
+default-timeout=10000
+#+END_SRC
+
+* Appearance
+Font:
+#+BEGIN_SRC conf
+font=<<font>>
+#+END_SRC
+
+Colors:
+#+BEGIN_SRC conf
+background-color=<<base02>>
+text-color=<<base05>>
+border-color=<<base05>>
+
+[urgency=low]
+background-color=<<base01>>
+text-color=<<base03>>
+border-color=<<base05>>
+
+[urgency=high]
+background-color=<<base08>>
+text-color=<<base06>>
+border-color=<<base05>>
+#+END_SRC
+
