@@ -67,65 +67,51 @@ scrollback_lines = -1
 * Colors
 #+BEGIN_SRC conf
 [colors]
-# If both of these are unset, cursor falls back to the foreground color,
-# and cursor_foreground falls back to the background color.
-#cursor = #dcdccc
-#cursor_foreground = #dcdccc
+foreground          = <<base05>>
+foreground_bold     = <<base06>>
+cursor              = <<base06>>
+cursor_foreground   = <<base00>>
+background          = <<base00>>
 
-#foreground = #dcdccc
-#foreground_bold = #ffffff
-#background = #3f3f3f
+# 16 color space
 
-# 20% background transparency (requires a compositor)
-#background = rgba(63, 63, 63, 0.8)
-#+END_SRC
+# Black, Gray, Silver, White
+color0  = <<base00>>
+color8  = <<base03>>
+color7  = <<base05>>
+color15 = <<base07>>
 
+# Red
+color1  = <<base08>>
+color9  = <<base08>>
 
-If unset, will reverse foreground and background
-#+BEGIN_SRC conf
-#highlight = #2f2f2f
-#+END_SRC
+# Green
+color2  = <<base0B>>
+color10 = <<base0B>>
 
-Colors from color0 to color254 can be set
-#+BEGIN_SRC conf
-# hard contrast: background = #f9f5d7
-background = #fbf1c7
-# soft contrast: background = #f2e5bc
-foreground = #3c3836
-foreground_bold = #3c3836
+# Yellow
+color3  = <<base0A>>
+color11 = <<base0A>>
 
-# light0 + gray
-color0 = #fbf1c7
-color8 = #928374
+# Blue
+color4  = <<base0D>>
+color12 = <<base0D>>
 
-# neutral_red + faded_red
-color1 = #cc241d
-color9 = #9d0006
+# Purple
+color5  = <<base0E>>
+color13 = <<base0E>>
 
-# neutral_green + faded_green
-color2 = #98971a
-color10 = #79740e
+# Teal
+color6  = <<base0C>>
+color14 = <<base0C>>
 
-# neutral_yellow + faded_yellow
-color3 = #d79921
-color11 = #b57614
-
-# neutral_blue + faded_blue
-color4 = #458588
-color12 = #076678
-
-# neutral_purple + faded_purple
-color5 = #b16286
-color13 = #8f3f71
-
-# neutral_aqua + faded_aqua
-color6 = #689d6a
-color14 = #427b58
-
-# dark4 + dark1
-color7 = #7c6f64
-color15 = #3c3836
-
+# Extra colors
+color16 = <<base09>>
+color17 = <<base0F>>
+color18 = <<base01>>
+color19 = <<base02>>
+color20 = <<base04>>
+color21 = <<base06>>
 #+END_SRC
 
 * Hints
