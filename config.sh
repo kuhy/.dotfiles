@@ -23,6 +23,8 @@ dnf -y copr enable skidnik/termite
   # terminal multiplexer
   # manage complex tmux sessions easily
   # screen locker
+  # sed for JSON
+  # create, edit, compose, or convert bitmap images
   # Wayland clipboard utilities
   # Idle management daemon for Wayland
   # wallpaper utility for Wayland compositors
@@ -38,6 +40,8 @@ dnf -y install \
   tmux \
   tmuxinator \
   swaylock \
+  jq \
+  ImageMagick \
   wl-clipboard \
   swayidle \
   swaybg \
