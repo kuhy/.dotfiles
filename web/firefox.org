@@ -48,6 +48,11 @@ turn on caret browsing mode
 user_pref("accessibility.browsewithcaret", true);
 #+END_SRC
 
+Workaround for Firefox security bug:
+#+BEGIN_SRC js
+user_pref("network.http.spdy.enabled.http2", false);
+#+END_SRC
+
 * Tridactyl
 ** General
 :PROPERTIES:
