@@ -1,11 +1,14 @@
 #+TITLE: Vim config
 #+AUTHOR: Kuhy
-#+PROPERTY: header-args+ :comments no
-#+PROPERTY: header-args+ :mkdirp yes
-#+PROPERTY: header-args+ :tangle "~/.vimrc"
 #+OPTIONS: prop:t
 
-* Basic
+#+INCLUDE: "../variables.org"
+
+* General
+:PROPERTIES:
+:header-args: :tangle ~/.vimrc :comments no :mkdirp yes :noweb tangle
+:END:
+** Basic
 With the =relativenumber= option, each line in your file is numbered relative to
 the cursor’s current position to show the distance to that line.
 #+BEGIN_SRC conf
@@ -27,12 +30,12 @@ Open files ending with =.pl= as prolog files:
 let g:filetype_pl="prolog"
 #+END_SRC
 
-* Plugins
+** Plugins
 - tidal (live coding support)^{[[https://github.com/tidalcycles/vim-tidal][🔗]]}
-- [[#gruvbox][gruvbox]] (retro groove color scheme)^{[[https://github.com/morhetz/gruvbox][🔗]]}
+- [[#papercolor][papercolor]] (retro groove color scheme)^{[[https://github.com/NLKNguyen/papercolor-theme][🔗]]}
 - [[#indentline][indentLine]] (visually displaying indent levels)^{[[https://github.com/Yggdroot/indentLine][🔗]]}
 - gitgutter (shows a git diff in the sign column)^{[[https://github.com/airblade/vim-gitgutter][🔗]]}
-- airline (status line)^{[[https://github.com/vim-airline/vim-airline][🔗]]}
+- [[#airline][airline]] (status line)^{[[https://github.com/vim-airline/vim-airline][🔗]]}
 - [[#syntastic][syntastic]] (syntax checking)^{[[https://github.com/vim-syntastic/syntastic][🔗]]}
 - [[#nerdtree][NERDTree]] (tree explorer)^{[[https://github.com/scrooloose/nerdtree][🔗]]}
 - OrgMode (support for org-mode)^{[[https://github.com/jceb/vim-orgmode][🔗]]}
@@ -57,10 +60,11 @@ Download plugins with vim-plug:
 call plug#begin('~/.vim/plugged')
 
 Plug 'tidalcycles/vim-tidal'
-Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'jceb/vim-orgmode'
@@ -74,16 +78,26 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 call plug#end()
 #+END_SRC
 
-** Gruvbox
+*** PaperColor
 :PROPERTIES:
-:CUSTOM_ID: gruvbox
+:CUSTOM_ID: papercolor
 :END:
-Apply gruvbox theme:
+Use PaperColor theme because it enables color overriding.
 #+BEGIN_SRC conf
-colorscheme gruvbox
+let g:PaperColor_Theme = 'theme'
+colorscheme PaperColor
 #+END_SRC
 
-** indentLine
+*** Airline
+:PROPERTIES:
+:CUSTOM_ID: airline
+:END:
+Set base16 theme:
+#+BEGIN_SRC conf
+let g:airline_theme='base16_vim'
+#+END_SRC
+
+*** indentLine
 :PROPERTIES:
 :CUSTOM_ID: indentline
 :END:
@@ -92,7 +106,7 @@ Change indent character:
 let g:indentLine_char = '┆'
 #+END_SRC
 
-** Syntastic
+*** Syntastic
 :PROPERTIES:
 :CUSTOM_ID: syntastic
 :END:
@@ -108,7 +122,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 #+END_SRC
 
-** NERDTree
+*** NERDTree
 :PROPERTIES:
 :CUSTOM_ID: nerdtree
 :END:
@@ -140,7 +154,7 @@ Hide =Press ? for help= in NERDTree menu:
 let NERDTreeMinimalUI = 1
 #+END_SRC
 
-** Startify
+*** Startify
 :PROPERTIES:
 :CUSTOM_ID: startify
 :END:
@@ -155,5 +169,40 @@ let g:ascii = [
     \ "`------'`------'`------'`------'",
     \ ]
 let g:startify_custom_header = map(g:ascii, '"   ".v:val')
+#+END_SRC
+
+* Theme
+:PROPERTIES:
+:header-args: :tangle ~/.vim/autoload/PaperColor_theme.vim :comments no :mkdirp yes :noweb tangle
+:END:
+#+BEGIN_SRC conf
+fun! PaperColor_theme#register()
+  let g:PaperColor_theme = {
+  \   'options' : {
+  \       'allow_bold': 1
+  \    }
+  \ }
+
+  let g:PaperColor_theme.light = {
+  \ 'palette': {
+  \     'color00': ['<<base00>>', ''],
+  \     'color01': ['<<base01>>', ''],
+  \     'color02': ['<<base02>>', ''],
+  \     'color03': ['<<base03>>', ''],
+  \     'color04': ['<<base04>>', ''],
+  \     'color05': ['<<base05>>', ''],
+  \     'color06': ['<<base06>>', ''],
+  \     'color07': ['<<base07>>', ''],
+  \     'color08': ['<<base08>>', ''],
+  \     'color09': ['<<base09>>', ''],
+  \     'color10': ['<<base0A>>', ''],
+  \     'color11': ['<<base0B>>', ''],
+  \     'color12': ['<<base0C>>', ''],
+  \     'color13': ['<<base0D>>', ''],
+  \     'color14': ['<<base0E>>', ''],
+  \     'color15': ['<<base0F>>', '']
+  \   }
+  \ }
+endfun
 #+END_SRC
 

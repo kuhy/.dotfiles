@@ -18,7 +18,7 @@ rofi.theme: ~/.config/rofi/theme.rasi
 :END:
 New rofi theme format:
 #+BEGIN_SRC css
-* {
+,* {
     red:                         <<base08>>;
     blue:                        <<base0D>>;
     lightfg:                     <<base06>>;
@@ -158,4 +158,3 @@ textbox-prompt-colon {
     text-color:       inherit;
 }
 #+END_SRC
-
