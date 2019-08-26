@@ -25,7 +25,7 @@ indicator-radius=150
 
 * Script
 :PROPERTIES:
-:header-args: :tangle ~/.config/swaylock/lock.sh :comments both :mkdirp yes :noweb tangle
+:header-args: :tangle ~/.config/swaylock/lock.sh :comments no :mkdirp yes :noweb tangle
 :END:
 Script that takes screenshot and then locks screen
 and sets this screenshot as background.
