@@ -46,6 +46,12 @@ start mako
 exec mako
 #+END_SRC
 
+* Redshift
+start redshift
+#+BEGIN_SRC conf
+exec redshift -l $(curl ipinfo.io | jq -j .loc | tr ',' ':') -m wayland | wl-copy
+#+END_SRC
+
 * Idle
 This will lock your screen after 300 seconds of inactivity, then turn off
 your displays after another 300 seconds, and turn your screens back on when
