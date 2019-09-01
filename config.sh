@@ -30,6 +30,7 @@ dnf -y copr enable skidnik/termite
   # wallpaper utility for Wayland compositors
   # Grab images from a Wayland compositor
   # A lightweight Wayland notification daemon
+  # adjusts the color temperature of your screen according to your surroundings
 dnf -y install \
   sway \
   i3blocks \
@@ -46,7 +47,8 @@ dnf -y install \
   swayidle \
   swaybg \
   grim \
-  mako
+  mako \
+  redshift
 
 # set default browser
 xdg-settings set default-web-browser firefox.desktop
