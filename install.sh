@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 # Author: Kuhy
 # Installs and tangles literate dotfiles written in Org mode.
 

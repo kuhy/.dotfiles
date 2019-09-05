@@ -8,6 +8,12 @@ Here are defined global variables for all configuration files.
 :header-args: :tangle no
 :END:
 
+Your preferred resource opener
+#+NAME: opener
+#+BEGIN_SRC conf
+gio open
+#+END_SRC
+
 Your preferred terminal emulator
 #+NAME: terminal
 #+BEGIN_SRC conf
@@ -29,13 +35,19 @@ firefox
 Your preferred file browser
 #+NAME: file_browser
 #+BEGIN_SRC conf
-termite -e ranger
+ranger
 #+END_SRC
 
 Your preferred music player
 #+NAME: music_player
 #+BEGIN_SRC conf
-termite -e cmus
+cmus
+#+END_SRC
+
+Your preferred video player
+#+NAME: video_player
+#+BEGIN_SRC conf
+vlc
 #+END_SRC
 
 * Appearance

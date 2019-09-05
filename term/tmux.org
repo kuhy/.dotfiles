@@ -92,6 +92,13 @@ bind-key -n M-9 if-shell 'tmux select-window -t :9' '' 'new-window -t :9'
 bind-key -n M-0 if-shell 'tmux select-window -t :0' '' 'new-window -t :0'
 #+END_SRC
 
+Hide status bar when there is only one window:
+#+BEGIN_SRC conf
+set-hook -g window-linked 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
+set-hook -g window-unlinked 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
+set-hook -g client-attached 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
+#+END_SRC
+
 TODO notify when command exits
 #+BEGIN_SRC conf
 set-window-option -g visual-bell on
