@@ -53,6 +53,11 @@ Workaround for Firefox security bug:
 user_pref("network.http.spdy.enabled.http2", false);
 #+END_SRC
 
+Disable extension recommendations.
+#+BEGIN_SRC js
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr", false);
+#+END_SRC
+
 * Tridactyl
 ** General
 :PROPERTIES:
