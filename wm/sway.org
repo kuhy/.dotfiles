@@ -22,6 +22,11 @@ set $up k
 set $right l
 #+END_SRC
 
+Shortcut for opening applications
+#+BEGIN_SRC conf
+set $open exec gtk-launch
+#+END_SRC
+
 * IO
 Set keyboard layout:
 #+BEGIN_SRC conf
@@ -40,19 +45,20 @@ Setup touchpad:
 }
 #+END_SRC
 
-* Notifications
+* Daemons
+** Notifications
 start mako
 #+BEGIN_SRC conf
 exec mako
 #+END_SRC
 
-* Redshift
+** Redshift
 start redshift
 #+BEGIN_SRC conf
-exec redshift -l $(curl ipinfo.io | jq -j .loc | tr ',' ':') -m wayland | wl-copy
+exec redshift -l $(curl ipinfo.io | jq -j .loc | tr ',' ':') -m wayland
 #+END_SRC
 
-* Idle
+** Idle
 This will lock your screen after 300 seconds of inactivity, then turn off
 your displays after another 300 seconds, and turn your screens back on when
 resumed. It will also lock your screen before your computer goes to sleep.
@@ -62,6 +68,12 @@ exec swayidle -w \
        timeout 600 'swaymsg "output * dpms off"' \
             resume 'swaymsg "output * dpms on"' \
        before-sleep 'sh ~/.config/swaylock/lock.sh'
+#+END_SRC
+
+** Music player daemon
+Run music player in background so I can send commands to it:
+#+BEGIN_SRC conf
+exec tmux new-session -d -s <<music_player>> <<music_player>>
 #+END_SRC
 
 * Key bindings
@@ -86,29 +98,34 @@ kill focused window
     bindsym $mod+Shift+q kill
 #+END_SRC
 
-start your launcher
+start your app launcher
 #+BEGIN_SRC conf
-    bindsym $mod+d exec <<menu>>
+    bindsym $mod+f1 exec <<menu>>
+#+END_SRC
+
+open file from home directory
+#+BEGIN_SRC conf
+    bindsym $mod+f2 exec <<opener>> "$(find ~ | rofi -dmenu -i -p 'find')"
 #+END_SRC
 
 start your web browser
 #+BEGIN_SRC conf
-    bindsym $mod+w exec <<web_browser>>
+    bindsym $mod+w $open <<web_browser>>
 #+END_SRC
 
 start your file browser
 #+BEGIN_SRC conf
-    bindsym $mod+f exec <<file_browser>>
+    bindsym $mod+f $open <<file_browser>>
 #+END_SRC
 
 start emacs
 #+BEGIN_SRC conf
-    bindsym $mod+e exec emacs
+    bindsym $mod+e $open emacs
 #+END_SRC
 
-start music player
+attach tmux session with music player
 #+BEGIN_SRC conf
-    bindsym $mod+m exec <<music_player>>
+    bindsym $mod+m exec <<terminal>> -e 'tmux attach-session -t <<music_player>>'
 #+END_SRC
 
 Drag floating windows by holding down $mod and left mouse button.

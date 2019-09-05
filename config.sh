@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 # Author: Kuhy
 # Setups system after new installation.
 # TODO: make Org file from this
@@ -31,6 +31,10 @@ dnf -y copr enable skidnik/termite
   # Grab images from a Wayland compositor
   # A lightweight Wayland notification daemon
   # adjusts the color temperature of your screen according to your surroundings
+  # a bittorrent client
+  # an interpreted, interactive, object-oriented programming language
+  # A command line interface to the Dropbox service
+  # Google Calendar Command Line Interface
 dnf -y install \
   sway \
   i3blocks \
@@ -48,8 +52,25 @@ dnf -y install \
   swaybg \
   grim \
   mako \
-  redshift
+  redshift \
+  transmission-daemon \
+  python3 \
+  dropbox \
+  gcalcli
 
-# set default browser
-xdg-settings set default-web-browser firefox.desktop
+# remove useless terminals
+dnf -y remove \
+  gnome-terminal \
+  xterm
+
+# use termite instead of xterm
+ln -s /usr/bin/termite /usr/bin/xterm
+
+# TUI and CLI for Transmission
+# Used for ics/vcal importing.
+# Countdown timer and stopwatch in your terminal
+pip3 install \
+  stig \
+  vobject \
+  termdown
 
