@@ -26,11 +26,6 @@ email = ondrejkuhejda@gmail.com
 [core]
 #+END_SRC
 
-Set my default editor to vim:
-#+BEGIN_SRC conf
-editor = vim
-#+END_SRC
-
 Use global .gitignore:
 #+BEGIN_SRC conf
 excludesfile = ~/.gitignore

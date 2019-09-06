@@ -6,12 +6,16 @@
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
 
+#+INCLUDE: "../variables.org"
+
+* General
 Hide toolbars.
 #+BEGIN_SRC elisp
-(when window-system
-  (menu-bar-mode -1)
-  (toggle-scroll-bar -1)
-  (tool-bar-mode -1))
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(add-to-list 'default-frame-alist
+             '(vertical-scroll-bars . nil))
 #+END_SRC
 
 Fix problem with downloading =undo-tree=.
@@ -40,7 +44,7 @@ Hide default welcome screen.
 (setq inhibit-startup-screen t)
 #+END_SRC
 
-Install package autoatically if not already present on your system.
+Install package automatically if not already present on your system.
 #+BEGIN_SRC elisp
 (setq use-package-always-ensure t)
 #+END_SRC
@@ -51,6 +55,7 @@ Setup font.
   '(font . "monoid-13"))
 #+END_SRC
 
+* Org
 Alow to run dot files from =org-mode=.
 #+BEGIN_SRC elisp
 (org-babel-do-load-languages
@@ -70,13 +75,7 @@ Run org-mode code snippets without confirmation.
 (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
-Install gruvbox theme.
-#+BEGIN_SRC elisp
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-light-medium t))
-#+END_SRC
-
+* Packages
 Use dashboard as a welcome screen.
 #+BEGIN_SRC elisp
 (use-package dashboard
@@ -161,3 +160,41 @@ Package for highlighting uncommitted changes.
   :hook (magit-post-refresh diff-hl-magit-post-refresh)
   :config (global-diff-hl-mode))
 #+END_SRC
+
+* Theme
+Set base 16 theme:
+#+BEGIN_SRC elisp
+(use-package base16-theme
+  :init
+  (setq base16-default-dark-colors
+  '(:base00 "<<base00>>"
+    :base01 "<<base01>>"
+    :base02 "<<base02>>"
+    :base03 "<<base03>>"
+    :base04 "<<base04>>"
+    :base05 "<<base05>>"
+    :base06 "<<base06>>"
+    :base07 "<<base07>>"
+    :base08 "<<base08>>"
+    :base09 "<<base09>>"
+    :base0A "<<base0A>>"
+    :base0B "<<base0B>>"
+    :base0C "<<base0C>>"
+    :base0D "<<base0D>>"
+    :base0E "<<base0E>>"
+    :base0F "<<base0F>>"))
+  :config
+  (load-theme 'base16-default-dark t))
+#+END_SRC
+
+Set the cursor color based on the evil state
+#+BEGIN_SRC elisp
+(defvar my/base16-colors base16-default-dark-colors)
+(setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
+      evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
+      evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
+      evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
+      evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
+      evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
+#+END_SRC
+
