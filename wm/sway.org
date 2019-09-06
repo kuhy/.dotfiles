@@ -76,6 +76,12 @@ Run music player in background so I can send commands to it:
 exec tmux new-session -d -s <<music_player>> <<music_player>>
 #+END_SRC
 
+** Emacs daemon
+Run emacs in background so I can use emacsclient:
+#+BEGIN_SRC conf
+exec emacs --daemon
+#+END_SRC
+
 * Key bindings
 ** Basics
 start a tmux in terminal
