@@ -12,8 +12,8 @@
 Hide toolbars.
 #+BEGIN_SRC elisp
 (menu-bar-mode -1)
-(toggle-scroll-bar -1)
 (tool-bar-mode -1)
+(toggle-scroll-bar -1)
 (add-to-list 'default-frame-alist
              '(vertical-scroll-bars . nil))
 #+END_SRC
@@ -53,6 +53,12 @@ Setup font.
 #+BEGIN_SRC elisp
 (add-to-list 'default-frame-alist
   '(font . "monoid-13"))
+#+END_SRC
+
+Display relative line number
+#+BEGIN_SRC elisp
+(setq-default display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
 #+END_SRC
 
 * Org
@@ -157,6 +163,7 @@ Package that displays available keybindings in popup.
 Package for highlighting uncommitted changes.
 #+BEGIN_SRC elisp
 (use-package diff-hl
+  :demand t
   :hook (magit-post-refresh diff-hl-magit-post-refresh)
   :config (global-diff-hl-mode))
 #+END_SRC
