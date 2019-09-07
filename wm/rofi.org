@@ -158,3 +158,38 @@ textbox-prompt-colon {
     text-color:       inherit;
 }
 #+END_SRC
+
+* Scripts
+** Window switcher
+:PROPERTIES:
+:header-args: :tangle ~/.config/rofi/window.sh :comments no :mkdirp yes :noweb tangle
+:END:
+Switches selected window:
+#+BEGIN_SRC sh
+#!/usr/bin/env bash
+windows=$(swaymsg -t get_tree | jq -r 'recurse(.nodes[]?)|recurse(.floating_nodes[]?)|select(.type=="con"),select(.type=="floating_con")|(.id|tostring)+" "+.app_id+": "+.name')
+
+selected=$(echo "$windows" | rofi -dmenu -i -p 'window' | awk '{print $1}')
+
+swaymsg [con_id="$selected"] focus
+#+END_SRC
+
+** File finder
+:PROPERTIES:
+:header-args: :tangle ~/.config/rofi/find.sh :comments no :mkdirp yes :noweb tangle
+:END:
+Opens file from home directory:
+#+BEGIN_SRC sh
+#!/usr/bin/env bash
+find ~ | sed 's/ /\\ /g' | rofi -dmenu -i -p 'find' | xargs -r <<opener>>
+#+END_SRC
+
+** App launcher
+:PROPERTIES:
+:header-args: :tangle ~/.config/rofi/run.sh :comments no :mkdirp yes :noweb tangle
+:END:
+Run command:
+#+BEGIN_SRC sh
+#!/usr/bin/env bash
+eval $(ls /usr/bin/ | rofi -dmenu -i -p 'run')
+#+END_SRC
