@@ -1,0 +1,30 @@
+#+TITLE: Scripts config
+#+AUTHOR: Kuhy
+#+OPTIONS: prop:t
+
+* Orgcal
+:PROPERTIES:
+:header-args: :tangle ~/bin/orgcal :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+:END:
+Import given org files to google calendar:
+#+BEGIN_SRC sh
+CALENDAR="$1"
+
+yes | gcalcli --refresh --calendar "$CALENDAR" delete '*'
+
+shift
+
+FILES=$(find "$*" -name "*.org")
+
+emacs -Q --batch --eval "
+    (dolist (file command-line-args-left)
+        (with-current-buffer
+          (find-file-noselect file)
+          (org-icalendar-export-to-ics)
+        )
+    )" $FILES
+
+for file in "${FILES//'.org'/.ics}"; do
+    gcalcli import "$file" --calendar "$CALENDAR"
+done
+#+END_SRC

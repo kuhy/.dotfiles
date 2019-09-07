@@ -24,7 +24,7 @@ set $right l
 
 Shortcut for opening applications
 #+BEGIN_SRC conf
-set $open exec gtk-launch
+set $open exec <<launcher>>
 #+END_SRC
 
 * IO
@@ -104,16 +104,6 @@ kill focused window
     bindsym $mod+Shift+q kill
 #+END_SRC
 
-start your app launcher
-#+BEGIN_SRC conf
-    bindsym $mod+f1 exec <<menu>>
-#+END_SRC
-
-open file from home directory
-#+BEGIN_SRC conf
-    bindsym $mod+f2 exec <<opener>> "$(find ~ | rofi -dmenu -i -p 'find')"
-#+END_SRC
-
 start your web browser
 #+BEGIN_SRC conf
     bindsym $mod+w $open <<web_browser>>
@@ -126,7 +116,7 @@ start your file browser
 
 start emacs
 #+BEGIN_SRC conf
-    bindsym $mod+e $open emacs
+    bindsym $mod+e exec eval $VISUAL
 #+END_SRC
 
 attach tmux session with music player
@@ -165,6 +155,22 @@ bindsym $mod+Shift+r exec swaynag -t warning -m 'Reboot?' -b 'Yes' 'shutdown -r 
 lock screen
 #+BEGIN_SRC conf
 bindsym $mod+Shift+s exec sh ~/.config/swaylock/lock.sh
+#+END_SRC
+
+** Rofi scripts
+start your app launcher
+#+BEGIN_SRC conf
+    bindsym $mod+f1 exec sh ~/.config/rofi/run.sh
+#+END_SRC
+
+open file from home directory
+#+BEGIN_SRC conf
+    bindsym $mod+f2 exec sh ~/.config/rofi/find.sh
+#+END_SRC
+
+switch window
+#+BEGIN_SRC conf
+    bindsym $mod+f3 exec sh ~/.config/rofi/window.sh
 #+END_SRC
 
 ** Moving around
@@ -394,4 +400,3 @@ show i3blocks inside a status bar
         binding_mode        <<base00>> <<base0A>> <<base00>>
     }
 #+END_SRC
-

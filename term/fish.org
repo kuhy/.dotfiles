@@ -22,6 +22,11 @@ if not functions -q fisher
 end
 #+END_SRC
 
+add ~/bin to path
+#+BEGIN_SRC conf
+set PATH ~/bin $PATH
+#+END_SRC
+
 make abbrevations private to a particular fish session
 #+BEGIN_SRC conf
 set -g fish_user_abbreviations

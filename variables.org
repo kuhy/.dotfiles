@@ -14,16 +14,16 @@ Your preferred resource opener
 gio open
 #+END_SRC
 
+Your preferred application launcher
+#+NAME: launcher
+#+BEGIN_SRC conf
+gtk-launch
+#+END_SRC
+
 Your preferred terminal emulator
 #+NAME: terminal
 #+BEGIN_SRC conf
 termite
-#+END_SRC
-
-Your preferred application launcher
-#+NAME: menu
-#+BEGIN_SRC conf
-rofi -show run
 #+END_SRC
 
 Your preferred web browser
