@@ -81,6 +81,11 @@ Run org-mode code snippets without confirmation.
 (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
+Set org-mode keybindings:
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-c a") 'org-agenda)
+#+END_SRC
+
 * Packages
 Use dashboard as a welcome screen.
 #+BEGIN_SRC elisp
@@ -204,4 +209,3 @@ Set the cursor color based on the evil state
       evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
       evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
 #+END_SRC
-
