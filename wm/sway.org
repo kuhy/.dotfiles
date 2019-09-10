@@ -70,12 +70,6 @@ exec swayidle -w \
        before-sleep 'sh ~/.config/swaylock/lock.sh'
 #+END_SRC
 
-** Music player daemon
-Run music player in background so I can send commands to it:
-#+BEGIN_SRC conf
-exec tmux new-session -d -s <<music_player>> <<music_player>>
-#+END_SRC
-
 ** Emacs daemon
 Run emacs in background so I can use emacsclient:
 #+BEGIN_SRC conf
@@ -121,7 +115,7 @@ start emacs
 
 attach tmux session with music player
 #+BEGIN_SRC conf
-    bindsym $mod+m exec <<terminal>> -e 'tmux attach-session -t <<music_player>>'
+    bindsym $mod+m exec sh ~/bin/mplayer
 #+END_SRC
 
 Drag floating windows by holding down $mod and left mouse button.
