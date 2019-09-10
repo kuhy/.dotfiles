@@ -5,8 +5,11 @@
 #+PROPERTY: header-args+ :tangle "~/.config/i3blocks/config"
 #+OPTIONS: prop:t
 
+#+INCLUDE: "../variables.org"
+
 * Global
 #+BEGIN_SRC conf
+command=printf "%s<span font=''> </span>%s\n" $ICON "$(eval $EXEC)"
 align=center
 markup=pango
 #+END_SRC
@@ -14,7 +17,8 @@ markup=pango
 * Time
 #+BEGIN_SRC conf
 [Time]
-command=echo '<span font=""> </span>'$(date "+%a %d.%m. %T")
+ICON=
+EXEC=date '+%a %d.%m. %T'
 interval=1
 min_width=250
 #+END_SRC
@@ -22,7 +26,8 @@ min_width=250
 * Keyboard
 #+BEGIN_SRC conf
 [Keyboard]
-command=echo '<span font=""> </span>'$(swaymsg -t get_inputs | grep -m 1 -o '"xkb_active_layout_name":.*",' | awk '{print  substr ($2, 2, 2)}')
+ICON=
+EXEC=swaymsg -t get_inputs | grep -m 1 -o '"xkb_active_layout_name":.*",' | awk '{print  substr ($2, 2, 2)}'
 interval=1
 min_width=70
 #+END_SRC
@@ -30,7 +35,8 @@ min_width=70
 * Volume
 #+BEGIN_SRC conf
 [volume]
-command=echo '<span font=""> </span>'$(amixer | grep -m 1 -o -E [[:digit:]]+% | tr -d "%")
+ICON=
+EXEC=amixer | grep -m 1 -o -E [[:digit:]]+% | tr -d "%"
 interval=1
 min_width=70
 #+END_SRC
@@ -38,7 +44,8 @@ min_width=70
 * Battery
 #+BEGIN_SRC conf
 [battery]
-command=echo '<span font=""> </span>'$(cat /sys/class/power_supply/BAT0/capacity)
+ICON=
+EXEC=cat /sys/class/power_supply/BAT0/capacity
 interval=10
 min_width=70
 #+END_SRC
