@@ -156,6 +156,5 @@ brown
 Font
 #+NAME: font
 #+BEGIN_SRC conf
-monoid, siji
+monoid, feather
 #+END_SRC
-
