@@ -1,51 +1,80 @@
 #+TITLE: I3blocks config
 #+AUTHOR: Kuhy
-#+PROPERTY: header-args+ :comments yes
-#+PROPERTY: header-args+ :mkdirp yes
-#+PROPERTY: header-args+ :tangle "~/.config/i3blocks/config"
 #+OPTIONS: prop:t
 
 #+INCLUDE: "../variables.org"
 
-* Global
+* Bar
+:PROPERTIES:
+:header-args: :tangle ~/.config/i3blocks/config :comments both :mkdirp yes :noweb tangle
+:END:
+** Global
 #+BEGIN_SRC conf
-command=printf "%s<span font=''> </span>%s\n" $ICON "$(eval $EXEC)"
+command=printf "%s<span font=''> </span>%s\n" "$(eval $ICON)" "$(eval $EXEC)"
 align=center
 markup=pango
+SCRIPTS_FOLDER=/home/okuhejda/.config/i3blocks
 #+END_SRC
 
-* Time
+** Time
 #+BEGIN_SRC conf
 [Time]
-ICON=
+ICON=echo 
 EXEC=date '+%a %d.%m. %T'
 interval=1
 min_width=250
 #+END_SRC
 
-* Keyboard
+** Keyboard
 #+BEGIN_SRC conf
 [Keyboard]
-ICON=
+ICON=echo 
 EXEC=swaymsg -t get_inputs | grep -m 1 -o '"xkb_active_layout_name":.*",' | awk '{print  substr ($2, 2, 2)}'
 interval=1
 min_width=70
 #+END_SRC
 
-* Volume
+** Volume
 #+BEGIN_SRC conf
 [volume]
-ICON=
+ICON=echo 
 EXEC=amixer | grep -m 1 -o -E [[:digit:]]+% | tr -d "%"
 interval=1
 min_width=70
 #+END_SRC
 
-* Battery
+** Battery
 #+BEGIN_SRC conf
 [battery]
-ICON=
-EXEC=cat /sys/class/power_supply/BAT0/capacity
+ICON=$SCRIPTS_FOLDER/bat_ic
+EXEC=$SCRIPTS_FOLDER/bat
 interval=10
 min_width=70
+#+END_SRC
+
+* Scripts
+** Battery
+:PROPERTIES:
+:header-args: :tangle ~/.config/i3blocks/bat :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+:END:
+#+BEGIN_SRC sh
+BATTERY=$(cat /sys/class/power_supply/BAT0/capacity)
+
+if [ "$BATTERY" -gt 10 ]; then
+    echo "$BATTERY"
+else
+    echo "<span color='<<base08>>'>$BATTERY</span>"
+fi
+#+END_SRC
+
+** Battery icon
+:PROPERTIES:
+:header-args: :tangle ~/.config/i3blocks/bat_ic :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+:END:
+#+BEGIN_SRC sh
+if [ $(cat /sys/class/power_supply/BAT0/status) = Charging ]; then
+    echo 
+else
+    echo 
+fi
 #+END_SRC
