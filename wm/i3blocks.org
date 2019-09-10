@@ -29,7 +29,7 @@ min_width=250
 #+BEGIN_SRC conf
 [Keyboard]
 ICON=echo 
-EXEC=swaymsg -t get_inputs | grep -m 1 -o '"xkb_active_layout_name":.*",' | awk '{print  substr ($2, 2, 2)}'
+EXEC=$SCRIPTS_FOLDER/key
 interval=1
 min_width=70
 #+END_SRC
@@ -53,6 +53,21 @@ min_width=70
 #+END_SRC
 
 * Scripts
+** Keyboard
+:PROPERTIES:
+:header-args: :tangle ~/.config/i3blocks/key :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+:END:
+#+BEGIN_SRC sh
+LAYOUT=$(swaymsg -t get_inputs | grep -m 1 -o '"xkb_active_layout_name":.*",' \
+    | awk '{print  substr ($2, 2, 2)}')
+
+if [ "$LAYOUT" = En ]; then
+    echo "$LAYOUT"
+else
+    echo "<span color='<<base0E>>'>$LAYOUT</span>"
+fi
+#+END_SRC
+
 ** Battery
 :PROPERTIES:
 :header-args: :tangle ~/.config/i3blocks/bat :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
@@ -72,9 +87,9 @@ fi
 :header-args: :tangle ~/.config/i3blocks/bat_ic :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
 :END:
 #+BEGIN_SRC sh
-if [ $(cat /sys/class/power_supply/BAT0/status) = Charging ]; then
-    echo 
-else
+if [ "$(cat /sys/class/power_supply/BAT0/status)" = Discharging ]; then
     echo 
+else
+    echo 
 fi
 #+END_SRC
