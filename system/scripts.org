@@ -2,6 +2,8 @@
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
 
+#+INCLUDE: "../variables.org"
+
 * Orgcal
 :PROPERTIES:
 :header-args: :tangle ~/bin/orgcal :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
@@ -27,4 +29,18 @@ emacs -Q --batch --eval "
 for file in "${FILES//'.org'/.ics}"; do
     gcalcli import "$file" --calendar "$CALENDAR"
 done
+#+END_SRC
+
+* Music player
+:PROPERTIES:
+:header-args: :tangle ~/bin/mplayer :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+:END:
+Open music player in tmux session:
+#+BEGIN_SRC sh
+if ! tmux has -t='<<music_player>>'; then
+    echo "creating <<music_player>> session"
+    tmux new-session -d -s <<music_player>> <<music_player>>
+fi
+
+<<terminal>> -e 'tmux attach-session -t <<music_player>>'
 #+END_SRC
