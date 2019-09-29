@@ -92,7 +92,8 @@ Use dashboard as a welcome screen.
 (use-package dashboard
   :config
   (setq dashboard-startup-banner 3)
-  (dashboard-setup-startup-hook))
+  (dashboard-setup-startup-hook)
+  (setq initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*"))))
 #+END_SRC
 
 Use editorconfig.
@@ -171,6 +172,16 @@ Package for highlighting uncommitted changes.
   :demand t
   :hook (magit-post-refresh diff-hl-magit-post-refresh)
   :config (global-diff-hl-mode))
+#+END_SRC
+
+#+BEGIN_SRC elisp
+(use-package tex
+  :defer t
+  :ensure auctex
+  :config
+  (TeX-source-correlate-mode)
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "Zathura")))
 #+END_SRC
 
 * Theme
