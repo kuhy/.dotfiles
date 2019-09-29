@@ -76,6 +76,11 @@ Run emacs in background so I can use emacsclient:
 exec emacs --daemon
 #+END_SRC
 
+** Safe Eyes
+#+BEGIN_SRC conf
+exec safeeyes
+#+END_SRC
+
 * Key bindings
 ** Basics
 start a tmux in terminal
