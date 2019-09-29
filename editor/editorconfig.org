@@ -75,3 +75,10 @@ Set =max_line_length= to =120= for =java= and =kt=:
 max_line_length = 120
 #+END_SRC
 
+* Tabs
+Use tabs for makefiles.
+#+BEGIN_SRC config
+[{Makefile,**.mk}]
+indent_style = tab
+#+END_SRC
+
