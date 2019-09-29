@@ -57,7 +57,7 @@ abbr gs 'git status'
 abbr gl 'git log'
 abbr ga 'git add'
 abbr gc 'git commit'
-abbr gd 'git diff'
+abbr gd 'git difftool'
 
 abbr dnf 'sudo dnf'
 #+END_SRC
