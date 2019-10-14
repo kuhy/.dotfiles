@@ -9,12 +9,12 @@
 :header-args: :tangle ~/.config/fish/config.fish :comments both :mkdirp yes :noweb tangle
 :END:
 Use vim key bindings.
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 fish_vi_key_bindings
 #+END_SRC
 
 Bootstrap fisher installation
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 if not functions -q fisher
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
@@ -23,23 +23,23 @@ end
 #+END_SRC
 
 add ~/bin to path
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 set PATH ~/bin $PATH
 #+END_SRC
 
 make abbrevations private to a particular fish session
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 set -g fish_user_abbreviations
 #+END_SRC
 
 set aliases
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 alias ssh 'env TERM=xterm ssh'
 alias e 'eval $VISUAL'
 #+END_SRC
 
 set abbrevations
-#+BEGIN_SRC conf
+#+BEGIN_SRC sh
 abbr c 'clear'
 
 abbr .1 'cd ..'
@@ -60,6 +60,19 @@ abbr gc 'git commit'
 abbr gd 'git difftool'
 
 abbr dnf 'sudo dnf'
+#+END_SRC
+
+* Functions
+** Cheat.sh
+:PROPERTIES:
+:header-args: :tangle ~/.config/fish/functions/cht.fish :comments both :mkdirp yes :noweb tangle
+:END:
+#+BEGIN_SRC sh
+function cht
+  set param (echo $argv | \
+        sed -E 's/ /\//;s/ ([0-9]+)$/\/\1/;s/ /+/g')
+  curl -Ls "cht.sh/$param" | less -R
+end
 #+END_SRC
 
 * Fisher
