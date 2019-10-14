@@ -21,7 +21,7 @@ dnf -y copr enable skidnik/termite
   # web browser
   # window switcher, application launcher and dmenu replacement
   # terminal multiplexer
-  # manage complex tmux sessions easily
+  # package management application for Ruby
   # screen locker
   # sed for JSON
   # create, edit, compose, or convert bitmap images
@@ -43,7 +43,7 @@ dnf -y install \
   firefox \
   rofi \
   tmux \
-  tmuxinator \
+  gem \
   swaylock \
   jq \
   ImageMagick \
@@ -73,4 +73,7 @@ pip3 install \
   stig \
   vobject \
   termdown
+
+# manage complex tmux sessions easily
+gem install tmuxinator
 
