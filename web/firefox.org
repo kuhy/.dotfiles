@@ -80,6 +80,10 @@ set searchurls.w https://en.wikipedia.org/w/index.php?search=%s
 
 quickmark m https://mail.google.com
 quickmark f https://facebook.com
+quickmark t https://is.muni.cz/auth/rozvrh
+quickmark i https://is.muni.cz/auth/student
+quickmark c https://calendar.google.com
+quickmark g https://github.com/kuhy
 #+END_SRC
 
 Load theme.
@@ -397,4 +401,3 @@ make the tabs hidden when there is only one tab open
 	visibility: collapse;
 }
 #+END_SRC
-
