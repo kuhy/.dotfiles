@@ -35,6 +35,7 @@ dnf -y copr enable skidnik/termite
   # an interpreted, interactive, object-oriented programming language
   # A command line interface to the Dropbox service
   # Google Calendar Command Line Interface
+  # A shell script static analysis tool
 dnf -y install \
   sway \
   i3blocks \
@@ -56,7 +57,8 @@ dnf -y install \
   transmission-daemon \
   python3 \
   dropbox \
-  gcalcli
+  gcalcli \
+  ShellCheck
 
 # remove useless terminals
 dnf -y remove \
@@ -69,11 +71,16 @@ ln -s /usr/bin/termite /usr/bin/xterm
 # TUI and CLI for Transmission
 # Used for ics/vcal importing.
 # Countdown timer and stopwatch in your terminal
+# Preview GitHub Markdown files locally.
+# Browse Reddit from your terminal
+# Language Server Protocol for Python
 pip3 install \
   stig \
   vobject \
-  termdown
+  termdown \
+  grip \
+  rtv \
+  'python-language-server[all]'
 
 # manage complex tmux sessions easily
 gem install tmuxinator
-
