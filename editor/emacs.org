@@ -28,6 +28,7 @@ Load package manager, add the Melpa package registry.
 #+BEGIN_SRC elisp
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(setq package-check-signature nil)
 (package-initialize)
 #+END_SRC
 
@@ -182,6 +183,72 @@ Package for highlighting uncommitted changes.
   (TeX-source-correlate-mode)
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "Zathura")))
+#+END_SRC
+
+Markdown support:
+#+BEGIN_SRC elisp
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+#+END_SRC
+
+Project Interaction Library
+#+BEGIN_SRC elisp
+(use-package projectile
+  :ensure t
+  :config
+  (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
+  (projectile-mode +1))
+#+END_SRC
+
+On the fly syntax checking for GNU Emacs
+#+BEGIN_SRC elisp
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+#+END_SRC
+
+Text completion framework
+#+BEGIN_SRC elisp
+(use-package company)
+#+END_SRC
+
+Emacs client/library for the Language Server Protocol
+#+BEGIN_SRC elisp
+(use-package lsp-mode
+  :hook (python-mode . lsp)
+  :commands lsp)
+
+(use-package lsp-ui :commands lsp-ui-mode)
+(use-package company-lsp :commands company-lsp)
+#+END_SRC
+
+Debug adapter protocol
+#+BEGIN_SRC elisp
+(use-package dap-mode
+  :after lsp-mode
+  :config
+  (dap-mode t)
+  (dap-ui-mode t))
+#+END_SRC
+
+LSP for Java
+#+BEGIN_SRC elisp
+(use-package hydra)
+(use-package lsp-java :after lsp
+  :config (add-hook 'java-mode-hook 'lsp)
+          (require 'dap-java))
+#+END_SRC
+
+A template system
+#+BEGIN_SRC elisp
+(use-package yasnippet-snippets)
+(use-package yasnippet
+  :config (yas-global-mode 1))
 #+END_SRC
 
 * Theme
