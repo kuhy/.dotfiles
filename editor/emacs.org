@@ -70,6 +70,11 @@ Alow to run dot files from =org-mode=.
  '((dot . t))) ; this line activates dot
 #+END_SRC
 
+Highlight LaTeX commands inside Org Mode.
+#+BEGIN_SRC elisp
+(setq org-highlight-latex-and-related '(latex script entities))
+#+END_SRC
+
 Change org-mode exporting process to pdf.
 Needed for bibtex support.
 #+BEGIN_SRC elisp
