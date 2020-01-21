@@ -50,7 +50,15 @@ user_pref("accessibility.browsewithcaret", true);
 
 Workaround for Firefox security bug:
 #+BEGIN_SRC js
-user_pref("network.http.spdy.enabled.http2", false);
+// user_pref("network.http.spdy.enabled.http2", false);
+#+END_SRC
+
+Fix connection not secure error:
+(Once Firefox trusts your proxy, I suggest flipping that back to false to keep
+Firefox isolated from possible fraudulent certificates injected into the Windows
+certificate store.)
+#+BEGIN_SRC js
+// userp_pref("security.enterprise_roots.enabled", true);
 #+END_SRC
 
 Disable extension recommendations.
@@ -302,7 +310,7 @@ tab title font is reduced
 #+BEGIN_SRC css
 .tabbrowser-tab[fadein]:not([pinned]) {
 	max-width: 100% !important;
-	font-size: 0.8em !important;
+	font-size: 0.9em !important;
 }
 #+END_SRC
 
