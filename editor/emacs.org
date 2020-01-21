@@ -53,7 +53,8 @@ Install package automatically if not already present on your system.
 Setup font.
 #+BEGIN_SRC elisp
 (add-to-list 'default-frame-alist
-  '(font . "monoid-13"))
+  '(font . "monoid"))
+(set-face-attribute 'default t :font "monoid" )
 #+END_SRC
 
 Display relative line number
@@ -193,7 +194,6 @@ Package for highlighting uncommitted changes.
 Markdown support:
 #+BEGIN_SRC elisp
 (use-package markdown-mode
-  :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
@@ -201,10 +201,14 @@ Markdown support:
   :init (setq markdown-command "multimarkdown"))
 #+END_SRC
 
+Cucumber support:
+#+BEGIN_SRC elisp
+(use-package feature-mode)
+#+END_SRC
+
 Project Interaction Library
 #+BEGIN_SRC elisp
 (use-package projectile
-  :ensure t
   :config
   (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
   (projectile-mode +1))
@@ -213,7 +217,6 @@ Project Interaction Library
 On the fly syntax checking for GNU Emacs
 #+BEGIN_SRC elisp
 (use-package flycheck
-  :ensure t
   :init (global-flycheck-mode))
 #+END_SRC
 
