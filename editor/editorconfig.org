@@ -63,7 +63,7 @@ max_line_length = 80
 * 2 spaces
 Set =indent_size= to =2= for =js=, =css=, =html= etc.:
 #+BEGIN_SRC config
-[*.{js,css,html,json,tex,yaml}]
+[*.{js,css,html,json,tex,yaml,feature}]
 indent_style = space
 indent_size = 2
 #+END_SRC
