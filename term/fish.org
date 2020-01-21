@@ -35,7 +35,6 @@ set -g fish_user_abbreviations
 set aliases
 #+BEGIN_SRC sh
 alias ssh 'env TERM=xterm ssh'
-alias e 'eval $VISUAL'
 #+END_SRC
 
 set abbrevations
@@ -60,9 +59,22 @@ abbr gc 'git commit'
 abbr gd 'git difftool'
 
 abbr dnf 'sudo dnf'
+abbr mount 'sudo mount'
+abbr umount 'sudo umount'
 #+END_SRC
 
 * Functions
+** Editor
+:PROPERTIES:
+:header-args: :tangle ~/.config/fish/functions/e.fish :comments both :mkdirp yes :noweb tangle
+:END:
+Start and detach =$EDITOR= from shell.
+#+BEGIN_SRC sh
+function e
+    bash -c "eval $VISUAL $argv" >/dev/null &; disown
+end
+#+END_SRC
+
 ** Cheat.sh
 :PROPERTIES:
 :header-args: :tangle ~/.config/fish/functions/cht.fish :comments both :mkdirp yes :noweb tangle
