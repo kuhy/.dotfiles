@@ -6,6 +6,7 @@
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
 
+* General
 set fish as a default shell
 #+BEGIN_SRC conf
 set-option -g default-shell /usr/bin/fish
@@ -103,4 +104,93 @@ TODO notify when command exits
 #+BEGIN_SRC conf
 set-window-option -g visual-bell on
 set-window-option -g bell-action other
+#+END_SRC
+
+* Appearance
+Status update interval
+#+BEGIN_SRC conf
+set -g status-interval 1
+#+END_SRC
+
+Basic status bar colors
+#+BEGIN_SRC conf
+set -g status-fg colour21
+set -g status-bg colour18
+#+END_SRC
+
+Left side of status bar
+#+BEGIN_SRC conf
+set -g status-left-style bg=default,fg=default
+set -g status-left-length 150
+set -g status-left ""
+#+END_SRC
+
+Right side of status bar
+#+BEGIN_SRC conf
+set -g status-right bg=default,fg=default
+set -g status-right-length 150
+set -g status-right "#[fg=colour18,bg=colour07,bold] #S "
+#+END_SRC
+
+Window status
+#+BEGIN_SRC conf
+set -g window-status-format " #W "
+set -g window-status-current-format "#[fg=colour18,bg=colour04] #W "
+#+END_SRC
+
+Current window status
+#+BEGIN_SRC conf
+set -g window-status-current-style bg=default,fg=default
+#+END_SRC
+
+Window with activity status
+#+BEGIN_SRC conf
+set -g window-status-activity-style bg=default,fg=default
+#+END_SRC
+
+Window separator
+#+BEGIN_SRC conf
+set -g window-status-separator ""
+#+END_SRC
+
+Window status alignment
+#+BEGIN_SRC conf
+set -g status-justify left
+#+END_SRC
+
+Pane border
+#+BEGIN_SRC conf
+set -g pane-border-style bg=default,fg=colour18
+#+END_SRC
+
+Active pane border
+#+BEGIN_SRC conf
+set -g pane-active-border-style bg=default,fg=colour04
+#+END_SRC
+
+Pane number indicator
+#+BEGIN_SRC conf
+set -g display-panes-colour default
+set -g display-panes-active-colour default
+#+END_SRC
+
+Clock mode
+#+BEGIN_SRC conf
+set -g clock-mode-colour colour04
+set -g clock-mode-style 12
+#+END_SRC
+
+Message
+#+BEGIN_SRC conf
+set -g message-style bg=colour16,fg=colour18
+#+END_SRC
+
+Command message
+#+BEGIN_SRC conf
+set -g message-command-style bg=colour16,fg=colour18
+#+END_SRC
+
+Mode
+#+BEGIN_SRC conf
+set -g mode-style bg=colour19,fg=colour18
 #+END_SRC
