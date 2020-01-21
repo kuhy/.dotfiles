@@ -44,3 +44,27 @@ fi
 
 <<terminal>> -e 'tmux attach-session -t <<music_player>>'
 #+END_SRC
+
+* Blackify PDF
+:PROPERTIES:
+:header-args: :tangle ~/bin/blackpdf :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+:END:
+Convert a color PDF to greyscale PDF.
+Very useful for black-and-white book readers.
+#+BEGIN_SRC sh
+for FILE in "$@"; do
+    gs \
+      -sOutputFile="$FILE".temp \
+      -sDEVICE=pdfwrite \
+      -sColorConversionStrategy=Gray \
+      -dProcessColorModel=/DeviceGray \
+      -dCompatibilityLevel=1.4 \
+      -dNOPAUSE \
+      -dBATCH \
+      "$FILE"
+
+    rm "$FILE"
+
+    mv "$FILE".temp "$FILE"
+done
+#+END_SRC
