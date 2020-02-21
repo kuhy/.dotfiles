@@ -80,7 +80,7 @@ autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www",
 Website shortcuts:
 #+BEGIN_SRC conf
 set searchurls.g https://google.com/search?q=%s
-set searchurls.y https://youtube.com/results?search_query=%s
+set searchurls.y https://duckduckgo.com/?ia=videos&iax=videos&q=%s
 set searchurls.d https://duckduckgo.com/?q=%s
 set searchurls.s https://stackoverflow.com/search?q=%s
 set searchurls.r https://old.reddit.com/r/%s
@@ -97,6 +97,11 @@ quickmark g https://github.com/kuhy
 Load theme.
 #+BEGIN_SRC conf
 colorscheme theme
+#+END_SRC
+
+Use DuckDuckGo
+#+BEGIN_SRC conf
+set searchengine startpage
 #+END_SRC
 
 ** Theme
