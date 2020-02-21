@@ -54,7 +54,7 @@ Setup font.
 #+BEGIN_SRC elisp
 (add-to-list 'default-frame-alist
   '(font . "monoid"))
-(set-face-attribute 'default t :font "monoid" )
+(set-face-attribute 'default t :font "monoid" :height 100)
 #+END_SRC
 
 Display relative line number
@@ -257,6 +257,11 @@ A template system
 (use-package yasnippet-snippets)
 (use-package yasnippet
   :config (yas-global-mode 1))
+#+END_SRC
+
+Groovy syntax highlighting
+#+BEGIN_SRC elisp
+(use-package groovy-mode)
 #+END_SRC
 
 * Theme
