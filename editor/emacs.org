@@ -122,8 +122,18 @@ Support for vim keybindings.
 #+BEGIN_SRC elisp
 (use-package evil
   :defer .1
+  :init
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode))
+#+END_SRC
+
+Collection of Evil bindings
+#+BEGIN_SRC elisp
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 #+END_SRC
 
 Tool for minibuffer completion.
@@ -262,6 +272,34 @@ A template system
 Groovy syntax highlighting
 #+BEGIN_SRC elisp
 (use-package groovy-mode)
+#+END_SRC
+
+Evil for org-mode
+#+BEGIN_SRC elisp
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+#+END_SRC
+
+Treemacs
+#+BEGIN_SRC elisp
+(use-package treemacs)
+
+(use-package treemacs-evil
+  :after treemacs evil)
+
+(use-package treemacs-projectile
+  :after treemacs projectile)
+
+(use-package lsp-treemacs
+  :after treemacs lsp)
 #+END_SRC
 
 * Theme
