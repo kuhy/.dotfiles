@@ -163,6 +163,7 @@ Collection of Evil bindings
 #+BEGIN_SRC elisp
 (use-package evil-collection
   :after evil
+  :custom (evil-collection-company-use-tng nil)
   :config
   (evil-collection-init))
 #+END_SRC
@@ -450,6 +451,19 @@ Add support for grammarly
 Show free keybindings for modkeys or prefixes
 #+BEGIN_SRC elisp
 (use-package free-keys)
+#+END_SRC
+
+Simple but effective sorting and filtering for Emacs:
+#+BEGIN_SRC elisp
+(use-package prescient
+  :config (prescient-persist-mode))
+
+(use-package ivy-prescient
+  :after counsel
+  :config (ivy-prescient-mode))
+
+(use-package company-prescient
+  :config (company-prescient-mode))
 #+END_SRC
 
 * Theme
