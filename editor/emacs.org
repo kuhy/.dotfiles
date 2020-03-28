@@ -21,14 +21,14 @@ Hide toolbars.
 Fix problem with downloading =undo-tree=.
 =undo-tree= is required by Evil and other packages.
 #+BEGIN_SRC elisp
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 #+END_SRC
 
 Load package manager, add the Melpa package registry.
 #+BEGIN_SRC elisp
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(setq package-check-signature nil)
+;(setq package-check-signature nil)
 (package-initialize)
 #+END_SRC
 
@@ -63,6 +63,17 @@ Display relative line number
 (global-display-line-numbers-mode t)
 #+END_SRC
 
+Highlight trailing whitespaces
+#+BEGIN_SRC elisp
+(setq-default show-trailing-whitespace t)
+#+END_SRC
+fsaf
+
+Save typing one or two characters:
+#+BEGIN_SRC elisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
 * Org
 Alow to run dot files from =org-mode=.
 #+BEGIN_SRC elisp
@@ -80,7 +91,7 @@ Change org-mode exporting process to pdf.
 Needed for bibtex support.
 #+BEGIN_SRC elisp
 (setq org-latex-pdf-process
-      '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
+      '("latexmk -pdflatex='pdflatex -shell-escape -interaction nonstopmode' -pdf -bibtex -f %f"))
 #+END_SRC
 
 Run org-mode code snippets without confirmation.
@@ -97,10 +108,30 @@ Set org-mode keybindings:
 Use dashboard as a welcome screen.
 #+BEGIN_SRC elisp
 (use-package dashboard
+  :custom
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-startup-banner 3)
+  (dashboard-center-content t)
+  (dashboard-items '((recents  . 5)
+                     (bookmarks . 5)
+                     (projects . 5)
+                     (agenda . 5)
+                     (registers . 5)))
+  (initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
   :config
-  (setq dashboard-startup-banner 3)
   (dashboard-setup-startup-hook)
-  (setq initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*"))))
+)
+#+END_SRC
+
+Minor mode that hides the mode-line
+#+BEGIN_SRC elisp
+(use-package hide-mode-line)
+#+END_SRC
+
+Package to display a terminal in an Emacs buffer.
+#+BEGIN_SRC elisp
+(use-package vterm)
 #+END_SRC
 
 Use editorconfig.
@@ -112,10 +143,10 @@ Use editorconfig.
 
 Alows managing window configurations similary to tiling WMs.
 #+BEGIN_SRC elisp
-(use-package eyebrowse
-  :config
-  (eyebrowse-mode)
-  (eyebrowse-setup-opinionated-keys))
+;(use-package eyebrowse
+;  :config
+;  (eyebrowse-mode)
+;  (eyebrowse-setup-opinionated-keys))
 #+END_SRC
 
 Support for vim keybindings.
@@ -134,6 +165,16 @@ Collection of Evil bindings
   :after evil
   :config
   (evil-collection-init))
+#+END_SRC
+
+Customizable key sequence to escape from insert state
+and everything else in Emacs.
+#+BEGIN_SRC elisp
+(use-package evil-escape
+  :custom
+  (evil-escape-unordered-key-sequence t)
+  :config
+  (evil-escape-mode))
 #+END_SRC
 
 Tool for minibuffer completion.
@@ -191,6 +232,7 @@ Package for highlighting uncommitted changes.
   :config (global-diff-hl-mode))
 #+END_SRC
 
+LaTeX
 #+BEGIN_SRC elisp
 (use-package tex
   :defer t
@@ -216,6 +258,11 @@ Cucumber support:
 (use-package feature-mode)
 #+END_SRC
 
+Support for Groovy syntax highlighting:
+#+BEGIN_SRC elisp
+(use-package groovy-mode)
+#+END_SRC
+
 Project Interaction Library
 #+BEGIN_SRC elisp
 (use-package projectile
@@ -239,9 +286,15 @@ Emacs client/library for the Language Server Protocol
 #+BEGIN_SRC elisp
 (use-package lsp-mode
   :hook (python-mode . lsp)
+  :hook (java-mode . lsp)
   :commands lsp)
 
-(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-ui
+  :custom
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-doc-delay 1.5)
+  :commands lsp-ui-mode)
+
 (use-package company-lsp :commands company-lsp)
 #+END_SRC
 
@@ -277,7 +330,6 @@ Groovy syntax highlighting
 Evil for org-mode
 #+BEGIN_SRC elisp
 (use-package evil-org
-  :ensure t
   :after org
   :config
   (add-hook 'org-mode-hook 'evil-org-mode)
@@ -290,7 +342,9 @@ Evil for org-mode
 
 Treemacs
 #+BEGIN_SRC elisp
-(use-package treemacs)
+(use-package treemacs
+  :bind ("C-=" . treemacs)
+  :hook (treemacs-mode . hide-mode-line-mode))
 
 (use-package treemacs-evil
   :after treemacs evil)
@@ -300,6 +354,102 @@ Treemacs
 
 (use-package lsp-treemacs
   :after treemacs lsp)
+
+(use-package kaolin-themes
+  :config
+  (require 'kaolin-themes-treemacs))
+#+END_SRC
+
+Highlight indentation
+#+BEGIN_SRC elisp
+(use-package highlight-indent-guides
+  :custom
+  (highlight-indent-guides-method 'character)
+  (highlight-indent-guides-character ?\|)
+  (highlight-indent-guides-responsive 'top)
+  :config
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
+#+END_SRC
+
+Icon fonts for emacs.  Needs manual installation of the fonts: =M-x
+all-the-icons-install-fonts=
+#+BEGIN_SRC elisp
+(use-package all-the-icons)
+#+END_SRC
+
+Better mode-line
+#+BEGIN_SRC elisp
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  :custom (doom-modeline-icon t))
+#+END_SRC
+
+Tab support
+#+BEGIN_SRC elisp
+(use-package centaur-tabs
+  :demand
+  :custom
+  (centaur-tabs-set-icons t)
+  (centaur-tabs-gray-out-icons 'buffer)
+  (centaur-tabs-set-close-button nil)
+  :bind
+    (:map evil-normal-state-map
+	  ("g t" . centaur-tabs-forward)
+	  ("g T" . centaur-tabs-backward))
+  :config
+  (centaur-tabs-mode t))
+#+END_SRC
+
+Pop-up shell
+#+BEGIN_SRC elisp
+(use-package shell-pop
+  :hook (
+  (shell-pop-in-after . hide-mode-line-mode)
+  (shell-pop-in-after . centaur-tabs-local-mode))
+  :bind ("C-:" . shell-pop)
+  :custom
+  (shell-pop-window-size 25)
+  (shell-pop-term-shell "/usr/bin/fish")
+  (shell-pop-shell-type '("vterm" "*vterm*" (lambda nil (vterm))))
+)
+#+END_SRC
+
+Visually distinguish active windows
+#+BEGIN_SRC elisp
+(use-package dimmer
+  :custom
+  (dimmer-fraction 0.3)
+  :config
+  (dimmer-configure-which-key)
+  (dimmer-mode t))
+#+END_SRC
+
+Display visual hint on evil edit operations
+#+BEGIN_SRC elisp
+(use-package evil-goggles
+  :config (evil-goggles-mode))
+#+END_SRC
+
+Scroll bar
+#+BEGIN_SRC elisp
+(use-package yascroll
+  :config
+  (progn
+    (global-yascroll-bar-mode 1)
+    (set-face-attribute 'yascroll:thumb-fringe t
+      :background "<<base03>>"
+      :foreground "<<base03>>")
+  ))
+#+END_SRC
+
+Add support for grammarly
+#+BEGIN_SRC elisp
+;(use-package flycheck-grammarly)
+#+END_SRC
+
+Show free keybindings for modkeys or prefixes
+#+BEGIN_SRC elisp
+(use-package free-keys)
 #+END_SRC
 
 * Theme
@@ -325,7 +475,13 @@ Set base 16 theme:
     :base0E "<<base0E>>"
     :base0F "<<base0F>>"))
   :config
-  (load-theme 'base16-default-dark t))
+  (load-theme 'base16-default-dark t)
+  (custom-set-faces
+    '(diff-hl-change ((t (:background "<<base0E>>" :foreground "<<base0E>>"))))
+    '(diff-hl-delete ((t (:background "<<base08>>" :foreground "<<base08>>"))))
+    '(diff-hl-insert ((t (:background "<<base0B>>" :foreground "<<base0B>>"))))
+  )
+)
 #+END_SRC
 
 Set the cursor color based on the evil state
