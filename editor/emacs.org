@@ -63,19 +63,44 @@ Display relative line number
 (global-display-line-numbers-mode t)
 #+END_SRC
 
+Show matching pairs of parentheses
+#+BEGIN_SRC elisp
+(show-paren-mode 1)
+#+END_SRC
+
 Highlight trailing whitespaces
 #+BEGIN_SRC elisp
-(setq-default show-trailing-whitespace t)
+(defun my-show-trailing-ws ()
+  "Show trailing whitespace in the current buffer, unless it is read-only."
+  (setq-local show-trailing-whitespace (not buffer-read-only)))
+
+(add-hook 'post-command-hook 'my-show-trailing-ws)
 #+END_SRC
-fsaf
+
+Draw tabs with the same color as trailing whitespace
+#+BEGIN_SRC elisp
+(add-hook 'font-lock-mode-hook
+          (lambda ()
+            (font-lock-add-keywords nil
+              '(("\t" 0 'trailing-whitespace prepend)))))
+#+END_SRC
 
 Save typing one or two characters:
 #+BEGIN_SRC elisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
+Highlight invalid spelling
+#+BEGIN_SRC elisp
+(setq ispell-program-name "aspell")
+(setq ispell-list-command "--list")
+
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+#+END_SRC
+
 * Org
-Alow to run dot files from =org-mode=.
+Allow to run dot files from =org-mode=.
 #+BEGIN_SRC elisp
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -104,6 +129,32 @@ Set org-mode keybindings:
 (global-set-key (kbd "C-c a") 'org-agenda)
 #+END_SRC
 
+Hide leading stars
+#+BEGIN_SRC elisp
+;(setq org-hide-leading-stars t)
+#+END_SRC
+
+Make headings bigger
+#+BEGIN_SRC elisp
+;(custom-set-faces
+;  '(org-level-1 ((t (:height 1.7))))
+;  '(org-level-2 ((t (:height 1.6))))
+;  '(org-level-3 ((t (:height 1.5))))
+;  '(org-level-4 ((t (:height 1.4))))
+;)
+#+END_SRC
+
+Make org-mode stars a little more super
+#+BEGIN_SRC elisp
+;(use-package org-superstar
+;  :custom
+;    (org-superstar-headline-bullets-list '("◉" "◎" "◈" "◇"))
+;  :config
+;  (add-hook 'org-mode-hook
+;    (lambda () (org-superstar-mode 1)))
+;)
+#+END_SRC
+
 * Packages
 Use dashboard as a welcome screen.
 #+BEGIN_SRC elisp
@@ -112,6 +163,7 @@ Use dashboard as a welcome screen.
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
   (dashboard-startup-banner 3)
+  (dashboard-page-separator "\n\n\n")
   (dashboard-center-content t)
   (dashboard-items '((recents  . 5)
                      (bookmarks . 5)
@@ -131,7 +183,8 @@ Minor mode that hides the mode-line
 
 Package to display a terminal in an Emacs buffer.
 #+BEGIN_SRC elisp
-(use-package vterm)
+(use-package vterm
+  :custom (vterm-shell "fish"))
 #+END_SRC
 
 Use editorconfig.
@@ -206,6 +259,12 @@ More friendly interface for ivy.
   (ivy-rich-mode 1))
 #+END_SRC
 
+Better experience with icons for ivy
+#+BEGIN_SRC elisp
+(use-package all-the-icons-ivy-rich
+  :init (all-the-icons-ivy-rich-mode 1))
+#+END_SRC
+
 Package that displays available keybindings in popup.
 #+BEGIN_SRC elisp
 (use-package which-key
@@ -244,6 +303,21 @@ LaTeX
                '(output-pdf "Zathura")))
 #+END_SRC
 
+Completion back-ends for for math unicode symbols and latex tags
+#+BEGIN_SRC elisp
+(use-package company-math
+  :config
+  (defun my-company-latex-setup ()
+    (setq-local company-backends
+      (append '((company-math-symbols-latex company-latex-commands))
+        company-backends))
+    (company-mode 1)
+  )
+  (add-hook 'TeX-mode-hook 'my-company-latex-setup)
+  (add-hook 'org-mode-hook 'my-company-latex-setup)
+)
+#+END_SRC
+
 Markdown support:
 #+BEGIN_SRC elisp
 (use-package markdown-mode
@@ -270,6 +344,13 @@ Project Interaction Library
   :config
   (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
   (projectile-mode +1))
+#+END_SRC
+
+Ivy UI for Projectile
+#+BEGIN_SRC elisp
+(use-package counsel-projectile
+  :after projectile
+  :config (counsel-projectile-mode))
 #+END_SRC
 
 On the fly syntax checking for GNU Emacs
@@ -395,8 +476,8 @@ Tab support
   (centaur-tabs-set-close-button nil)
   :bind
     (:map evil-normal-state-map
-	  ("g t" . centaur-tabs-forward)
-	  ("g T" . centaur-tabs-backward))
+      ("g t" . centaur-tabs-forward)
+      ("g T" . centaur-tabs-backward))
   :config
   (centaur-tabs-mode t))
 #+END_SRC
@@ -410,7 +491,6 @@ Pop-up shell
   :bind ("C-:" . shell-pop)
   :custom
   (shell-pop-window-size 25)
-  (shell-pop-term-shell "/usr/bin/fish")
   (shell-pop-shell-type '("vterm" "*vterm*" (lambda nil (vterm))))
 )
 #+END_SRC
@@ -443,9 +523,17 @@ Scroll bar
   ))
 #+END_SRC
 
-Add support for grammarly
+Add support for Grammarly
 #+BEGIN_SRC elisp
 ;(use-package flycheck-grammarly)
+#+END_SRC
+
+Distraction-free words correction with flyspell via Ivy.
+#+BEGIN_SRC elisp
+(use-package flyspell-correct-ivy
+  :bind ("C-;" . flyspell-correct-wrapper)
+  :init
+  (setq flyspell-correct-interface #'flyspell-correct-ivy))
 #+END_SRC
 
 Show free keybindings for modkeys or prefixes
@@ -460,10 +548,42 @@ Simple but effective sorting and filtering for Emacs:
 
 (use-package ivy-prescient
   :after counsel
+  :custom
+  (ivy-prescient-sort-commands
+    '(:not swiper
+           ivy-switch-buffer
+           flyspell-correct-ivy))
   :config (ivy-prescient-mode))
 
 (use-package company-prescient
   :config (company-prescient-mode))
+#+END_SRC
+
+Highlight TODO keywords
+#+BEGIN_SRC elisp
+(use-package hl-todo
+  :custom
+  (hl-todo-keyword-faces
+    '(("TODO"  . "<<base0B>>")
+      ("FIXME" . "<<base08>>")))
+  :config (global-hl-todo-mode))
+#+END_SRC
+
+Powerthesaurus integration for Emacs
+#+BEGIN_SRC elisp
+(use-package powerthesaurus)
+#+END_SRC
+
+Display ugly ^L page breaks as tidy horizontal lines
+#+BEGIN_SRC elisp
+(use-package form-feed
+  :custom-face
+    (form-feed-line ((t (:strike-through "<<base03>>"))))
+  :hook
+  ((emacs-lisp-mode lisp-mode scheme-mode compilation-mode
+     outline-mode help-mode
+   ) . form-feed-mode)
+)
 #+END_SRC
 
 * Theme
