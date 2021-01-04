@@ -31,9 +31,9 @@ set $open exec <<launcher>>
 Set keyboard layout:
 #+BEGIN_SRC conf
 input * {
-    xkb_layout us,cz
-    xkb_variant ,qwerty
-    xkb_options grp:win_space_toggle,ctrl:nocaps
+    xkb_layout cz
+    xkb_variant coder
+    xkb_options ctrl:nocaps
 #+END_SRC
 
 Setup touchpad:
@@ -85,12 +85,12 @@ exec safeeyes
 ** Basics
 start a tmux in terminal
 #+BEGIN_SRC conf
-    bindsym $mod+Return exec <<terminal>> -e "tmux -2"
+    bindsym $mod+Return exec <<terminal>> -e tmux -2
 #+END_SRC
 
 attach a tmux session
 #+BEGIN_SRC conf
-    bindsym $mod+u exec <<terminal>> -e "tmux -2 attach"
+    bindsym $mod+u exec <<terminal>> -e tmux -2 attach
 #+END_SRC
 
 start a terminal
@@ -383,6 +383,7 @@ set position of status bar
 show i3blocks inside a status bar
 #+BEGIN_SRC conf
     status_command i3blocks
+    #swaybar_command waybar
 #+END_SRC
 
 #+BEGIN_SRC conf
@@ -398,4 +399,5 @@ show i3blocks inside a status bar
         urgent_workspace    <<base08>> <<base08>> <<base00>>
         binding_mode        <<base00>> <<base0A>> <<base00>>
     }
+}
 #+END_SRC
