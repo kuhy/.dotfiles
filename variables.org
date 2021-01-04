@@ -23,7 +23,7 @@ gtk-launch
 Your preferred terminal emulator
 #+NAME: terminal
 #+BEGIN_SRC conf
-termite
+alacritty
 #+END_SRC
 
 Your preferred web browser
@@ -41,7 +41,7 @@ ranger
 Your preferred music player
 #+NAME: music_player
 #+BEGIN_SRC conf
-cmus
+ncmpcpp
 #+END_SRC
 
 Your preferred video player
@@ -156,5 +156,5 @@ brown
 Font
 #+NAME: font
 #+BEGIN_SRC conf
-monoid, feather
+Monoid Nerd Font
 #+END_SRC
