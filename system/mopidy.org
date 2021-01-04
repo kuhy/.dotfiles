@@ -1,0 +1,48 @@
+#+TITLE: Mopidy config
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/mopidy/mopidy.conf"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+
+#+INCLUDE: "../secrets.org"
+
+* Audio
+Following setting is needed in order to use =ncmpcpp=:
+#+BEGIN_SRC conf
+[audio]
+output = tee name=t ! queue ! autoaudiosink t. ! queue ! audio/x-raw,rate=44100,channels=2,format=S16LE ! udpsink host=localhost port=5555
+#+END_SRC
+
+* Music sources
+Disable importing music as simple files:
+#+BEGIN_SRC conf
+[file]
+enabled = false
+#+END_SRC
+
+Import music using database created by command =mopidy local scan=:
+#+BEGIN_SRC conf
+[local]
+media_dir = ~/Music
+#+END_SRC
+
+* Scrobbler
+Scrobble to [[https://www.last.fm]]:
+#+BEGIN_SRC conf
+[scrobbler]
+username = <<last.fm_name>>
+password = <<last.fm_password>>
+#+END_SRC
+
+* Remote
+Allow connecting remotely to the =mopidy=.
+Also port =6600= needs to be exposed (=sudo ufw allow 6600/tcp=).
+#+BEGIN_SRC conf
+[http]
+hostname = ::
+
+[mpd]
+hostname = ::
+#+END_SRC

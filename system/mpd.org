@@ -22,7 +22,7 @@ directory is storage for playlists created by MPD. The server will use
 playlist files not created by the server but only if they are in the MPD
 format. This setting defaults to playlist saving being disabled.
 #+BEGIN_SRC conf
-#playlist_directory		"~/.mpd/playlists"
+playlist_directory "~/Music/playlists"
 #+END_SRC
 This setting sets the location of the MPD database. This file is used to
 load the database at server start up and store the database while the
@@ -30,7 +30,7 @@ server is not up. This setting defaults to disabled which will allow
 MPD to accept files over ipc socket (using file:// protocol) or streaming
 files over an accepted protocol.
 #+BEGIN_SRC conf
-db_file	"~/.config/mpd/database"
+db_file "~/.config/mpd/database"
 #+END_SRC
 These settings are the locations for the daemon log files for the daemon.
 These logs are great for troubleshooting, depending on your =log_level=
@@ -89,7 +89,7 @@ And for Unix Socket
 This setting is the TCP port that is desired for the daemon to get assigned
 to.
 #+BEGIN_SRC conf
-#port				"6600"
+port "6600"
 #+END_SRC
 This setting controls the type of information which is logged. Available
 setting arguments are "default", "secure" or "verbose". The "verbose" setting
@@ -202,6 +202,21 @@ audio_output {
     format                  "44100:16:2"
 }
 #+END_SRC
+Expose MPD, so it can be used by Android phone remotely:
+#+BEGIN_SRC conf
+audio_output {
+    type        "httpd"
+    name        "My HTTP Stream"
+    encoder     "vorbis"        # optional, vorbis or lame
+    port        "8000"
+    quality     "5.0"           # do not define if bitrate is defined
+    bitrate     "128"           # do not define if quality is defined
+    format      "44100:16:1"
+    max_clients "0"             # optional 0=no limit
+}
+#+END_SRC
+We need to expose 6600 port which is used by MPD by default
+and 8000 port which is used by =audio_output=.
 * Normalization automatic volume adjustments
 This setting specifies the type of ReplayGain to use. This setting can have
 the argument "off", "album", "track" or "auto". "auto" is a special mode that
