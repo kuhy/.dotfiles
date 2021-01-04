@@ -50,14 +50,14 @@ df = difftool
 #+END_SRC
 
 ** Diff
-Change diff tool to [[https://github.com/jeffkaufman/icdiff][icdiff]]:
+Change diff tool to [[https://github.com/ymattw/ydiff][ydiff]]:
 #+BEGIN_SRC conf
 [diff]
-  tool = icdiff
+  tool = ydiff
 [difftool]
   prompt = false
-[difftool "icdiff"]
-  cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
+[difftool "ydiff"]
+  cmd = ydiff -s
 #+END_SRC
 
 * Global .gitignore
@@ -133,4 +133,3 @@ Persistent undo files:
 #+BEGIN_SRC conf
 [._]*.un~
 #+END_SRC
-
