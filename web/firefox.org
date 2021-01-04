@@ -66,6 +66,13 @@ Disable extension recommendations.
 user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr", false);
 #+END_SRC
 
+HTTP referrer is a violation of privacy
+(the HTTP header field that identifies the webpage you just
+came from which was linked to the webpage you are going to)
+#+BEGIN_SRC js
+user_pref("Network.http.sendRefererHeader", 0);
+#+END_SRC
+
 * Tridactyl
 ** General
 :PROPERTIES:
@@ -290,6 +297,11 @@ display: none !important
 }
 #+END_SRC
 
+urlbar selection color
+#+BEGIN_SRC css
+::-moz-selection {background-color: var(--tab-selected-color) !important;}
+#+END_SRC
+
 hides a ugly black bottom background under each unfocused tab
 #+BEGIN_SRC css
 #navigator-toolbox{
@@ -329,7 +341,7 @@ no round edges
   border: none !important;
   box-shadow: none !important;
   --toolbarbutton-border-radius: 0px !important;
-  color: var(--bar-text-color) !important;
+  color: var(--bar-color) !important;
   text-align: center !important;
 }
 #+END_SRC
@@ -373,6 +385,10 @@ here is a serie of color background
     color : var(--tab-text-color);
 }
 
+#urlbar-background{
+    background-color: var(--tab-text-color) !important;
+}
+
 #nav-bar,#urlbar-container,#urlbar,#PanelUI-menu-button{
     background-color: var(--bar-color) !important;
 }
@@ -390,27 +406,94 @@ hides another ugly black bottom background under the urlbar container
 
 reducing the tabs height more
 #+BEGIN_SRC css
-:root[uidensity="compact"] #titlebar, :root[uidensity="compact"] #tabbrowser-tabs {
-    --tab-min-height: 18px !important;
+:root #tabbrowser-tabs {
+ --tab-min-height: 25px !important;
 }
 #+END_SRC
 
 removing the useless padding and marging between elements of the urlbar etc..
 #+BEGIN_SRC css
-#nav-bar,#urlbar,#PanelUI-menu-button{
+#nav-bar,#PanelUI-menu-button{
     padding: 0px !important;
     margin:  0px !important;
-    height: 24px !important;
+    height: 28px !important;
 }
 #+END_SRC
 
 make the tabs hidden when there is only one tab open
 #+BEGIN_SRC css
-#tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox {
-	min-height: 0 !important;
+/* Styles:13 ends here */
+/* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/hide_tabs_with_one_tab.css made available under Mozilla Public License v. 2.0
+See the above repository for updates as well as full license text. */
+
+/* Makes tabs toolbar items zero-height initially and sets enlarge them to fill up space equal to tab-min-height set on tabs */
+/* Firefox 65+ only */
+
+:root[sizemode="normal"] #nav-bar{ --uc-window-drag-space-width: 20px }
+
+#titlebar{ -moz-appearance: none !important; }
+#TabsToolbar{ min-height: 0px !important }
+
+#tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox, #tabbrowser-arrowscrollbox{ min-height: 0 !important; }
+
+:root:not([customizing]) #tabbrowser-tabs .tabs-newtab-button,
+:root:not([customizing]) #tabs-newtab-button,
+:root:not([customizing]) #TabsToolbar-customization-target > .toolbarbutton-1,
+:root:not([customizing]) #TabsToolbar .titlebar-button{
+  -moz-appearance: none !important;
+  height: 0px;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  -moz-box-align: stretch;
+  margin: 0 !important;
 }
 
-#tabbrowser-tabs tab[first-visible-tab="true"][last-visible-tab="true"] {
-	visibility: collapse;
+#tabbrowser-tabs .tabbrowser-tab{ height: var(--tab-min-height) }
+
+#tabbrowser-tabs .tabbrowser-tab[first-visible-tab="true"][last-visible-tab="true"]{
+  visibility: collapse !important;
 }
+
+/* Button re-styling */
+#tabs-newtab-button:hover,
+#tabbrowser-tabs .tabs-newtab-button:hover{ background-color: var(--toolbarbutton-hover-background) }
+
+#tabs-newtab-button > .toolbarbutton-icon,
+#tabbrowser-tabs .tabs-newtab-button > .toolbarbutton-icon{
+  padding: 0 !important;
+  transform: scale(0.6);
+  background-color: transparent !important;
+}
+/* Extra top padding  in maximized window */
+@media (-moz-os-version: windows-win10){
+  :root[sizemode="maximized"] #navigator-toolbox{ padding-top:7px !important; }
+}
+/* Fix window controls not being clickable */
+:root[tabsintitlebar] #toolbar-menubar[autohide="true"][inactive]{
+  transition: height 0ms steps(1) 80ms;
+}
+#nav-bar{
+  border-inline: var(--uc-window-drag-space-width) solid var(--toolbar-bgcolor);
+}
+
+#+END_SRC
+
+Make urlbar appear more compact
+#+BEGIN_SRC css
+/* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/compact_urlbar_megabar.css made available under Mozilla Public License v. 2.0
+See the above repository for updates as well as full license text. */
+#urlbar[breakout]{
+  margin-inline-start: 0px !important;
+  width: 100% !important;
+  left: 0 !important;
+  top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
+}
+#urlbar[breakout]:not([open]){ bottom: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important; }
+.urlbarView{ margin-inline: 0 !important; width: auto !important; }
+.urlbarView-row{ padding: 0 2px !important; }
+.urlbarView-row-inner{ padding-inline-start: 4px !important; }
+#urlbar-background{ animation: none !important; }
+#urlbar-input-container{ padding: 0 !important; height: 100% !important; }
+#identity-box{ padding-block: var(--urlbar-icon-padding) }
+.urlbarView > .search-one-offs:not([hidden]){ padding-block: 0px !important; }
 #+END_SRC
