@@ -81,6 +81,11 @@ exec emacs --daemon
 exec safeeyes
 #+END_SRC
 
+** Mopidy
+#+BEGIN_SRC conf
+exec mopidy
+#+END_SRC
+
 * Key bindings
 ** Basics
 start a tmux in terminal
