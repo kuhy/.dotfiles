@@ -99,6 +99,16 @@ Highlight invalid spelling
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 #+END_SRC
 
+Write backups to ~/.emacs.d/backup/
+#+BEGIN_SRC elisp
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+      backup-by-copying      t  ; Don't de-link hard links
+      version-control        t  ; Use version numbers on backups
+      delete-old-versions    t  ; Automatically delete excess backups
+      kept-new-versions      20 ; how many of the newest versions to keep
+      kept-old-versions      5) ; and how many of the old
+#+END_SRC
+
 * Org
 Allow to run dot files from =org-mode=.
 #+BEGIN_SRC elisp
@@ -333,11 +343,6 @@ Cucumber support:
 (use-package feature-mode)
 #+END_SRC
 
-Support for Groovy syntax highlighting:
-#+BEGIN_SRC elisp
-(use-package groovy-mode)
-#+END_SRC
-
 Project Interaction Library
 #+BEGIN_SRC elisp
 (use-package projectile
@@ -386,7 +391,9 @@ Debug adapter protocol
   :after lsp-mode
   :config
   (dap-mode t)
-  (dap-ui-mode t))
+  (dap-ui-mode t)
+  (require 'dap-python)
+)
 #+END_SRC
 
 LSP for Java
@@ -407,6 +414,19 @@ A template system
 Groovy syntax highlighting
 #+BEGIN_SRC elisp
 (use-package groovy-mode)
+#+END_SRC
+
+Rust syntax highlighting
+#+BEGIN_SRC elisp
+(use-package rust-mode)
+#+END_SRC
+
+Haskell syntax highlighting
+#+BEGIN_SRC elisp
+(use-package haskell-mode
+  :custom (haskell-interactive-popup-errors nil)
+  :config (evil-set-initial-state 'haskell-interactive-mode 'emacs)
+)
 #+END_SRC
 
 Evil for org-mode
