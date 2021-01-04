@@ -13,31 +13,22 @@
 command=printf "%s<span font=''> </span>%s\n" "$(eval $ICON)" "$(eval $EXEC)"
 align=center
 markup=pango
-SCRIPTS_FOLDER=/home/okuhejda/.config/i3blocks
+SCRIPT_DIR=/home/kuhy/.config/i3blocks
 #+END_SRC
 
 ** Time
 #+BEGIN_SRC conf
 [Time]
-ICON=echo 
+ICON=echo 
 EXEC=date '+%a %d.%m. %T'
 interval=1
 min_width=250
 #+END_SRC
 
-** Keyboard
-#+BEGIN_SRC conf
-[Keyboard]
-ICON=echo 
-EXEC=$SCRIPTS_FOLDER/key
-interval=1
-min_width=70
-#+END_SRC
-
 ** Volume
 #+BEGIN_SRC conf
 [volume]
-ICON=echo 
+ICON=$SCRIPT_DIR/vol_ic
 EXEC=amixer | grep -m 1 -o -E [[:digit:]]+% | tr -d "%"
 interval=1
 min_width=70
@@ -46,25 +37,22 @@ min_width=70
 ** Battery
 #+BEGIN_SRC conf
 [battery]
-ICON=$SCRIPTS_FOLDER/bat_ic
-EXEC=$SCRIPTS_FOLDER/bat
+ICON=$SCRIPT_DIR/bat_ic
+EXEC=$SCRIPT_DIR/bat
 interval=10
 min_width=70
 #+END_SRC
 
 * Scripts
-** Keyboard
+** Volume icon
 :PROPERTIES:
-:header-args: :tangle ~/.config/i3blocks/key :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+:header-args: :tangle ~/.config/i3blocks/vol_ic :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
 :END:
 #+BEGIN_SRC sh
-LAYOUT=$(swaymsg -t get_inputs | grep -m 1 -o '"xkb_active_layout_name":.*",' \
-    | awk '{print  substr ($2, 2, 2)}')
-
-if [ "$LAYOUT" = En ]; then
-    echo "$LAYOUT"
+if [ "$(pacmd list-sinks | awk '/muted/ { print $2 }')" = yes ]; then
+    echo 
 else
-    echo "<span color='<<base0E>>'>$LAYOUT</span>"
+    echo 
 fi
 #+END_SRC
 
@@ -88,8 +76,8 @@ fi
 :END:
 #+BEGIN_SRC sh
 if [ "$(cat /sys/class/power_supply/BAT0/status)" = Discharging ]; then
-    echo 
+    echo 
 else
-    echo 
+    echo 
 fi
 #+END_SRC
