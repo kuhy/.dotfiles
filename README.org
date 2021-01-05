@@ -1,11 +1,34 @@
 #+TITLE: Dotfiles
 #+AUTHOR: Kuhy
 
-- [[file:editorconfig.org][EditorConfig]]
-- [[file:git.org][Git]]
-- [[file:sway.org][Sway]]
-- [[file:i3blocks.org][i3blocks]]
-- [[file:vim.org][Vim]]
+Repository contains following configuration files:
+- Editor
+  - [[file:editor/editorconfig.org][EditorConfig]]
+  - [[file:editor/emacs.org][Emacs]]
+  - +[[file:editor/vim.org][Vim]]+
+- Music
+  - [[file:music/mopidy.org][Mopidy]]
+  - +[[file:music/mpd.org][MPD]]+
+  - [[file:music/ncmpcpp.org][ncmpcpp]]
+- System
+  - [[file:system/safeeyes.org][Safe Eyes]]
+  - [[file:system/scripts.org][Scripts]]
+  - [[file:system/xdg-mime.org][XDG MIME]]
+- Terminal
+  - [[file:term/alacritty.org][Alacritty]]
+  - [[file:term/fish.org][Fish]]
+  - [[file:term/git.org][Git]]
+  - [[file:term/termite.org][Termite]]
+  - [[file:term/tmux.org][tmux]]
+- Web
+  - [[file:web/firefox.org][Firefox]]
+  - +[[file:web/qutebrowser.org][qutebrowser]]+
+- Window manager
+  - [[file:wm/i3blocks.org][i3blocks]]
+  - [[file:wm/mako.org][mako]]
+  - [[file:wm/rofi.org][Rofi]]
+  - [[file:wm/sway.org][Sway]]
+  - [[file:wm/swaylock.org][swaylock]]
 
 Variables and colors are shared between multiple files via [[file:variables.org][variables.org]].
 
@@ -16,4 +39,3 @@ You need only Emacs with =org-mode= and =git=.
 #+BEGIN_SRC sh
 curl -fsSL https://github.com/kuhy/.dotfiles/raw/master/install.sh | sh
 #+END_SRC
-
