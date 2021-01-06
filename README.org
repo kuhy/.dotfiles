@@ -16,6 +16,7 @@ Repository contains following configuration files:
   - [[file:system/xdg-mime.org][XDG MIME]]
 - Terminal
   - [[file:term/alacritty.org][Alacritty]]
+  - [[file:term/bash.org][Bash]]
   - [[file:term/fish.org][Fish]]
   - [[file:term/git.org][Git]]
   - [[file:term/termite.org][Termite]]
