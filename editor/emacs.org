@@ -648,3 +648,8 @@ Set the cursor color based on the evil state
       evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
       evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
 #+END_SRC
+
+Set color of =org-mode= verbatim
+#+BEGIN_SRC elisp
+(set-face-attribute 'org-verbatim nil :foreground "<<base0F>>")
+#+END_SRC

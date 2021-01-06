@@ -16,8 +16,8 @@ set-option -g default-shell /usr/bin/fish
 
 Add truecolor support
 #+BEGIN_SRC conf
-set -g default-terminal 'xterm-termite'
-set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
+# set -g default-terminal 'xterm-termite'
+# set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
 #+END_SRC
 
 Start windows and panes at 1, not 0
