@@ -42,9 +42,9 @@ function color_prompt() {
 :END:
 Add following folders to the path
 #+BEGIN_SRC sh
-export PATH="~/bin:${PATH}"
-export PATH="~/.local/bin:${PATH}"
-export PATH="~/.cargo/bin:${PATH}"
+export PATH="${HOME}/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/.cargo/bin:${PATH}"
 #+END_SRC
 
 Set environment variables
