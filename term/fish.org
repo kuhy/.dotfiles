@@ -45,6 +45,7 @@ alias rm 'echo "Use \'del\', or the full path i.e. \'/bin/rm\'"'
 alias rmdir 'echo "Use \'deldir\', or the full path i.e. \'/bin/rmdir\'"'
 alias del 'rmtrash'
 alias deldir 'rmdirtrash'
+alias mv 'mv -vn'
 thefuck --alias | source
 #+END_SRC
 
