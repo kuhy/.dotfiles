@@ -51,6 +51,7 @@ Set environment variables
 #+BEGIN_SRC sh
 export VISUAL='emacsclient -c -a emacs'
 export _JAVA_AWT_WM_NONREPARENTING='1'
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 #+END_SRC
 
 Source =~/.bashrc=
