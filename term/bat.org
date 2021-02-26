@@ -1,0 +1,12 @@
+#+TITLE: Bat config
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/bat/config"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+
+Use terminal colors:
+#+BEGIN_SRC conf
+--theme=base16
+#+END_SRC

@@ -18,9 +18,10 @@ Repository contains following configuration files:
 - Terminal
   - [[file:term/alacritty.org][Alacritty]]
   - [[file:term/bash.org][Bash]]
+  - [[file:term/bat.org][bat]]
   - [[file:term/fish.org][Fish]]
   - [[file:term/git.org][Git]]
-  - [[file:term/termite.org][Termite]]
+  - +[[file:term/termite.org][Termite]]+
   - [[file:term/tmux.org][tmux]]
 - Web
   - [[file:web/firefox.org][Firefox]]
