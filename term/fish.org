@@ -86,6 +86,11 @@ Use =starship= as a prompt
 starship init fish | source
 #+END_SRC
 
+Use =zoxide=
+#+BEGIN_SRC sh
+zoxide init fish | source
+#+END_SRC
+
 ** Colors
 #+BEGIN_SRC sh
 set -g fish_color_autosuggestion brblack
