@@ -326,23 +326,28 @@ bindsym $mod+r mode "resize"
 #+END_SRC
 
 ** Fn keys
+Create fifo for =wob=:
+#+BEGIN_SRC conf
+exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob --border-color $(echo '<<base0D>>' | sed -e 's/#/#FF/') --background-color $(echo '<<base00>>' | sed -e 's/#/#FF/') --bar-color $(echo '<<base07>>' | sed -e 's/#/#FF/')
+#+END_SRC
+
 Audio
 #+BEGIN_SRC conf
-bindsym XF86AudioRaiseVolume exec amixer set Master 10%+
-bindsym XF86AudioLowerVolume exec amixer set Master 10%-
-bindsym XF86AudioMute exec amixer set Master toggle
+bindsym XF86AudioRaiseVolume exec amixer sset Master 10%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
+bindsym XF86AudioLowerVolume exec amixer sset Master 10%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
+bindsym XF86AudioMute exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $SWAYSOCK.wob
 #+END_SRC
 
 Monitor brightness (https://github.com/haikarainen/light)
 #+BEGIN_SRC conf
-bindsym XF86MonBrightnessUp exec light -A 10 & light
-bindsym XF86MonBrightnessDown exec light -U 10 & light
+bindsym XF86MonBrightnessUp exec light -A 10 & light & light -G | cut -d'.' -f1 > $SWAYSOCK.wob
+bindsym XF86MonBrightnessDown exec light -U 10 & light & light -G | cut -d'.' -f1 > $SWAYSOCK.wob
 #+END_SRC
 
 Keyboard brightness
 #+BEGIN_SRC conf
-bindsym XF86KbdBrightnessDown exec light -k -U 40
-bindsym XF86KbdBrightnessUp exec light -k -A 40
+#bindsym XF86KbdBrightnessUp exec light -s 'sysfs/leds/asus::kbd_backlight' -A 40 & light & light -s 'sysfs/leds/asus::kbd_backlight' -G | cut -d'.' -f1 > $SWAYSOCK.wob
+#bindsym XF86KbdBrightnessDown exec light -s 'sysfs/leds/asus::kbd_backlight' -U 40 & light & light -s 'sysfs/leds/asus::kbd_backlight' -G | cut -d'.' -f1 > $SWAYSOCK.wob
 #+END_SRC
 
 * Appearance
