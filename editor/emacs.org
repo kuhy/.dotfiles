@@ -28,6 +28,7 @@ Load package manager, add the Melpa package registry.
 #+BEGIN_SRC elisp
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 ;(setq package-check-signature nil)
 (package-initialize)
 #+END_SRC
@@ -427,6 +428,12 @@ Haskell syntax highlighting
   :custom (haskell-interactive-popup-errors nil)
   :config (evil-set-initial-state 'haskell-interactive-mode 'emacs)
 )
+#+END_SRC
+
+Set up Emacs for R
+#+BEGIN_SRC elisp
+(add-to-list 'package-pinned-packages '(ess . "melpa-stable") t)
+(use-package ess)
 #+END_SRC
 
 Evil for org-mode
