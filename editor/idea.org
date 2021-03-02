@@ -1,0 +1,48 @@
+#+TITLE: IntelliJ IDEA config
+#+AUTHOR: Kuhy
+#+OPTIONS: prop:t
+
+* IdeaVim
+:PROPERTIES:
+:header-args: :tangle ~/.config/ideavim/ideavimrc :comments no :mkdirp yes :noweb tangle
+:END:
+
+With the =relativenumber= option, each line in your file is numbered relative to
+the cursor’s current position to show the distance to that line.
+#+BEGIN_SRC conf
+set number relativenumber
+#+END_SRC
+
+Map leader to space
+#+BEGIN_SRC conf
+let mapleader=" "
+#+END_SRC
+
+Mappings:
+#+BEGIN_SRC conf
+map <leader>c <Action>(CommentByLineComment)
+map <leader>e <Action>(ExtractMethod)
+map <leader>f <Action>(FindInPath)
+map <leader>g <Action>(Generate)
+map <leader>i <Action>(InsertLiveTemplate)
+map <leader>o <Action>(FileStructurePopup)
+map <leader>r <Action>(RenameElement)
+map <leader>s <Action>(SurroundWith)
+map <leader>u <Action>(FindUsages)
+map <leader>w <Action>(ActivateProjectToolWindow)
+#+END_SRC
+
+System clipboard support:
+#+BEGIN_SRC conf
+set clipboard+=unnamed
+nnoremap p "+p
+vnoremap p "+p
+nnoremap P "+P
+vnoremap P "+P
+#+END_SRC
+
+Set plugins:
+#+BEGIN_SRC conf
+set NERDTree
+set highlightedyank
+#+END_SRC
