@@ -11,9 +11,9 @@ Repository contains following configuration files:
   - [[file:music/mopidy.org][Mopidy]]
   - [[file:music/ncmpcpp.org][ncmpcpp]]
 - System
+  - [[file:system/mimeo.org][mimeo]]
   - [[file:system/safeeyes.org][Safe Eyes]]
   - [[file:system/scripts.org][Scripts]]
-  - [[file:system/xdg-mime.org][XDG MIME]]
 - Terminal
   - [[file:term/alacritty.org][Alacritty]]
   - [[file:term/bash.org][Bash]]
