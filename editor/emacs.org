@@ -163,6 +163,20 @@
   ;    (lambda () (org-superstar-mode 1)))
   ;)
   #+END_SRC
+
+  Enable encryption using =org-crypt=:
+  #+BEGIN_SRC elisp
+  (require 'org-crypt)
+  (require 'epa-file)
+  (epa-file-enable)
+  (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  (setq org-crypt-key "<<crypt_key>>")
+  #+END_SRC
+  This makes gpg ask gpg-agent instead of emacs:
+  #+BEGIN_SRC elisp
+  (setf epa-pinentry-mode 'ask)
+   #+END_SRC
 * Packages
   Use dashboard as a welcome screen.
   #+BEGIN_SRC elisp

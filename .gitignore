@@ -1,7 +1,7 @@
 # -*- mode: gitignore; -*-
 
-# Org mode file with secrets
-secrets.org
+# Exported org files
+*.org.org
 
 # Emacs
 *~

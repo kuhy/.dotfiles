@@ -1,3 +1,4 @@
+# -*- buffer-auto-save-file-name: nil; -*-
 #+TITLE: Variables
 #+OPTIONS: prop:t
 /Here are defined global variables for all configuration files./
@@ -159,3 +160,28 @@
    #+BEGIN_SRC conf
    Monoid Nerd Font
    #+END_SRC
+* Secrets :crypt:
+  :PROPERTIES:
+  :header-args: :tangle no
+  :END:
+-----BEGIN PGP MESSAGE-----
+
+hQIMAzw/GyStS24+AQ//UOP9rJUZe1JST0sWx9cesB3DnWRqnw4WScR74o9yYGb1
+FKdl8LxXSXUCDKLIaCqIlrditixStN65fxlhbiSHRJhxnPbYJonQLh4jlpgVvW4L
+4JUB7BaYusj//lTxt2UZhaeD+p0el+9u914cn6e8I3ZdPyROHTXe/e9Dt9kS3nHi
+hyjdYsn18W3qdKkxZ5EMKpRKMEoqhZgeLArTXlrFY/74oJiAHVJ7a4GrOddah9UH
+ojrFDZ0MPvaU6+mWlmQU3kygLMh4ddhXipCebc+q16Ty99DuWe5fTu/9M71ldhN+
+w/1lC++IRrXOh6vOEFwxoRZbgcX9nPnTkNlqmv6aZnrABbar8we5pCWM5mhXECFM
+BqoOcmackF1WuaBaWyd/OSTDizRhtta799pqLnMW/GU0Rw754wSg+Aqe3rKr0b5e
+TC0OsK5ahsmkiGq88El1J/3xlQivVmD+CqaHBmVwjiVKzNogL2xGtCuPD0DtCqAM
+8IkoxIRHmT0eY4EP/XhzyyNlWlDcLFRNdBoM4Qk3Q6vqR4dpxBW1DBtjtpHzbh9V
+aqHRqusPkuFH9vEB5xT+oBbAstgec9YjNCE3V/iwfWfekqMUIWP5+D5au971M0Au
+0O2PGC9mHlSDVTJsTmTDPUbsepvsKNZ+tDhJD1PL91A3FuSjAe6pRHqJUBvQct/S
+wE4B9QRB16eDwiDUHkCkTCIZKBvhhh5uXCQUikLJlyTe3p4KKvLiNTQciA6aC8mk
+9TpXJrhaXqM233gCu/MUKVe34YDHsq64rlBhacMYfHpcl77TftZCYfWn5TqjUwqn
++QTi+4Bm8cPb5BVAuHNzX6wmU7/yLGHb0KMMpgpj1H1usvdPuG6Jzg32i97h0HdI
+HU2DapOOakWshXGo5dFmCTGZt0JmRb9U2vyOz3oQLBD3g4LQN3ZRgs+DvC37RqRg
+KP6xGWCoZ5jiiwXDHNJhyzAHIvbWyF6ku5fFwBpI7U9rRp41+kW0W/xfY8J2f7Vu
+57uEKLF2ttG29Qrmwopew218rdLj+ikXl+A8telLTZE=
+=pFOx
+-----END PGP MESSAGE-----
