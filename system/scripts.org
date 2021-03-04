@@ -3,6 +3,7 @@
 #+OPTIONS: prop:t
 /Here are defined personal scripts./
 #+INCLUDE: "../variables.org"
+#+INCLUDE: "../secrets.org"
 * Dotfiles tangling
   :PROPERTIES:
   :header-args: :tangle ~/bin/dot-tangle :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
