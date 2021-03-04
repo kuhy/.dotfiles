@@ -14,12 +14,6 @@ set fish as a default shell
 set-option -g default-shell /usr/bin/fish
 #+END_SRC
 
-Add truecolor support
-#+BEGIN_SRC conf
-# set -g default-terminal 'xterm-termite'
-# set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
-#+END_SRC
-
 Start windows and panes at 1, not 0
 #+BEGIN_SRC conf
 set -g base-index 1
@@ -31,33 +25,36 @@ tell tmux to handle interactions with the clipboard for you
 set -g set-clipboard on
 #+END_SRC
 
-use vim shortcuts
+use emacs shortcuts in =tmux= command promt
 #+BEGIN_SRC conf
-set -g status-keys vi
+set -g status-keys emacs
 #+END_SRC
 
-set inactive/active window styles
+increase scrollback buffer size
 #+BEGIN_SRC conf
-# set -g window-style fg=colour247,bg=colour236
-# set -g window-active-style fg=colour255,bg=colour235
+set -g history-limit 50000
 #+END_SRC
 
-set the pane border colors
+=tmux= messages are displayed for 4 seconds
 #+BEGIN_SRC conf
-# set -g pane-border-style fg=colour235,bg=colour238
-# set -g pane-active-border-style fg=colour236,bg=colour250
+set -g display-time 4000
 #+END_SRC
 
-or if you a brighter active border, uncomment the following line:
+focus events enabled for terminals that support them
 #+BEGIN_SRC conf
-# set -g pane-active-border-bg colour51
+set -g focus-events on
+#+END_SRC
+
+address vim mode switching delay
+#+BEGIN_SRC conf
+set -sg escape-time 0
 #+END_SRC
 
 Configure Vim mode for navigating text and selection
 #+BEGIN_SRC conf
 setw -g mode-keys vi
 bind-key -T copy-mode-vi 'v' send -X begin-selection
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'wl-copy'
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel '<<clip_tool>>'
 bind-key -n M-c copy-mode
 #+END_SRC
 
@@ -71,6 +68,11 @@ bind-key -n M-q killp
 command execution
 #+BEGIN_SRC conf
 bind-key -n M-x command-prompt
+#+END_SRC
+
+session switching
+#+BEGIN_SRC conf
+bind-key -n M-S choose-tree -Zs
 #+END_SRC
 
 vim keybinding to move between panes
@@ -195,4 +197,23 @@ set -g message-command-style bg="<<base06>>",fg="<<base01>>"
 Mode
 #+BEGIN_SRC conf
 set -g mode-style bg="<<base06>>",fg="<<base01>>"
+#+END_SRC
+
+* Plugins
+Plugins are installed using [[https://github.com/tmux-plugins/tpm][=tpm=]].
+#+BEGIN_SRC conf
+set -g @plugin 'tmux-plugins/tpm'
+#+END_SRC
+
+Use =extrakto= for copying to clipboard:
+#+BEGIN_SRC conf
+set -g @extrakto_clip_tool "<<clip_tool>>"
+set -g @extrakto_key 'none'
+bind-key -n M-e run-shell "~/.tmux/plugins/extrakto/scripts/open.sh #{pane_id}"
+set -g @plugin 'laktak/extrakto'
+#+END_SRC
+
+Initialize TMUX plugin manager (keep this line at the very bottom of =tmux.conf=)
+#+BEGIN_SRC conf
+run '~/.tmux/plugins/tpm/tpm'
 #+END_SRC
