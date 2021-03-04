@@ -1,70 +1,67 @@
-#+TITLE: Scripts config
+#+TITLE: Scripts
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-
+/Here are defined personal scripts./
 #+INCLUDE: "../variables.org"
-
 * Orgcal
-:PROPERTIES:
-:header-args: :tangle ~/bin/orgcal :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
-:END:
-Import given org files to google calendar:
-#+BEGIN_SRC sh
-CALENDAR="$1"
+  :PROPERTIES:
+  :header-args: :tangle ~/bin/orgcal :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+  :END:
+  Import given org files to google calendar:
+  #+BEGIN_SRC sh
+  CALENDAR="$1"
 
-yes | gcalcli --refresh --calendar "$CALENDAR" delete '*'
+  yes | gcalcli --refresh --calendar "$CALENDAR" delete '*'
 
-shift
+  shift
 
-FILES=$(find "$*" -name "*.org")
+  FILES=$(find "$*" -name "*.org")
 
-emacs -Q --batch --eval "
-    (dolist (file command-line-args-left)
-        (with-current-buffer
-          (find-file-noselect file)
-          (org-icalendar-export-to-ics)
-        )
-    )" $FILES
+  emacs -Q --batch --eval "
+      (dolist (file command-line-args-left)
+          (with-current-buffer
+            (find-file-noselect file)
+            (org-icalendar-export-to-ics)
+          )
+      )" $FILES
 
-for file in "${FILES//'.org'/.ics}"; do
-    gcalcli import "$file" --calendar "$CALENDAR"
-done
-#+END_SRC
-
+  for file in "${FILES//'.org'/.ics}"; do
+      gcalcli import "$file" --calendar "$CALENDAR"
+  done
+  #+END_SRC
 * Music player
-:PROPERTIES:
-:header-args: :tangle ~/bin/mplayer :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
-:END:
-Open music player in tmux session:
-#+BEGIN_SRC sh
-if ! tmux has -t='<<music_player>>'; then
-    echo "creating <<music_player>> session"
-    tmux new-session -d -s <<music_player>> <<music_player>>
-fi
+  :PROPERTIES:
+  :header-args: :tangle ~/bin/mplayer :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+  :END:
+  Open music player in tmux session:
+  #+BEGIN_SRC sh
+  if ! tmux has -t='<<music_player>>'; then
+      echo "creating <<music_player>> session"
+      tmux new-session -d -s <<music_player>> <<music_player>>
+  fi
 
-<<terminal>> -e 'tmux attach-session -t <<music_player>>'
-#+END_SRC
-
+  <<terminal>> -e 'tmux attach-session -t <<music_player>>'
+  #+END_SRC
 * Blackify PDF
-:PROPERTIES:
-:header-args: :tangle ~/bin/blackpdf :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
-:END:
-Convert a color PDF to greyscale PDF.
-Very useful for black-and-white book readers.
-#+BEGIN_SRC sh
-for FILE in "$@"; do
-    gs \
-      -sOutputFile="$FILE".temp \
-      -sDEVICE=pdfwrite \
-      -sColorConversionStrategy=Gray \
-      -dProcessColorModel=/DeviceGray \
-      -dCompatibilityLevel=1.4 \
-      -dNOPAUSE \
-      -dBATCH \
-      "$FILE"
+  :PROPERTIES:
+  :header-args: :tangle ~/bin/blackpdf :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+  :END:
+  Convert a color PDF to greyscale PDF.
+  Very useful for black-and-white book readers.
+  #+BEGIN_SRC sh
+  for FILE in "$@"; do
+      gs \
+        -sOutputFile="$FILE".temp \
+        -sDEVICE=pdfwrite \
+        -sColorConversionStrategy=Gray \
+        -dProcessColorModel=/DeviceGray \
+        -dCompatibilityLevel=1.4 \
+        -dNOPAUSE \
+        -dBATCH \
+        "$FILE"
 
-    rm "$FILE"
+      rm "$FILE"
 
-    mv "$FILE".temp "$FILE"
-done
-#+END_SRC
+      mv "$FILE".temp "$FILE"
+  done
+  #+END_SRC

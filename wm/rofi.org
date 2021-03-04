@@ -1,195 +1,190 @@
-#+TITLE: Rofi config
+#+TITLE: Rofi
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-
+/A window switcher, application launcher and dmenu replacement/
 #+INCLUDE: "../variables.org"
-
 * General
-:PROPERTIES:
-:header-args: :tangle ~/.config/rofi/config :comments both :mkdirp yes :noweb tangle
-:END:
-#+BEGIN_SRC css
-rofi.theme: ~/.config/rofi/theme.rasi
-#+END_SRC
-
+  :PROPERTIES:
+  :header-args: :tangle ~/.config/rofi/config :comments both :mkdirp yes :noweb tangle
+  :END:
+  #+BEGIN_SRC css
+  rofi.theme: ~/.config/rofi/theme.rasi
+  #+END_SRC
 * Theme
-:PROPERTIES:
-:header-args: :tangle ~/.config/rofi/theme.rasi :comments both :mkdirp yes :noweb tangle
-:END:
-New rofi theme format:
-#+BEGIN_SRC css
-,* {
-    red:                         <<base08>>;
-    blue:                        <<base0D>>;
-    lightfg:                     <<base06>>;
-    lightbg:                     <<base01>>;
-    foreground:                  <<base05>>;
-    background:                  <<base00>>;
-    background-color:            <<base00>>00;
-    separatorcolor:              @foreground;
-    border-color:                @foreground;
-    selected-normal-foreground:  @lightbg;
-    selected-normal-background:  @lightfg;
-    selected-active-foreground:  @background;
-    selected-active-background:  @blue;
-    selected-urgent-foreground:  @background;
-    selected-urgent-background:  @red;
-    normal-foreground:           @foreground;
-    normal-background:           @background;
-    active-foreground:           @blue;
-    active-background:           @background;
-    urgent-foreground:           @red;
-    urgent-background:           @background;
-    alternate-normal-foreground: @foreground;
-    alternate-normal-background: @lightbg;
-    alternate-active-foreground: @blue;
-    alternate-active-background: @lightbg;
-    alternate-urgent-foreground: @red;
-    alternate-urgent-background: @lightbg;
-    spacing:                     2;
-    font:                        "<<font>> 11";
-}
-window {
-    background-color: @background;
-    border:           1;
-    padding:          5;
-}
-mainbox {
-    border:           0;
-    padding:          0;
-}
-message {
-    border:           1px dash 0px 0px ;
-    border-color:     @separatorcolor;
-    padding:          1px ;
-}
-textbox {
-    text-color:       @foreground;
-}
-listview {
-    fixed-height:     0;
-    border:           2px dash 0px 0px ;
-    border-color:     @separatorcolor;
-    spacing:          2px ;
-    scrollbar:        true;
-    padding:          2px 0px 0px ;
-}
-element {
-    border:           0;
-    padding:          1px ;
-}
-element normal.normal {
-    background-color: @normal-background;
-    text-color:       @normal-foreground;
-}
-element normal.urgent {
-    background-color: @urgent-background;
-    text-color:       @urgent-foreground;
-}
-element normal.active {
-    background-color: @active-background;
-    text-color:       @active-foreground;
-}
-element selected.normal {
-    background-color: @selected-normal-background;
-    text-color:       @selected-normal-foreground;
-}
-element selected.urgent {
-    background-color: @selected-urgent-background;
-    text-color:       @selected-urgent-foreground;
-}
-element selected.active {
-    background-color: @selected-active-background;
-    text-color:       @selected-active-foreground;
-}
-element alternate.normal {
-    background-color: @alternate-normal-background;
-    text-color:       @alternate-normal-foreground;
-}
-element alternate.urgent {
-    background-color: @alternate-urgent-background;
-    text-color:       @alternate-urgent-foreground;
-}
-element alternate.active {
-    background-color: @alternate-active-background;
-    text-color:       @alternate-active-foreground;
-}
-scrollbar {
-    width:            4px ;
-    border:           0;
-    handle-color:     @normal-foreground;
-    handle-width:     8px ;
-    padding:          0;
-}
-sidebar {
-    border:           2px dash 0px 0px ;
-    border-color:     @separatorcolor;
-}
-button {
-    spacing:          0;
-    text-color:       @normal-foreground;
-}
-button selected {
-    background-color: @selected-normal-background;
-    text-color:       @selected-normal-foreground;
-}
-inputbar {
-    spacing:          0px;
-    text-color:       @normal-foreground;
-    padding:          1px ;
-    children:         [ prompt,textbox-prompt-colon,entry,case-indicator ];
-}
-case-indicator {
-    spacing:          0;
-    text-color:       @normal-foreground;
-}
-entry {
-    spacing:          0;
-    text-color:       @normal-foreground;
-}
-prompt {
-    spacing:          0;
-    text-color:       @normal-foreground;
-}
-textbox-prompt-colon {
-    expand:           false;
-    str:              ":";
-    margin:           0px 0.3000em 0.0000em 0.0000em ;
-    text-color:       inherit;
-}
-#+END_SRC
-
+  :PROPERTIES:
+  :header-args: :tangle ~/.config/rofi/theme.rasi :comments both :mkdirp yes :noweb tangle
+  :END:
+  New rofi theme format:
+  #+BEGIN_SRC css
+  ,* {
+      red:                         <<base08>>;
+      blue:                        <<base0D>>;
+      lightfg:                     <<base06>>;
+      lightbg:                     <<base01>>;
+      foreground:                  <<base05>>;
+      background:                  <<base00>>;
+      background-color:            <<base00>>00;
+      separatorcolor:              @foreground;
+      border-color:                @foreground;
+      selected-normal-foreground:  @lightbg;
+      selected-normal-background:  @lightfg;
+      selected-active-foreground:  @background;
+      selected-active-background:  @blue;
+      selected-urgent-foreground:  @background;
+      selected-urgent-background:  @red;
+      normal-foreground:           @foreground;
+      normal-background:           @background;
+      active-foreground:           @blue;
+      active-background:           @background;
+      urgent-foreground:           @red;
+      urgent-background:           @background;
+      alternate-normal-foreground: @foreground;
+      alternate-normal-background: @lightbg;
+      alternate-active-foreground: @blue;
+      alternate-active-background: @lightbg;
+      alternate-urgent-foreground: @red;
+      alternate-urgent-background: @lightbg;
+      spacing:                     2;
+      font:                        "<<font>> 11";
+  }
+  window {
+      background-color: @background;
+      border:           1;
+      padding:          5;
+  }
+  mainbox {
+      border:           0;
+      padding:          0;
+  }
+  message {
+      border:           1px dash 0px 0px ;
+      border-color:     @separatorcolor;
+      padding:          1px ;
+  }
+  textbox {
+      text-color:       @foreground;
+  }
+  listview {
+      fixed-height:     0;
+      border:           2px dash 0px 0px ;
+      border-color:     @separatorcolor;
+      spacing:          2px ;
+      scrollbar:        true;
+      padding:          2px 0px 0px ;
+  }
+  element {
+      border:           0;
+      padding:          1px ;
+  }
+  element normal.normal {
+      background-color: @normal-background;
+      text-color:       @normal-foreground;
+  }
+  element normal.urgent {
+      background-color: @urgent-background;
+      text-color:       @urgent-foreground;
+  }
+  element normal.active {
+      background-color: @active-background;
+      text-color:       @active-foreground;
+  }
+  element selected.normal {
+      background-color: @selected-normal-background;
+      text-color:       @selected-normal-foreground;
+  }
+  element selected.urgent {
+      background-color: @selected-urgent-background;
+      text-color:       @selected-urgent-foreground;
+  }
+  element selected.active {
+      background-color: @selected-active-background;
+      text-color:       @selected-active-foreground;
+  }
+  element alternate.normal {
+      background-color: @alternate-normal-background;
+      text-color:       @alternate-normal-foreground;
+  }
+  element alternate.urgent {
+      background-color: @alternate-urgent-background;
+      text-color:       @alternate-urgent-foreground;
+  }
+  element alternate.active {
+      background-color: @alternate-active-background;
+      text-color:       @alternate-active-foreground;
+  }
+  scrollbar {
+      width:            4px ;
+      border:           0;
+      handle-color:     @normal-foreground;
+      handle-width:     8px ;
+      padding:          0;
+  }
+  sidebar {
+      border:           2px dash 0px 0px ;
+      border-color:     @separatorcolor;
+  }
+  button {
+      spacing:          0;
+      text-color:       @normal-foreground;
+  }
+  button selected {
+      background-color: @selected-normal-background;
+      text-color:       @selected-normal-foreground;
+  }
+  inputbar {
+      spacing:          0px;
+      text-color:       @normal-foreground;
+      padding:          1px ;
+      children:         [ prompt,textbox-prompt-colon,entry,case-indicator ];
+  }
+  case-indicator {
+      spacing:          0;
+      text-color:       @normal-foreground;
+  }
+  entry {
+      spacing:          0;
+      text-color:       @normal-foreground;
+  }
+  prompt {
+      spacing:          0;
+      text-color:       @normal-foreground;
+  }
+  textbox-prompt-colon {
+      expand:           false;
+      str:              ":";
+      margin:           0px 0.3000em 0.0000em 0.0000em ;
+      text-color:       inherit;
+  }
+  #+END_SRC
 * Scripts
 ** Window switcher
-:PROPERTIES:
-:header-args: :tangle ~/.config/rofi/window.sh :comments no :mkdirp yes :noweb tangle
-:END:
-Switches selected window:
-#+BEGIN_SRC sh
-#!/usr/bin/env bash
-windows=$(swaymsg -t get_tree | jq -r 'recurse(.nodes[]?)|recurse(.floating_nodes[]?)|select(.type=="con"),select(.type=="floating_con")|(.id|tostring)+" "+.app_id+": "+.name')
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/rofi/window.sh :comments no :mkdirp yes :noweb tangle
+   :END:
+   Switches selected window:
+   #+BEGIN_SRC sh
+   #!/usr/bin/env bash
+   windows=$(swaymsg -t get_tree | jq -r 'recurse(.nodes[]?)|recurse(.floating_nodes[]?)|select(.type=="con"),select(.type=="floating_con")|(.id|tostring)+" "+.app_id+": "+.name')
 
-selected=$(echo "$windows" | rofi -dmenu -i -p 'window' | awk '{print $1}')
+   selected=$(echo "$windows" | rofi -dmenu -i -p 'window' | awk '{print $1}')
 
-swaymsg [con_id="$selected"] focus
-#+END_SRC
-
+   swaymsg [con_id="$selected"] focus
+   #+END_SRC
 ** File finder
-:PROPERTIES:
-:header-args: :tangle ~/.config/rofi/find.sh :comments no :mkdirp yes :noweb tangle
-:END:
-Opens file from home directory:
-#+BEGIN_SRC sh
-#!/usr/bin/env bash
-find ~ | sed 's/ /\\ /g' | rofi -dmenu -i -p 'find' | xargs -r <<opener>>
-#+END_SRC
-
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/rofi/find.sh :comments no :mkdirp yes :noweb tangle
+   :END:
+   Opens file from home directory:
+   #+BEGIN_SRC sh
+   #!/usr/bin/env bash
+   find ~ | sed 's/ /\\ /g' | rofi -dmenu -i -p 'find' | xargs -r <<opener>>
+   #+END_SRC
 ** App launcher
-:PROPERTIES:
-:header-args: :tangle ~/.config/rofi/run.sh :comments no :mkdirp yes :noweb tangle
-:END:
-Run command:
-#+BEGIN_SRC sh
-#!/usr/bin/env bash
-eval $(ls /usr/bin/ | rofi -dmenu -i -p 'run')
-#+END_SRC
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/rofi/run.sh :comments no :mkdirp yes :noweb tangle
+   :END:
+   Run command:
+   #+BEGIN_SRC sh
+   #!/usr/bin/env bash
+   eval $(ls /usr/bin/ | rofi -dmenu -i -p 'run')
+   #+END_SRC

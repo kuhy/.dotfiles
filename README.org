@@ -1,6 +1,5 @@
 #+TITLE: Dotfiles
 #+AUTHOR: Kuhy
-
 Repository contains following configuration files:
 - Editor
   - [[file:editor/editorconfig.org][EditorConfig]]
@@ -31,11 +30,9 @@ Repository contains following configuration files:
   - [[file:wm/swaylock.org][swaylock]]
 
 Variables and colors are shared between multiple files via [[file:variables.org][variables.org]].
-
 * Prerequisites
-You need only Emacs with =org-mode= and =git=.
-
+  You need only Emacs with =org-mode= and =git=.
 * Instalation
-#+BEGIN_SRC sh
-curl -fsSL https://github.com/kuhy/.dotfiles/raw/master/install.sh | sh
-#+END_SRC
+  #+BEGIN_SRC sh
+  curl -fsSL https://github.com/kuhy/.dotfiles/raw/master/install.sh | sh
+  #+END_SRC

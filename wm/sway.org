@@ -1,413 +1,393 @@
-#+TITLE: Sway config
+#+TITLE: Sway
 #+AUTHOR: Kuhy
 #+PROPERTY: header-args+ :comments yes
 #+PROPERTY: header-args+ :mkdirp yes
 #+PROPERTY: header-args+ :tangle "~/.config/sway/config"
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
-
+/Tiling Wayland compositor and replacement for the i3 window manager/
 #+INCLUDE: "../variables.org"
-
 * Variables
-Logo key. Use Mod1 for Alt.
-#+BEGIN_SRC conf
-set $mod Mod4
-#+END_SRC
+  Logo key. Use Mod1 for Alt.
+  #+BEGIN_SRC conf
+  set $mod Mod4
+  #+END_SRC
 
-Home row direction keys, like vim
-#+BEGIN_SRC conf
-set $left h
-set $down j
-set $up k
-set $right l
-#+END_SRC
+  Home row direction keys, like vim
+  #+BEGIN_SRC conf
+  set $left h
+  set $down j
+  set $up k
+  set $right l
+  #+END_SRC
 
-Shortcut for opening applications
-#+BEGIN_SRC conf
-set $open exec <<launcher>>
-#+END_SRC
-
+  Shortcut for opening applications
+  #+BEGIN_SRC conf
+  set $open exec <<launcher>>
+  #+END_SRC
 * IO
-Set keyboard layout:
-#+BEGIN_SRC conf
-input * {
-    xkb_layout cz
-    xkb_variant coder
-    xkb_options ctrl:nocaps
-#+END_SRC
+  Set keyboard layout:
+  #+BEGIN_SRC conf
+  input * {
+      xkb_layout cz
+      xkb_variant coder
+      xkb_options ctrl:nocaps
+  #+END_SRC
 
-Setup touchpad:
-#+BEGIN_SRC conf
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-}
-#+END_SRC
-
+  Setup touchpad:
+  #+BEGIN_SRC conf
+      dwt enabled
+      tap enabled
+      natural_scroll enabled
+      middle_emulation enabled
+  }
+  #+END_SRC
 * Daemons
 ** Notifications
-start mako
-#+BEGIN_SRC conf
-exec mako
-#+END_SRC
-
+   start mako
+   #+BEGIN_SRC conf
+   exec mako
+   #+END_SRC
 ** Redshift
-start redshift
-#+BEGIN_SRC conf
-exec redshift -l $(curl ipinfo.io | jq -j .loc | tr ',' ':') -m wayland
-#+END_SRC
-
+   start redshift
+   #+BEGIN_SRC conf
+   exec redshift -l $(curl ipinfo.io | jq -j .loc | tr ',' ':') -m wayland
+   #+END_SRC
 ** Idle
-This will lock your screen after 300 seconds of inactivity, then turn off
-your displays after another 300 seconds, and turn your screens back on when
-resumed. It will also lock your screen before your computer goes to sleep.
-#+BEGIN_SRC conf
-#exec swayidle -w \
-#       timeout 300 'sh ~/.config/swaylock/lock.sh' \
-#       timeout 600 'swaymsg "output * dpms off"' \
-#            resume 'swaymsg "output * dpms on"' \
-#       before-sleep 'sh ~/.config/swaylock/lock.sh'
-#+END_SRC
-
+   This will lock your screen after 300 seconds of inactivity, then turn off
+   your displays after another 300 seconds, and turn your screens back on when
+   resumed. It will also lock your screen before your computer goes to sleep.
+   #+BEGIN_SRC conf
+   #exec swayidle -w \
+   #       timeout 300 'sh ~/.config/swaylock/lock.sh' \
+   #       timeout 600 'swaymsg "output * dpms off"' \
+   #            resume 'swaymsg "output * dpms on"' \
+   #       before-sleep 'sh ~/.config/swaylock/lock.sh'
+   #+END_SRC
 ** Emacs daemon
-Run emacs in background so I can use emacsclient:
-#+BEGIN_SRC conf
-exec emacs --daemon
-#+END_SRC
-
+   Run emacs in background so I can use emacsclient:
+   #+BEGIN_SRC conf
+   exec emacs --daemon
+   #+END_SRC
 ** Safe Eyes
-#+BEGIN_SRC conf
-exec safeeyes
-#+END_SRC
-
+   #+BEGIN_SRC conf
+   exec safeeyes
+   #+END_SRC
 ** Mopidy
-#+BEGIN_SRC conf
-exec mopidy
-#+END_SRC
-
+   #+BEGIN_SRC conf
+   exec mopidy
+   #+END_SRC
 * Key bindings
 ** Basics
-start a tmux in terminal
-#+BEGIN_SRC conf
-    bindsym $mod+Return exec <<terminal>> -e tmux -2
-#+END_SRC
+   start a tmux in terminal
+   #+BEGIN_SRC conf
+       bindsym $mod+Return exec <<terminal>> -e tmux -2
+   #+END_SRC
 
-attach a tmux session
-#+BEGIN_SRC conf
-    bindsym $mod+u exec <<terminal>> -e tmux -2 attach
-#+END_SRC
+   attach a tmux session
+   #+BEGIN_SRC conf
+       bindsym $mod+u exec <<terminal>> -e tmux -2 attach
+   #+END_SRC
 
-start a terminal
-#+BEGIN_SRC conf
-    bindsym $mod+t exec <<terminal>> -e fish
-#+END_SRC
+   start a terminal
+   #+BEGIN_SRC conf
+       bindsym $mod+t exec <<terminal>> -e fish
+   #+END_SRC
 
-kill focused window
-#+BEGIN_SRC conf
-    bindsym $mod+Shift+q kill
-#+END_SRC
+   kill focused window
+   #+BEGIN_SRC conf
+       bindsym $mod+Shift+q kill
+   #+END_SRC
 
-start your web browser
-#+BEGIN_SRC conf
-    bindsym $mod+w $open <<web_browser>>
-#+END_SRC
+   start your web browser
+   #+BEGIN_SRC conf
+       bindsym $mod+w $open <<web_browser>>
+   #+END_SRC
 
-start your file browser
-#+BEGIN_SRC conf
-    bindsym $mod+f $open <<file_browser>>
-#+END_SRC
+   start your file browser
+   #+BEGIN_SRC conf
+       bindsym $mod+f $open <<file_browser>>
+   #+END_SRC
 
-start emacs
-#+BEGIN_SRC conf
-    bindsym $mod+e exec eval $VISUAL
-#+END_SRC
+   start emacs
+   #+BEGIN_SRC conf
+       bindsym $mod+e exec eval $VISUAL
+   #+END_SRC
 
-attach tmux session with music player
-#+BEGIN_SRC conf
-    bindsym $mod+m exec sh ~/bin/mplayer
-#+END_SRC
+   attach tmux session with music player
+   #+BEGIN_SRC conf
+       bindsym $mod+m exec sh ~/bin/mplayer
+   #+END_SRC
 
-Drag floating windows by holding down $mod and left mouse button.
-Resize them with right mouse button + $mod.
-Despite the name, also works for non-floating windows.
-Change normal to inverse to use left mouse button for resizing and right
-mouse button for dragging.
-#+BEGIN_SRC conf
-    floating_modifier $mod normal
-#+END_SRC
+   Drag floating windows by holding down $mod and left mouse button.
+   Resize them with right mouse button + $mod.
+   Despite the name, also works for non-floating windows.
+   Change normal to inverse to use left mouse button for resizing and right
+   mouse button for dragging.
+   #+BEGIN_SRC conf
+       floating_modifier $mod normal
+   #+END_SRC
 
-reload the configuration file
-#+BEGIN_SRC conf
-    bindsym $mod+Shift+c reload
-#+END_SRC
+   reload the configuration file
+   #+BEGIN_SRC conf
+       bindsym $mod+Shift+c reload
+   #+END_SRC
 
-print screen
-#+BEGIN_SRC conf
-    bindsym Print exec grim ~/Pictures/screen-shots/$(date +%F-%H:%M-%S).png
-#+END_SRC
+   print screen
+   #+BEGIN_SRC conf
+       bindsym Print exec grim ~/Pictures/screen-shots/$(date +%F-%H:%M-%S).png
+   #+END_SRC
 
-exit sway (logs you out of your Wayland session)
-#+BEGIN_SRC conf
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+   exit sway (logs you out of your Wayland session)
+   #+BEGIN_SRC conf
+       bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
-bindsym $mod+Shift+p exec swaynag -t warning -m 'Power-off?' -b 'Yes' 'shutdown -P "now"'
+   bindsym $mod+Shift+p exec swaynag -t warning -m 'Power-off?' -b 'Yes' 'shutdown -P "now"'
 
-bindsym $mod+Shift+r exec swaynag -t warning -m 'Reboot?' -b 'Yes' 'shutdown -r "now"'
-#+END_SRC
+   bindsym $mod+Shift+r exec swaynag -t warning -m 'Reboot?' -b 'Yes' 'shutdown -r "now"'
+   #+END_SRC
 
-lock screen
-#+BEGIN_SRC conf
-bindsym $mod+Shift+s exec sh ~/.config/swaylock/lock.sh
-#+END_SRC
-
+   lock screen
+   #+BEGIN_SRC conf
+   bindsym $mod+Shift+s exec sh ~/.config/swaylock/lock.sh
+   #+END_SRC
 ** Rofi scripts
-start your app launcher
-#+BEGIN_SRC conf
-    bindsym $mod+f1 exec sh ~/.config/rofi/run.sh
-#+END_SRC
+   start your app launcher
+   #+BEGIN_SRC conf
+       bindsym $mod+f1 exec sh ~/.config/rofi/run.sh
+   #+END_SRC
 
-open file from home directory
-#+BEGIN_SRC conf
-    bindsym $mod+f2 exec sh ~/.config/rofi/find.sh
-#+END_SRC
+   open file from home directory
+   #+BEGIN_SRC conf
+       bindsym $mod+f2 exec sh ~/.config/rofi/find.sh
+   #+END_SRC
 
-switch window
-#+BEGIN_SRC conf
-    bindsym $mod+f3 exec sh ~/.config/rofi/window.sh
-#+END_SRC
-
+   switch window
+   #+BEGIN_SRC conf
+       bindsym $mod+f3 exec sh ~/.config/rofi/window.sh
+   #+END_SRC
 ** Moving around
-Move your focus around
-#+BEGIN_SRC conf
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
-#+END_SRC
-or use $mod+[up|down|left|right]
-#+BEGIN_SRC conf
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
-#+END_SRC
+   Move your focus around
+   #+BEGIN_SRC conf
+       bindsym $mod+$left focus left
+       bindsym $mod+$down focus down
+       bindsym $mod+$up focus up
+       bindsym $mod+$right focus right
+   #+END_SRC
+   or use $mod+[up|down|left|right]
+   #+BEGIN_SRC conf
+       bindsym $mod+Left focus left
+       bindsym $mod+Down focus down
+       bindsym $mod+Up focus up
+       bindsym $mod+Right focus right
+   #+END_SRC
 
-move the focused window with the same, but add Shift
-#+BEGIN_SRC conf
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-#+END_SRC
+   move the focused window with the same, but add Shift
+   #+BEGIN_SRC conf
+       bindsym $mod+Shift+$left move left
+       bindsym $mod+Shift+$down move down
+       bindsym $mod+Shift+$up move up
+       bindsym $mod+Shift+$right move right
+   #+END_SRC
 
-ditto, with arrow keys
-#+BEGIN_SRC conf
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-#+END_SRC
-
+   ditto, with arrow keys
+   #+BEGIN_SRC conf
+       bindsym $mod+Shift+Left move left
+       bindsym $mod+Shift+Down move down
+       bindsym $mod+Shift+Up move up
+       bindsym $mod+Shift+Right move right
+   #+END_SRC
 ** Workspaces
-switch to workspace
-#+BEGIN_SRC conf
-    bindsym $mod+1 workspace 1
-    bindsym $mod+2 workspace 2
-    bindsym $mod+3 workspace 3
-    bindsym $mod+4 workspace 4
-    bindsym $mod+5 workspace 5
-    bindsym $mod+6 workspace 6
-    bindsym $mod+7 workspace 7
-    bindsym $mod+8 workspace 8
-    bindsym $mod+9 workspace 9
-    bindsym $mod+0 workspace 10
-#+END_SRC
+   switch to workspace
+   #+BEGIN_SRC conf
+       bindsym $mod+1 workspace 1
+       bindsym $mod+2 workspace 2
+       bindsym $mod+3 workspace 3
+       bindsym $mod+4 workspace 4
+       bindsym $mod+5 workspace 5
+       bindsym $mod+6 workspace 6
+       bindsym $mod+7 workspace 7
+       bindsym $mod+8 workspace 8
+       bindsym $mod+9 workspace 9
+       bindsym $mod+0 workspace 10
+   #+END_SRC
 
-move focused container to workspace
-#+BEGIN_SRC conf
-    bindsym $mod+Shift+1 move container to workspace 1
-    bindsym $mod+Shift+2 move container to workspace 2
-    bindsym $mod+Shift+3 move container to workspace 3
-    bindsym $mod+Shift+4 move container to workspace 4
-    bindsym $mod+Shift+5 move container to workspace 5
-    bindsym $mod+Shift+6 move container to workspace 6
-    bindsym $mod+Shift+7 move container to workspace 7
-    bindsym $mod+Shift+8 move container to workspace 8
-    bindsym $mod+Shift+9 move container to workspace 9
-    bindsym $mod+Shift+0 move container to workspace 10
-#+END_SRC
-Note: workspaces can have any name you want, not just numbers.
-We just use 1-10 as the default.
-
+   move focused container to workspace
+   #+BEGIN_SRC conf
+       bindsym $mod+Shift+1 move container to workspace 1
+       bindsym $mod+Shift+2 move container to workspace 2
+       bindsym $mod+Shift+3 move container to workspace 3
+       bindsym $mod+Shift+4 move container to workspace 4
+       bindsym $mod+Shift+5 move container to workspace 5
+       bindsym $mod+Shift+6 move container to workspace 6
+       bindsym $mod+Shift+7 move container to workspace 7
+       bindsym $mod+Shift+8 move container to workspace 8
+       bindsym $mod+Shift+9 move container to workspace 9
+       bindsym $mod+Shift+0 move container to workspace 10
+   #+END_SRC
+   Note: workspaces can have any name you want, not just numbers.
+   We just use 1-10 as the default.
 ** Layout stuff:
-You can "split" the current object of your focus with
-$mod+b or $mod+v, for horizontal and vertical splits
-respectively.
-#+BEGIN_SRC conf
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
-#+END_SRC
+   You can "split" the current object of your focus with
+   $mod+b or $mod+v, for horizontal and vertical splits
+   respectively.
+   #+BEGIN_SRC conf
+       bindsym $mod+b splith
+       bindsym $mod+v splitv
+   #+END_SRC
 
-Switch the current container between different layout styles
-#+BEGIN_SRC conf
-    bindsym $mod+s layout stacking
-    bindsym $mod+c layout toggle split
-#+END_SRC
+   Switch the current container between different layout styles
+   #+BEGIN_SRC conf
+       bindsym $mod+s layout stacking
+       bindsym $mod+c layout toggle split
+   #+END_SRC
 
-Make the current focus fullscreen
-#+BEGIN_SRC conf
-    bindsym $mod+Shift+f fullscreen
-#+END_SRC
+   Make the current focus fullscreen
+   #+BEGIN_SRC conf
+       bindsym $mod+Shift+f fullscreen
+   #+END_SRC
 
-Toggle the current focus between tiling and floating mode
-#+BEGIN_SRC conf
-    bindsym $mod+Shift+space floating toggle
-#+END_SRC
+   Toggle the current focus between tiling and floating mode
+   #+BEGIN_SRC conf
+       bindsym $mod+Shift+space floating toggle
+   #+END_SRC
 
-Swap focus between the tiling area and the floating area
-#+BEGIN_SRC conf
-    bindsym $mod+space focus mode_toggle
-#+END_SRC
+   Swap focus between the tiling area and the floating area
+   #+BEGIN_SRC conf
+       bindsym $mod+space focus mode_toggle
+   #+END_SRC
 
-move focus to the parent container
-#+BEGIN_SRC conf
-    bindsym $mod+a focus parent
-#+END_SRC
-
+   move focus to the parent container
+   #+BEGIN_SRC conf
+       bindsym $mod+a focus parent
+   #+END_SRC
 ** Scratchpad
-Sway has a "scratchpad", which is a bag of holding for windows.
-You can send windows there and get them back later.
+   Sway has a "scratchpad", which is a bag of holding for windows.
+   You can send windows there and get them back later.
 
-Move the currently focused window to the scratchpad
-#+BEGIN_SRC conf
-    bindsym $mod+Shift+minus move scratchpad
-#+END_SRC
+   Move the currently focused window to the scratchpad
+   #+BEGIN_SRC conf
+       bindsym $mod+Shift+minus move scratchpad
+   #+END_SRC
 
-Show the next scratchpad window or hide the focused scratchpad window.
-If there are multiple scratchpad windows, this command cycles through them.
-#+BEGIN_SRC conf
-    bindsym $mod+minus scratchpad show
-#+END_SRC
-
+   Show the next scratchpad window or hide the focused scratchpad window.
+   If there are multiple scratchpad windows, this command cycles through them.
+   #+BEGIN_SRC conf
+       bindsym $mod+minus scratchpad show
+   #+END_SRC
 ** Resizing containers:
-#+BEGIN_SRC conf
-mode "resize" {
-#+END_SRC
-left will shrink the containers width
-right will grow the containers width
-up will shrink the containers height
-down will grow the containers height
-#+BEGIN_SRC conf
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-#+END_SRC
+   #+BEGIN_SRC conf
+   mode "resize" {
+   #+END_SRC
+   left will shrink the containers width
+   right will grow the containers width
+   up will shrink the containers height
+   down will grow the containers height
+   #+BEGIN_SRC conf
+       bindsym $left resize shrink width 10px
+       bindsym $down resize grow height 10px
+       bindsym $up resize shrink height 10px
+       bindsym $right resize grow width 10px
+   #+END_SRC
 
-ditto, with arrow keys
-#+BEGIN_SRC conf
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-#+END_SRC
+   ditto, with arrow keys
+   #+BEGIN_SRC conf
+       bindsym Left resize shrink width 10px
+       bindsym Down resize grow height 10px
+       bindsym Up resize shrink height 10px
+       bindsym Right resize grow width 10px
+   #+END_SRC
 
-return to default mode
-#+BEGIN_SRC conf
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-#+END_SRC
+   return to default mode
+   #+BEGIN_SRC conf
+       bindsym Return mode "default"
+       bindsym Escape mode "default"
+   }
+   #+END_SRC
 
-enter resize mode
-#+BEGIN_SRC conf
-bindsym $mod+r mode "resize"
-#+END_SRC
-
+   enter resize mode
+   #+BEGIN_SRC conf
+   bindsym $mod+r mode "resize"
+   #+END_SRC
 ** Fn keys
-Create fifo for =wob=:
-#+BEGIN_SRC conf
-exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob --border-color $(echo '<<base0D>>' | sed -e 's/#/#FF/') --background-color $(echo '<<base00>>' | sed -e 's/#/#FF/') --bar-color $(echo '<<base07>>' | sed -e 's/#/#FF/')
-#+END_SRC
+   Create fifo for =wob=:
+   #+BEGIN_SRC conf
+   exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob --border-color $(echo '<<base0D>>' | sed -e 's/#/#FF/') --background-color $(echo '<<base00>>' | sed -e 's/#/#FF/') --bar-color $(echo '<<base07>>' | sed -e 's/#/#FF/')
+   #+END_SRC
 
-Audio
-#+BEGIN_SRC conf
-bindsym XF86AudioRaiseVolume exec amixer sset Master 10%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
-bindsym XF86AudioLowerVolume exec amixer sset Master 10%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
-bindsym XF86AudioMute exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $SWAYSOCK.wob
-#+END_SRC
+   Audio
+   #+BEGIN_SRC conf
+   bindsym XF86AudioRaiseVolume exec amixer sset Master 10%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
+   bindsym XF86AudioLowerVolume exec amixer sset Master 10%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
+   bindsym XF86AudioMute exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $SWAYSOCK.wob
+   #+END_SRC
 
-Monitor brightness (https://github.com/haikarainen/light)
-#+BEGIN_SRC conf
-bindsym XF86MonBrightnessUp exec light -A 10 & light & light -G | cut -d'.' -f1 > $SWAYSOCK.wob
-bindsym XF86MonBrightnessDown exec light -U 10 & light & light -G | cut -d'.' -f1 > $SWAYSOCK.wob
-#+END_SRC
+   Monitor brightness (https://github.com/haikarainen/light)
+   #+BEGIN_SRC conf
+   bindsym XF86MonBrightnessUp exec light -A 10 & light & light -G | cut -d'.' -f1 > $SWAYSOCK.wob
+   bindsym XF86MonBrightnessDown exec light -U 10 & light & light -G | cut -d'.' -f1 > $SWAYSOCK.wob
+   #+END_SRC
 
-Keyboard brightness
-#+BEGIN_SRC conf
-#bindsym XF86KbdBrightnessUp exec light -s 'sysfs/leds/asus::kbd_backlight' -A 40 & light & light -s 'sysfs/leds/asus::kbd_backlight' -G | cut -d'.' -f1 > $SWAYSOCK.wob
-#bindsym XF86KbdBrightnessDown exec light -s 'sysfs/leds/asus::kbd_backlight' -U 40 & light & light -s 'sysfs/leds/asus::kbd_backlight' -G | cut -d'.' -f1 > $SWAYSOCK.wob
-#+END_SRC
-
+   Keyboard brightness
+   #+BEGIN_SRC conf
+   #bindsym XF86KbdBrightnessUp exec light -s 'sysfs/leds/asus::kbd_backlight' -A 40 & light & light -s 'sysfs/leds/asus::kbd_backlight' -G | cut -d'.' -f1 > $SWAYSOCK.wob
+   #bindsym XF86KbdBrightnessDown exec light -s 'sysfs/leds/asus::kbd_backlight' -U 40 & light & light -s 'sysfs/leds/asus::kbd_backlight' -G | cut -d'.' -f1 > $SWAYSOCK.wob
+   #+END_SRC
 * Appearance
 ** Colors
-Set background color
-#+BEGIN_SRC conf
-output * bg <<base03>> solid_color
-#+END_SRC
+   Set background color
+   #+BEGIN_SRC conf
+   output * bg <<base03>> solid_color
+   #+END_SRC
 
-#+BEGIN_SRC conf
-# Property Name         Border  BG      Text    Indicator Child Border
-client.focused          <<base05>> <<base0D>> <<base00>> <<base0D>> <<base0D>>
-client.focused_inactive <<base01>> <<base01>> <<base05>> <<base03>> <<base01>>
-client.unfocused        <<base01>> <<base00>> <<base05>> <<base01>> <<base01>>
-client.urgent           <<base08>> <<base08>> <<base00>> <<base08>> <<base08>>
-client.placeholder      <<base00>> <<base00>> <<base05>> <<base00>> <<base00>>
-client.background       <<base07>>
-#+END_SRC
-
+   #+BEGIN_SRC conf
+   # Property Name         Border  BG      Text    Indicator Child Border
+   client.focused          <<base05>> <<base0D>> <<base00>> <<base0D>> <<base0D>>
+   client.focused_inactive <<base01>> <<base01>> <<base05>> <<base03>> <<base01>>
+   client.unfocused        <<base01>> <<base00>> <<base05>> <<base01>> <<base01>>
+   client.urgent           <<base08>> <<base08>> <<base00>> <<base08>> <<base08>>
+   client.placeholder      <<base00>> <<base00>> <<base05>> <<base00>> <<base00>>
+   client.background       <<base07>>
+   #+END_SRC
 ** Basics
-#+BEGIN_SRC conf
-smart_borders on
-default_border pixel 5
-font <<font>> 12
-#+END_SRC
-
+   #+BEGIN_SRC conf
+   smart_borders on
+   default_border pixel 5
+   font <<font>> 12
+   #+END_SRC
 ** Gaps
-#+BEGIN_SRC conf
-gaps inner 8
-smart_gaps on
-#+END_SRC
-
+   #+BEGIN_SRC conf
+   gaps inner 8
+   smart_gaps on
+   #+END_SRC
 ** Status Bar
-#+BEGIN_SRC conf
-bar {
-#+END_SRC
+   #+BEGIN_SRC conf
+   bar {
+   #+END_SRC
 
-set position of status bar
-#+BEGIN_SRC conf
-    position top
-#+END_SRC
+   set position of status bar
+   #+BEGIN_SRC conf
+       position top
+   #+END_SRC
 
-show i3blocks inside a status bar
-#+BEGIN_SRC conf
-    status_command i3blocks
-    #swaybar_command waybar
-#+END_SRC
+   show i3blocks inside a status bar
+   #+BEGIN_SRC conf
+       status_command i3blocks
+       #swaybar_command waybar
+   #+END_SRC
 
-#+BEGIN_SRC conf
-    colors {
-        background <<base00>>
-        separator  <<base01>>
-        statusline <<base04>>
+   #+BEGIN_SRC conf
+       colors {
+           background <<base00>>
+           separator  <<base01>>
+           statusline <<base04>>
 
-        # State             Border  BG      Text
-        focused_workspace   <<base05>> <<base0D>> <<base00>>
-        active_workspace    <<base05>> <<base03>> <<base00>>
-        inactive_workspace  <<base03>> <<base01>> <<base05>>
-        urgent_workspace    <<base08>> <<base08>> <<base00>>
-        binding_mode        <<base00>> <<base0A>> <<base00>>
-    }
-}
-#+END_SRC
+           # State             Border  BG      Text
+           focused_workspace   <<base05>> <<base0D>> <<base00>>
+           active_workspace    <<base05>> <<base03>> <<base00>>
+           inactive_workspace  <<base03>> <<base01>> <<base05>>
+           urgent_workspace    <<base08>> <<base08>> <<base00>>
+           binding_mode        <<base00>> <<base0A>> <<base00>>
+       }
+   }
+   #+END_SRC

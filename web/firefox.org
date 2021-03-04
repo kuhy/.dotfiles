@@ -1,499 +1,493 @@
-#+TITLE: Firefox config
+#+TITLE: Firefox
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-
+/Standalone web browser from Mozilla/
 #+INCLUDE: "../variables.org"
-
 * Profiles
-:PROPERTIES:
-:header-args: :tangle ~/.mozilla/firefox/profiles.ini :comments both :mkdirp yes :noweb tangle
-:END:
-Use only one profile called "default".
-#+BEGIN_SRC conf
-[General]
-StartWithLastProfile=1
+  :PROPERTIES:
+  :header-args: :tangle ~/.mozilla/firefox/profiles.ini :comments both :mkdirp yes :noweb tangle
+  :END:
+  Use only one profile called "default".
+  #+BEGIN_SRC conf
+  [General]
+  StartWithLastProfile=1
 
-[Profile0]
-Name=default
-IsRelative=1
-Path=default
-Default=1
-#+END_SRC
-
+  [Profile0]
+  Name=default
+  IsRelative=1
+  Path=default
+  Default=1
+  #+END_SRC
 * General
-:PROPERTIES:
-:header-args: :tangle ~/.mozilla/firefox/default/user.js :comments both :mkdirp yes :noweb tangle
-:END:
-make Tridactyl work on addons.mozilla.org and some other Mozilla domains
-#+BEGIN_SRC js
-user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
-user_pref("extensions.webextensions.restrictedDomains", "");
-#+END_SRC
+  :PROPERTIES:
+  :header-args: :tangle ~/.mozilla/firefox/default/user.js :comments both :mkdirp yes :noweb tangle
+  :END:
+  make Tridactyl work on addons.mozilla.org and some other Mozilla domains
+  #+BEGIN_SRC js
+  user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
+  user_pref("extensions.webextensions.restrictedDomains", "");
+  #+END_SRC
 
-allow stylesheets modifications (userChrome.css, userContent.css)
-#+BEGIN_SRC js
-user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-#+END_SRC
+  allow stylesheets modifications (userChrome.css, userContent.css)
+  #+BEGIN_SRC js
+  user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+  #+END_SRC
 
-printing with no headers and footers
-#+BEGIN_SRC js
-user_pref("print.print_footerleft", "");
-user_pref("print.print_footerright", "");
-user_pref("print.print_headerleft", "");
-user_pref("print.print_headerright", "");
-#+END_SRC
+  printing with no headers and footers
+  #+BEGIN_SRC js
+  user_pref("print.print_footerleft", "");
+  user_pref("print.print_footerright", "");
+  user_pref("print.print_headerleft", "");
+  user_pref("print.print_headerright", "");
+  #+END_SRC
 
-turn on caret browsing mode
-#+BEGIN_SRC js
-user_pref("accessibility.browsewithcaret", true);
-#+END_SRC
+  turn on caret browsing mode
+  #+BEGIN_SRC js
+  user_pref("accessibility.browsewithcaret", true);
+  #+END_SRC
 
-Workaround for Firefox security bug:
-#+BEGIN_SRC js
-// user_pref("network.http.spdy.enabled.http2", false);
-#+END_SRC
+  Workaround for Firefox security bug:
+  #+BEGIN_SRC js
+  // user_pref("network.http.spdy.enabled.http2", false);
+  #+END_SRC
 
-Fix connection not secure error:
-(Once Firefox trusts your proxy, I suggest flipping that back to false to keep
-Firefox isolated from possible fraudulent certificates injected into the Windows
-certificate store.)
-#+BEGIN_SRC js
-// userp_pref("security.enterprise_roots.enabled", true);
-#+END_SRC
+  Fix connection not secure error:
+  (Once Firefox trusts your proxy, I suggest flipping that back to false to keep
+  Firefox isolated from possible fraudulent certificates injected into the Windows
+  certificate store.)
+  #+BEGIN_SRC js
+  // userp_pref("security.enterprise_roots.enabled", true);
+  #+END_SRC
 
-Disable extension recommendations.
-#+BEGIN_SRC js
-user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr", false);
-#+END_SRC
+  Disable extension recommendations.
+  #+BEGIN_SRC js
+  user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr", false);
+  #+END_SRC
 
-HTTP referrer is a violation of privacy
-(the HTTP header field that identifies the webpage you just
-came from which was linked to the webpage you are going to)
-#+BEGIN_SRC js
-user_pref("Network.http.sendRefererHeader", 0);
-#+END_SRC
-
+  HTTP referrer is a violation of privacy
+  (the HTTP header field that identifies the webpage you just
+  came from which was linked to the webpage you are going to)
+  #+BEGIN_SRC js
+  user_pref("Network.http.sendRefererHeader", 0);
+  #+END_SRC
 * Tridactyl
 ** General
-:PROPERTIES:
-:header-args: :tangle ~/.config/tridactyl/tridactylrc :comments both :mkdirp yes :noweb tangle
-:END:
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/tridactyl/tridactylrc :comments both :mkdirp yes :noweb tangle
+   :END:
+   Use old reddit.
+   #+BEGIN_SRC conf
+   autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
+   #+END_SRC
 
-Use old reddit.
-#+BEGIN_SRC conf
-autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
-#+END_SRC
+   Website shortcuts:
+   #+BEGIN_SRC conf
+   set searchurls.g https://google.com/search?q=%s
+   set searchurls.y https://duckduckgo.com/?ia=videos&iax=videos&q=%s
+   set searchurls.d https://duckduckgo.com/?q=%s
+   set searchurls.s https://stackoverflow.com/search?q=%s
+   set searchurls.r https://old.reddit.com/r/%s
+   set searchurls.w https://en.wikipedia.org/w/index.php?search=%s
 
-Website shortcuts:
-#+BEGIN_SRC conf
-set searchurls.g https://google.com/search?q=%s
-set searchurls.y https://duckduckgo.com/?ia=videos&iax=videos&q=%s
-set searchurls.d https://duckduckgo.com/?q=%s
-set searchurls.s https://stackoverflow.com/search?q=%s
-set searchurls.r https://old.reddit.com/r/%s
-set searchurls.w https://en.wikipedia.org/w/index.php?search=%s
+   quickmark m https://mail.google.com
+   quickmark f https://facebook.com
+   quickmark t https://is.muni.cz/auth/rozvrh
+   quickmark i https://is.muni.cz/auth/student
+   quickmark c https://calendar.google.com
+   quickmark g https://github.com/kuhy
+   #+END_SRC
 
-quickmark m https://mail.google.com
-quickmark f https://facebook.com
-quickmark t https://is.muni.cz/auth/rozvrh
-quickmark i https://is.muni.cz/auth/student
-quickmark c https://calendar.google.com
-quickmark g https://github.com/kuhy
-#+END_SRC
+   Load theme.
+   #+BEGIN_SRC conf
+   colorscheme theme
+   #+END_SRC
 
-Load theme.
-#+BEGIN_SRC conf
-colorscheme theme
-#+END_SRC
-
-Use DuckDuckGo
-#+BEGIN_SRC conf
-set searchengine startpage
-#+END_SRC
-
+   Use DuckDuckGo
+   #+BEGIN_SRC conf
+   set searchengine startpage
+   #+END_SRC
 ** Theme
-:PROPERTIES:
-:header-args: :tangle ~/.config/tridactyl/themes/theme.css :comments both :mkdirp yes :noweb tangle
-:END:
-#+BEGIN_SRC css
-:root {    /* Default-dark by Chris Kempson (http://chriskempson.com) */
-    --base00: <<base00>>;
-    --base01: <<base01>>;
-    --base02: <<base02>>;
-    --base03: <<base03>>;
-    --base04: <<base04>>;
-    --base05: <<base05>>;
-    --base06: <<base06>>;
-    --base07: <<base07>>;
-    --base08: <<base08>>;
-    --base09: <<base09>>;
-    --base0A: <<base0A>>;
-    --base0B: <<base0B>>;
-    --base0C: <<base0C>>;
-    --base0D: <<base0D>>;
-    --base0E: <<base0E>>;
-    --base0F: <<base0F>>;
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/tridactyl/themes/theme.css :comments both :mkdirp yes :noweb tangle
+   :END:
+   #+BEGIN_SRC css
+   :root {    /* Default-dark by Chris Kempson (http://chriskempson.com) */
+       --base00: <<base00>>;
+       --base01: <<base01>>;
+       --base02: <<base02>>;
+       --base03: <<base03>>;
+       --base04: <<base04>>;
+       --base05: <<base05>>;
+       --base06: <<base06>>;
+       --base07: <<base07>>;
+       --base08: <<base08>>;
+       --base09: <<base09>>;
+       --base0A: <<base0A>>;
+       --base0B: <<base0B>>;
+       --base0C: <<base0C>>;
+       --base0D: <<base0D>>;
+       --base0E: <<base0E>>;
+       --base0F: <<base0F>>;
 
-    --tridactyl-fg: var(--base05);
-    --tridactyl-bg: var(--base00);
-    --tridactyl-url-fg: var(--base08);
-    --tridactyl-url-bg: var(--base00);
-    --tridactyl-highlight-box-bg: var(--base0B);
-    --tridactyl-highlight-box-fg: var(--base00);
+       --tridactyl-fg: var(--base05);
+       --tridactyl-bg: var(--base00);
+       --tridactyl-url-fg: var(--base08);
+       --tridactyl-url-bg: var(--base00);
+       --tridactyl-highlight-box-bg: var(--base0B);
+       --tridactyl-highlight-box-fg: var(--base00);
 
-    /* Hint character tags */
-    --tridactyl-hintspan-fg: var(--base00) !important;
-    --tridactyl-hintspan-bg: var(--base0A) !important;
+       /* Hint character tags */
+       --tridactyl-hintspan-fg: var(--base00) !important;
+       --tridactyl-hintspan-bg: var(--base0A) !important;
 
-    /* Element Highlights */
-    --tridactyl-hint-active-fg: none;
-    --tridactyl-hint-active-bg: none;
-    --tridactyl-hint-active-outline: none;
-    --tridactyl-hint-bg: none;
-    --tridactyl-hint-outline: none;
-}
+       /* Element Highlights */
+       --tridactyl-hint-active-fg: none;
+       --tridactyl-hint-active-bg: none;
+       --tridactyl-hint-active-outline: none;
+       --tridactyl-hint-bg: none;
+       --tridactyl-hint-outline: none;
+   }
 
-#command-line-holder {    order: 1;
-    border: 2px solid var(--base0B);
-    color: var(--tridactyl-bg);
-}
+   #command-line-holder {    order: 1;
+       border: 2px solid var(--base0B);
+       color: var(--tridactyl-bg);
+   }
 
-#tridactyl-input {    padding: 1rem;
-    color: var(--tridactyl-fg);
-    width: 90%;
-    font-size: 1.5rem;
-    line-height: 1.5;
-    background: var(--tridactyl-bg);
-    padding-left: unset;
-    padding: 1rem;
-}
+   #tridactyl-input {    padding: 1rem;
+       color: var(--tridactyl-fg);
+       width: 90%;
+       font-size: 1.5rem;
+       line-height: 1.5;
+       background: var(--tridactyl-bg);
+       padding-left: unset;
+       padding: 1rem;
+   }
 
-#completions table {    font-size: 0.8rem;
-    font-weight: 200;
-    border-spacing: 0;
-    table-layout: fixed;
-    padding: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
+   #completions table {    font-size: 0.8rem;
+       font-weight: 200;
+       border-spacing: 0;
+       table-layout: fixed;
+       padding: 1rem;
+       padding-top: 1rem;
+       padding-bottom: 1rem;
+   }
 
-#completions > div {    max-height: calc(20 * var(--option-height));
-    min-height: calc(10 * var(--option-height));
-}
+   #completions > div {    max-height: calc(20 * var(--option-height));
+       min-height: calc(10 * var(--option-height));
+   }
 
-/* COMPLETIONS */
+   /* COMPLETIONS */
 
-#completions {    --option-height: 1.4em;
-    color: var(--tridactyl-fg);
-    background: var(--tridactyl-bg);
-    display: inline-block;
-    font-size: unset;
-    font-weight: 200;
-    overflow: hidden;
-    width: 100%;
-    border-top: unset;
-    order: 2;
-}
+   #completions {    --option-height: 1.4em;
+       color: var(--tridactyl-fg);
+       background: var(--tridactyl-bg);
+       display: inline-block;
+       font-size: unset;
+       font-weight: 200;
+       overflow: hidden;
+       width: 100%;
+       border-top: unset;
+       order: 2;
+   }
 
-/* Olie doesn't know how CSS inheritance works */
-#completions .HistoryCompletionSource {    max-height: unset;
-    min-height: unset;
-}
+   /* Olie doesn't know how CSS inheritance works */
+   #completions .HistoryCompletionSource {    max-height: unset;
+       min-height: unset;
+   }
 
-#completions .HistoryCompletionSource table {    width: 100%;
-    font-size: 9pt;
-    border-spacing: 0;
-    table-layout: fixed;
-}
+   #completions .HistoryCompletionSource table {    width: 100%;
+       font-size: 9pt;
+       border-spacing: 0;
+       table-layout: fixed;
+   }
 
-/* redundancy 2: redundancy 2: more redundancy */
-#completions .BmarkCompletionSource {    max-height: unset;
-    min-height: unset;
-}
+   /* redundancy 2: redundancy 2: more redundancy */
+   #completions .BmarkCompletionSource {    max-height: unset;
+       min-height: unset;
+   }
 
-#completions table tr td.prefix,#completions table tr td.privatewindow,#completions table tr td.container,#completions table tr td.icon {    display: none;
-}
+   #completions table tr td.prefix,#completions table tr td.privatewindow,#completions table tr td.container,#completions table tr td.icon {    display: none;
+   }
 
-#completions .BufferCompletionSource table {    width: unset;
-    font-size: unset;
-    border-spacing: unset;
-    table-layout: unset;
-}
+   #completions .BufferCompletionSource table {    width: unset;
+       font-size: unset;
+       border-spacing: unset;
+       table-layout: unset;
+   }
 
-#completions table tr .title {    width: 50%;
-}
+   #completions table tr .title {    width: 50%;
+   }
 
-#completions table tr {    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+   #completions table tr {    white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;
+   }
 
-#completions .sectionHeader {    background: unset;
-    font-weight: 200;
-    border-bottom: unset;
-    padding: 1rem !important;
-    padding-left: unset;
-    padding-bottom: 0.2rem;
-}
+   #completions .sectionHeader {    background: unset;
+       font-weight: 200;
+       border-bottom: unset;
+       padding: 1rem !important;
+       padding-left: unset;
+       padding-bottom: 0.2rem;
+   }
 
-#cmdline_iframe {    position: fixed !important;
-    bottom: unset;
-    top: 25% !important;
-    left: 10% !important;
-    z-index: 2147483647 !important;
-    width: 80% !important;
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px !important;
-}
+   #cmdline_iframe {    position: fixed !important;
+       bottom: unset;
+       top: 25% !important;
+       left: 10% !important;
+       z-index: 2147483647 !important;
+       width: 80% !important;
+       box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px !important;
+   }
 
-.TridactylStatusIndicator {    position: fixed !important;
-    bottom: 0 !important;
-    background: var(--tridactyl-bg) !important;
-    border: unset !important;
-    border: 1px var(--base0B) solid !important;
-    font-size: 12pt !important;
-    /*font-weight: 200 !important;*/
-    padding: 0.8ex !important;
-}
+   .TridactylStatusIndicator {    position: fixed !important;
+       bottom: 0 !important;
+       background: var(--tridactyl-bg) !important;
+       border: unset !important;
+       border: 1px var(--base0B) solid !important;
+       font-size: 12pt !important;
+       /*font-weight: 200 !important;*/
+       padding: 0.8ex !important;
+   }
 
-#completions .focused {    background: var(--base0B);
-    color: var(--base00);
-}
+   #completions .focused {    background: var(--base0B);
+       color: var(--base00);
+   }
 
-#completions .focused .url {    background: var(--base0B);
-    color: var(--base00);
-}
-#+END_SRC
-
+   #completions .focused .url {    background: var(--base0B);
+       color: var(--base00);
+   }
+   #+END_SRC
 * Styles
-:PROPERTIES:
-:header-args: :tangle ~/.mozilla/firefox/default/chrome/userChrome.css :comments both :mkdirp yes :noweb tangle
-:END:
-Declaring color variables
-#+BEGIN_SRC css
-:root {
-    --bar-color: <<base01>>;
-    --bar-text-color: <<base06>>;
-    --tab-color: <<base02>>;
-    --tab-text-color: <<base05>>;
-    --tab-selected-color: <<base0D>>;
-    --tab-selected-text-color: <<base00>>;
-}
-#+END_SRC
+  :PROPERTIES:
+  :header-args: :tangle ~/.mozilla/firefox/default/chrome/userChrome.css :comments both :mkdirp yes :noweb tangle
+  :END:
+  Declaring color variables
+  #+BEGIN_SRC css
+  :root {
+      --bar-color: <<base01>>;
+      --bar-text-color: <<base06>>;
+      --tab-color: <<base02>>;
+      --tab-text-color: <<base05>>;
+      --tab-selected-color: <<base0D>>;
+      --tab-selected-text-color: <<base00>>;
+  }
+  #+END_SRC
 
-hiding useless stuffs
-#+BEGIN_SRC css
-.titlebar-placeholder,#wrapper-alltabs-button,.tab-close-button,.tab-icon-image,#main-window :-moz-any(#back-button, #forward-button) {
-	display: none;
-}
-#identity-box,.urlbar-history-dropmarker,#pageActionButton{
-display: none !important
-}
-.tab-throbber{
-    margin: 0!important;
-    padding: 0!important;
-}
-#tabbrowser-tabs .tabs-newtab-button {
-	visibility: collapse !important;
-}
-#+END_SRC
+  hiding useless stuffs
+  #+BEGIN_SRC css
+  .titlebar-placeholder,#wrapper-alltabs-button,.tab-close-button,.tab-icon-image,#main-window :-moz-any(#back-button, #forward-button) {
+      display: none;
+  }
+  #identity-box,.urlbar-history-dropmarker,#pageActionButton {
+      display: none !important
+  }
+  .tab-throbber{
+      margin: 0!important;
+      padding: 0!important;
+  }
+  #tabbrowser-tabs .tabs-newtab-button {
+      visibility: collapse !important;
+  }
+  #+END_SRC
 
-urlbar selection color
-#+BEGIN_SRC css
-::-moz-selection {background-color: var(--tab-selected-color) !important;}
-#+END_SRC
+  urlbar selection color
+  #+BEGIN_SRC css
+  ::-moz-selection {background-color: var(--tab-selected-color) !important;}
+  #+END_SRC
 
-hides a ugly black bottom background under each unfocused tab
-#+BEGIN_SRC css
-#navigator-toolbox{
-	--tabs-border-color: none !important;
-}
-#+END_SRC
+  hides a ugly black bottom background under each unfocused tab
+  #+BEGIN_SRC css
+  #navigator-toolbox{
+      --tabs-border-color: none !important;
+  }
+  #+END_SRC
 
-show tab numbers
-#+BEGIN_SRC css
-tabs {
-  counter-reset: tab-counter;
-}
+  show tab numbers
+  #+BEGIN_SRC css
+  tabs {
+    counter-reset: tab-counter;
+  }
 
-.tab-label::before {
-  counter-increment: tab-counter;
-  content: counter(tab-counter) ": ";
-}
-#+END_SRC
+  .tab-label::before {
+    counter-increment: tab-counter;
+    content: counter(tab-counter) ": ";
+  }
+  #+END_SRC
 
 
-tab occupy all space
-tab title font is reduced
-#+BEGIN_SRC css
-.tabbrowser-tab[fadein]:not([pinned]) {
-	max-width: 100% !important;
-	font-size: 0.9em !important;
-}
-#+END_SRC
+  tab occupy all space
+  tab title font is reduced
+  #+BEGIN_SRC css
+  .tabbrowser-tab[fadein]:not([pinned]) {
+      max-width: 100% !important;
+      font-size: 0.9em !important;
+  }
+  #+END_SRC
 
-url bar font size is reduced
-no borders
-no shadow
-no round edges
-#+BEGIN_SRC css
-#urlbar {
-  font-size: 0.8em !important;
-  border: none !important;
-  box-shadow: none !important;
-  --toolbarbutton-border-radius: 0px !important;
-  color: var(--bar-color) !important;
-  text-align: center !important;
-}
-#+END_SRC
+  url bar font size is reduced
+  no borders
+  no shadow
+  no round edges
+  #+BEGIN_SRC css
+  #urlbar {
+    font-size: 0.8em !important;
+    border: none !important;
+    box-shadow: none !important;
+    --toolbarbutton-border-radius: 0px !important;
+    color: var(--bar-color) !important;
+    text-align: center !important;
+  }
+  #+END_SRC
 
-i don't really know what this do but removing it gives a weired behaviour when opening and closing tabs any analysis are welcome ^^
-#+BEGIN_SRC css
-.tabbrowser-tab::after, .tabbrowser-tab::before {
-   border:none !important;
-}
-#+END_SRC
+  i don't really know what this do but removing it gives a weired behaviour when opening and closing tabs any analysis are welcome ^^
+  #+BEGIN_SRC css
+  .tabbrowser-tab::after, .tabbrowser-tab::before {
+     border:none !important;
+  }
+  #+END_SRC
 
-center tab text title
-#+BEGIN_SRC css
-.tab-label {
-	-moz-box-flex: 1 !important;
-	text-align: center !important;
-    color : var(--tab-selected-text-color);
-}
-#+END_SRC
+  center tab text title
+  #+BEGIN_SRC css
+  .tab-label {
+      -moz-box-flex: 1 !important;
+      text-align: center !important;
+      color : var(--tab-selected-text-color);
+  }
+  #+END_SRC
 
-here is a serie of color background
-#+BEGIN_SRC css
-.tab-line{
-	/*background-color: var(--bar-color) !important;
-	height: 1px !important;*/
+  here is a serie of color background
+  #+BEGIN_SRC css
+  .tab-line{
+      /*background-color: var(--bar-color) !important;
+      height: 1px !important;*/
+      visibility: collapse !important;
+  }
+
+  .tab-background {
+      border: none !important;
+      background-attachment: none!important;
+      background-color: var(--tab-selected-color) !important;
+      background-image: none!important;
+  }
+
+  .tabbrowser-tab:not([selected]) .tab-background {
+      border: none !important;
+      background-color: var(--tab-color) !important;
+  }
+  .tabbrowser-tab:not([selected]) .tab-label {
+      color : var(--tab-text-color);
+  }
+
+  #urlbar-background{
+      background-color: var(--tab-text-color) !important;
+  }
+
+  #nav-bar,#urlbar-container,#urlbar,#PanelUI-menu-button{
+      background-color: var(--bar-color) !important;
+  }
+  #navigator-toolbox toolbarbutton {
+      fill: var(--bar-text-color) !important;
+  }
+  #+END_SRC
+
+  hides another ugly black bottom background under the urlbar container
+  #+BEGIN_SRC css
+  :root:-moz-lwtheme-brighttext {
+      --toolbox-border-bottom-color: none !important;
+  }
+  #+END_SRC
+
+  reducing the tabs height more
+  #+BEGIN_SRC css
+  :root #tabbrowser-tabs {
+   --tab-min-height: 25px !important;
+  }
+  #+END_SRC
+
+  removing the useless padding and marging between elements of the urlbar etc..
+  #+BEGIN_SRC css
+  #nav-bar,#PanelUI-menu-button{
+      padding: 0px !important;
+      margin:  0px !important;
+      height: 28px !important;
+  }
+  #+END_SRC
+
+  make the tabs hidden when there is only one tab open
+  #+BEGIN_SRC css
+  /* Styles:13 ends here */
+  /* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/hide_tabs_with_one_tab.css made available under Mozilla Public License v. 2.0
+  See the above repository for updates as well as full license text. */
+
+  /* Makes tabs toolbar items zero-height initially and sets enlarge them to fill up space equal to tab-min-height set on tabs */
+  /* Firefox 65+ only */
+
+  :root[sizemode="normal"] #nav-bar{ --uc-window-drag-space-width: 20px }
+
+  #titlebar{ -moz-appearance: none !important; }
+  #TabsToolbar{ min-height: 0px !important }
+
+  #tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox, #tabbrowser-arrowscrollbox{ min-height: 0 !important; }
+
+  :root:not([customizing]) #tabbrowser-tabs .tabs-newtab-button,
+  :root:not([customizing]) #tabs-newtab-button,
+  :root:not([customizing]) #TabsToolbar-customization-target > .toolbarbutton-1,
+  :root:not([customizing]) #TabsToolbar .titlebar-button{
+    -moz-appearance: none !important;
+    height: 0px;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    -moz-box-align: stretch;
+    margin: 0 !important;
+  }
+
+  #tabbrowser-tabs .tabbrowser-tab{ height: var(--tab-min-height) }
+
+  #tabbrowser-tabs .tabbrowser-tab[first-visible-tab="true"][last-visible-tab="true"]{
     visibility: collapse !important;
-}
+  }
 
-.tab-background {
-	border: none !important;
-    background-attachment: none!important;
-    background-color: var(--tab-selected-color) !important;
-    background-image: none!important;
-}
+  /* Button re-styling */
+  #tabs-newtab-button:hover,
+  #tabbrowser-tabs .tabs-newtab-button:hover{ background-color: var(--toolbarbutton-hover-background) }
 
-.tabbrowser-tab:not([selected]) .tab-background {
-	border: none !important;
-    background-color: var(--tab-color) !important;
-}
-.tabbrowser-tab:not([selected]) .tab-label {
-    color : var(--tab-text-color);
-}
+  #tabs-newtab-button > .toolbarbutton-icon,
+  #tabbrowser-tabs .tabs-newtab-button > .toolbarbutton-icon{
+    padding: 0 !important;
+    transform: scale(0.6);
+    background-color: transparent !important;
+  }
+  /* Extra top padding  in maximized window */
+  @media (-moz-os-version: windows-win10){
+    :root[sizemode="maximized"] #navigator-toolbox{ padding-top:7px !important; }
+  }
+  /* Fix window controls not being clickable */
+  :root[tabsintitlebar] #toolbar-menubar[autohide="true"][inactive]{
+    transition: height 0ms steps(1) 80ms;
+  }
+  #nav-bar{
+    border-inline: var(--uc-window-drag-space-width) solid var(--toolbar-bgcolor);
+  }
 
-#urlbar-background{
-    background-color: var(--tab-text-color) !important;
-}
+  #+END_SRC
 
-#nav-bar,#urlbar-container,#urlbar,#PanelUI-menu-button{
-    background-color: var(--bar-color) !important;
-}
-#navigator-toolbox toolbarbutton {
-    fill: var(--bar-text-color) !important;
-}
-#+END_SRC
-
-hides another ugly black bottom background under the urlbar container
-#+BEGIN_SRC css
-:root:-moz-lwtheme-brighttext {
-    --toolbox-border-bottom-color: none !important;
-}
-#+END_SRC
-
-reducing the tabs height more
-#+BEGIN_SRC css
-:root #tabbrowser-tabs {
- --tab-min-height: 25px !important;
-}
-#+END_SRC
-
-removing the useless padding and marging between elements of the urlbar etc..
-#+BEGIN_SRC css
-#nav-bar,#PanelUI-menu-button{
-    padding: 0px !important;
-    margin:  0px !important;
-    height: 28px !important;
-}
-#+END_SRC
-
-make the tabs hidden when there is only one tab open
-#+BEGIN_SRC css
-/* Styles:13 ends here */
-/* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/hide_tabs_with_one_tab.css made available under Mozilla Public License v. 2.0
-See the above repository for updates as well as full license text. */
-
-/* Makes tabs toolbar items zero-height initially and sets enlarge them to fill up space equal to tab-min-height set on tabs */
-/* Firefox 65+ only */
-
-:root[sizemode="normal"] #nav-bar{ --uc-window-drag-space-width: 20px }
-
-#titlebar{ -moz-appearance: none !important; }
-#TabsToolbar{ min-height: 0px !important }
-
-#tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox, #tabbrowser-arrowscrollbox{ min-height: 0 !important; }
-
-:root:not([customizing]) #tabbrowser-tabs .tabs-newtab-button,
-:root:not([customizing]) #tabs-newtab-button,
-:root:not([customizing]) #TabsToolbar-customization-target > .toolbarbutton-1,
-:root:not([customizing]) #TabsToolbar .titlebar-button{
-  -moz-appearance: none !important;
-  height: 0px;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-  -moz-box-align: stretch;
-  margin: 0 !important;
-}
-
-#tabbrowser-tabs .tabbrowser-tab{ height: var(--tab-min-height) }
-
-#tabbrowser-tabs .tabbrowser-tab[first-visible-tab="true"][last-visible-tab="true"]{
-  visibility: collapse !important;
-}
-
-/* Button re-styling */
-#tabs-newtab-button:hover,
-#tabbrowser-tabs .tabs-newtab-button:hover{ background-color: var(--toolbarbutton-hover-background) }
-
-#tabs-newtab-button > .toolbarbutton-icon,
-#tabbrowser-tabs .tabs-newtab-button > .toolbarbutton-icon{
-  padding: 0 !important;
-  transform: scale(0.6);
-  background-color: transparent !important;
-}
-/* Extra top padding  in maximized window */
-@media (-moz-os-version: windows-win10){
-  :root[sizemode="maximized"] #navigator-toolbox{ padding-top:7px !important; }
-}
-/* Fix window controls not being clickable */
-:root[tabsintitlebar] #toolbar-menubar[autohide="true"][inactive]{
-  transition: height 0ms steps(1) 80ms;
-}
-#nav-bar{
-  border-inline: var(--uc-window-drag-space-width) solid var(--toolbar-bgcolor);
-}
-
-#+END_SRC
-
-Make urlbar appear more compact
-#+BEGIN_SRC css
-/* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/compact_urlbar_megabar.css made available under Mozilla Public License v. 2.0
-See the above repository for updates as well as full license text. */
-#urlbar[breakout]{
-  margin-inline-start: 0px !important;
-  width: 100% !important;
-  left: 0 !important;
-  top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
-}
-#urlbar[breakout]:not([open]){ bottom: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important; }
-.urlbarView{ margin-inline: 0 !important; width: auto !important; }
-.urlbarView-row{ padding: 0 2px !important; }
-.urlbarView-row-inner{ padding-inline-start: 4px !important; }
-#urlbar-background{ animation: none !important; }
-#urlbar-input-container{ padding: 0 !important; height: 100% !important; }
-#identity-box{ padding-block: var(--urlbar-icon-padding) }
-.urlbarView > .search-one-offs:not([hidden]){ padding-block: 0px !important; }
-#+END_SRC
+  Make urlbar appear more compact
+  #+BEGIN_SRC css
+  /* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/compact_urlbar_megabar.css made available under Mozilla Public License v. 2.0
+  See the above repository for updates as well as full license text. */
+  #urlbar[breakout]{
+    margin-inline-start: 0px !important;
+    width: 100% !important;
+    left: 0 !important;
+    top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
+  }
+  #urlbar[breakout]:not([open]){ bottom: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important; }
+  .urlbarView{ margin-inline: 0 !important; width: auto !important; }
+  .urlbarView-row{ padding: 0 2px !important; }
+  .urlbarView-row-inner{ padding-inline-start: 4px !important; }
+  #urlbar-background{ animation: none !important; }
+  #urlbar-input-container{ padding: 0 !important; height: 100% !important; }
+  #identity-box{ padding-block: var(--urlbar-icon-padding) }
+  .urlbarView > .search-one-offs:not([hidden]){ padding-block: 0px !important; }
+  #+END_SRC

@@ -1,83 +1,76 @@
-#+TITLE: I3blocks config
+#+TITLE: i3blocks
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-
+/Define blocks for your i3bar status line/
 #+INCLUDE: "../variables.org"
-
 * Bar
-:PROPERTIES:
-:header-args: :tangle ~/.config/i3blocks/config :comments both :mkdirp yes :noweb tangle
-:END:
+  :PROPERTIES:
+  :header-args: :tangle ~/.config/i3blocks/config :comments both :mkdirp yes :noweb tangle
+  :END:
 ** Global
-#+BEGIN_SRC conf
-command=printf "%s<span font=''> </span>%s\n" "$(eval $ICON)" "$(eval $EXEC)"
-align=center
-markup=pango
-SCRIPT_DIR=/home/kuhy/.config/i3blocks
-#+END_SRC
-
+   #+BEGIN_SRC conf
+   command=printf "%s<span font=''> </span>%s\n" "$(eval $ICON)" "$(eval $EXEC)"
+   align=center
+   markup=pango
+   SCRIPT_DIR=/home/kuhy/.config/i3blocks
+   #+END_SRC
 ** Time
-#+BEGIN_SRC conf
-[Time]
-ICON=echo 
-EXEC=date '+%a %d.%m. %T'
-interval=1
-min_width=250
-#+END_SRC
-
+   #+BEGIN_SRC conf
+   [Time]
+   ICON=echo 
+   EXEC=date '+%a %d.%m. %T'
+   interval=1
+   min_width=250
+   #+END_SRC
 ** Volume
-#+BEGIN_SRC conf
-[volume]
-ICON=$SCRIPT_DIR/vol_ic
-EXEC=amixer | grep -m 1 -o -E [[:digit:]]+% | tr -d "%"
-interval=1
-min_width=70
-#+END_SRC
-
+   #+BEGIN_SRC conf
+   [volume]
+   ICON=$SCRIPT_DIR/vol_ic
+   EXEC=amixer | grep -m 1 -o -E [[:digit:]]+% | tr -d "%"
+   interval=1
+   min_width=70
+   #+END_SRC
 ** Battery
-#+BEGIN_SRC conf
-[battery]
-ICON=$SCRIPT_DIR/bat_ic
-EXEC=$SCRIPT_DIR/bat
-interval=10
-min_width=70
-#+END_SRC
-
+   #+BEGIN_SRC conf
+   [battery]
+   ICON=$SCRIPT_DIR/bat_ic
+   EXEC=$SCRIPT_DIR/bat
+   interval=10
+   min_width=70
+   #+END_SRC
 * Scripts
 ** Volume icon
-:PROPERTIES:
-:header-args: :tangle ~/.config/i3blocks/vol_ic :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
-:END:
-#+BEGIN_SRC sh
-if [ "$(pacmd list-sinks | awk '/muted/ { print $2 }')" = yes ]; then
-    echo 
-else
-    echo 
-fi
-#+END_SRC
-
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/i3blocks/vol_ic :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+   :END:
+   #+BEGIN_SRC sh
+   if [ "$(pacmd list-sinks | awk '/muted/ { print $2 }')" = yes ]; then
+       echo 
+   else
+       echo 
+   fi
+   #+END_SRC
 ** Battery
-:PROPERTIES:
-:header-args: :tangle ~/.config/i3blocks/bat :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
-:END:
-#+BEGIN_SRC sh
-BATTERY=$(cat /sys/class/power_supply/BAT0/capacity)
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/i3blocks/bat :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+   :END:
+   #+BEGIN_SRC sh
+   BATTERY=$(cat /sys/class/power_supply/BAT0/capacity)
 
-if [ "$BATTERY" -gt 10 ]; then
-    echo "$BATTERY"
-else
-    echo "<span color='<<base08>>'>$BATTERY</span>"
-fi
-#+END_SRC
-
+   if [ "$BATTERY" -gt 10 ]; then
+       echo "$BATTERY"
+   else
+       echo "<span color='<<base08>>'>$BATTERY</span>"
+   fi
+   #+END_SRC
 ** Battery icon
-:PROPERTIES:
-:header-args: :tangle ~/.config/i3blocks/bat_ic :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
-:END:
-#+BEGIN_SRC sh
-if [ "$(cat /sys/class/power_supply/BAT0/status)" = Discharging ]; then
-    echo 
-else
-    echo 
-fi
-#+END_SRC
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/i3blocks/bat_ic :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+   :END:
+   #+BEGIN_SRC sh
+   if [ "$(cat /sys/class/power_supply/BAT0/status)" = Discharging ]; then
+       echo 
+   else
+       echo 
+   fi
+   #+END_SRC
