@@ -5,9 +5,9 @@
 #+PROPERTY: header-args+ :tangle "~/.emacs.d/init.el"
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
-/The extensible, customizable, self-documenting real-time display editor/
 #+INCLUDE: "../variables.org"
 #+INCLUDE: "../secrets.org"
+/The extensible, customizable, self-documenting real-time display editor/
 * General
   Hide toolbars.
   #+BEGIN_SRC elisp

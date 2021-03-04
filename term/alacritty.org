@@ -5,8 +5,8 @@
 #+PROPERTY: header-args+ :tangle "~/.config/alacritty/alacritty.yml"
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
-/A cross-platform, GPU-accelerated terminal emulator/
 #+INCLUDE: "../variables.org"
+/A cross-platform, GPU-accelerated terminal emulator/
 * Colors
   #+BEGIN_SRC yml
   colors:

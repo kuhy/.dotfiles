@@ -5,8 +5,8 @@
 #+PROPERTY: header-args+ :tangle "~/.tmux.conf"
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
-/A terminal multiplexer/
 #+INCLUDE: "../variables.org"
+/A terminal multiplexer/
 * General
   set fish as a default shell
   #+BEGIN_SRC conf

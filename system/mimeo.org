@@ -1,8 +1,8 @@
 #+TITLE: mimeo
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-/Open files by MIME-type or file name using regular expressions./
 #+INCLUDE: "../variables.org"
+/Open files by MIME-type or file name using regular expressions./
 * Default arguments
   :PROPERTIES:
   :header-args: :tangle ~/.config/mimeo/default_arguments.txt :comments no :mkdirp yes :noweb tangle

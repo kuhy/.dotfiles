@@ -1,9 +1,9 @@
 #+TITLE: Safe Eyes
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
+#+INCLUDE: "../variables.org"
 /Safe Eyes is a Free and Open Source tool for Linux users to reduce and prevent
 repetitive strain injury (RSI)./
-#+INCLUDE: "../variables.org"
 * General
   :PROPERTIES:
   :header-args: :tangle ~/.config/safeeyes/safeeyes.json :mkdirp yes :noweb tangle

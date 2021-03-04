@@ -1,8 +1,8 @@
 #+TITLE: Firefox
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-/Standalone web browser from Mozilla/
 #+INCLUDE: "../variables.org"
+/Standalone web browser from Mozilla/
 * Profiles
   :PROPERTIES:
   :header-args: :tangle ~/.mozilla/firefox/profiles.ini :comments both :mkdirp yes :noweb tangle

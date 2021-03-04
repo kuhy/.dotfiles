@@ -1,8 +1,8 @@
 #+TITLE: i3blocks
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-/Define blocks for your i3bar status line/
 #+INCLUDE: "../variables.org"
+/Define blocks for your i3bar status line/
 * Bar
   :PROPERTIES:
   :header-args: :tangle ~/.config/i3blocks/config :comments both :mkdirp yes :noweb tangle
