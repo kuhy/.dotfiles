@@ -1,8 +1,8 @@
 #+TITLE: ncmpcpp
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-/Almost exact clone of ncmpc with some new features/
 #+INCLUDE: "../variables.org"
+/Almost exact clone of ncmpc with some new features/
 * General
   :PROPERTIES:
   :header-args: :tangle ~/.config/ncmpcpp/config :comments both :mkdirp yes :noweb tangle

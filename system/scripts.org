@@ -1,9 +1,9 @@
 #+TITLE: Scripts
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-/Here are defined personal scripts./
 #+INCLUDE: "../variables.org"
 #+INCLUDE: "../secrets.org"
+/Here are defined personal scripts./
 * Dotfiles tangling
   :PROPERTIES:
   :header-args: :tangle ~/bin/dot-tangle :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle

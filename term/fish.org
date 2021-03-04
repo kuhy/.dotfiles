@@ -1,8 +1,8 @@
 #+TITLE: Fish
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-/Smart and user friendly shell intended mostly for interactive use/
 #+INCLUDE: "../variables.org"
+/Smart and user friendly shell intended mostly for interactive use/
 * General
   :PROPERTIES:
   :header-args: :tangle ~/.config/fish/config.fish :comments both :mkdirp yes :noweb tangle

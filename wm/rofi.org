@@ -1,8 +1,8 @@
 #+TITLE: Rofi
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-/A window switcher, application launcher and dmenu replacement/
 #+INCLUDE: "../variables.org"
+/A window switcher, application launcher and dmenu replacement/
 * General
   :PROPERTIES:
   :header-args: :tangle ~/.config/rofi/config :comments both :mkdirp yes :noweb tangle

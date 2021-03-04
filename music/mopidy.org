@@ -5,9 +5,9 @@
 #+PROPERTY: header-args+ :tangle "~/.config/mopidy/mopidy.conf"
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
-/An extensible music server written in Python/
 #+INCLUDE: "../variables.org"
 #+INCLUDE: "../secrets.org"
+/An extensible music server written in Python/
 * Audio
   Following setting is needed in order to use =ncmpcpp=:
   #+BEGIN_SRC conf

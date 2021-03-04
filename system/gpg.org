@@ -1,9 +1,9 @@
 #+TITLE: GPG
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
+#+INCLUDE: "../variables.org"
 /GnuPG is a complete and free implementation of the OpenPGP standard
  as defined by RFC4880 (also known as PGP)./
-#+INCLUDE: "../variables.org"
 * Agent
   :PROPERTIES:
   :header-args: :tangle ~/.gnupg/gpg-agent.conf :comments no :mkdirp yes :noweb tangle

@@ -5,8 +5,8 @@
 #+PROPERTY: header-args+ :tangle ~/.config/mako/config
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
-/Lightweight notification daemon for Wayland/
 #+INCLUDE: "../variables.org"
+/Lightweight notification daemon for Wayland/
 * General
   Timeout:
   #+BEGIN_SRC conf

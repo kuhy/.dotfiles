@@ -5,8 +5,8 @@
 #+PROPERTY: header-args+ :tangle "~/.config/sway/config"
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
-/Tiling Wayland compositor and replacement for the i3 window manager/
 #+INCLUDE: "../variables.org"
+/Tiling Wayland compositor and replacement for the i3 window manager/
 * Variables
   Logo key. Use Mod1 for Alt.
   #+BEGIN_SRC conf
