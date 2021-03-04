@@ -1,10 +1,11 @@
-#+TITLE: Bat config
+#+TITLE: bat
 #+AUTHOR: Kuhy
 #+PROPERTY: header-args+ :comments yes
 #+PROPERTY: header-args+ :mkdirp yes
 #+PROPERTY: header-args+ :tangle "~/.config/bat/config"
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
+/Cat clone with syntax highlighting and git integration/
 
 Use terminal colors:
 #+BEGIN_SRC conf

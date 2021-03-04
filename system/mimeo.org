@@ -1,23 +1,21 @@
-#+TITLE: Mimeo config
+#+TITLE: mimeo
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-
+/Open files by MIME-type or file name using regular expressions./
 #+INCLUDE: "../variables.org"
-
 * Default arguments
-:PROPERTIES:
-:header-args: :tangle ~/.config/mimeo/default_arguments.txt :comments no :mkdirp yes :noweb tangle
-:END:
-#+BEGIN_SRC conf
---term 'alacritty -e %s'
-#+END_SRC
-
+  :PROPERTIES:
+  :header-args: :tangle ~/.config/mimeo/default_arguments.txt :comments no :mkdirp yes :noweb tangle
+  :END:
+  #+BEGIN_SRC conf
+  --term 'alacritty -e %s'
+  #+END_SRC
 * Associations
-:PROPERTIES:
-:header-args: :tangle ~/.config/mimeo/associations.txt :comments both :mkdirp yes :noweb tangle
-:END:
-#+BEGIN_SRC conf
-intellij-idea-ultimate-edition
-  \.java$
-  \.kt$
-#+END_SRC
+  :PROPERTIES:
+  :header-args: :tangle ~/.config/mimeo/associations.txt :comments both :mkdirp yes :noweb tangle
+  :END:
+  #+BEGIN_SRC conf
+  intellij-idea-ultimate-edition
+    \.java$
+    \.kt$
+  #+END_SRC

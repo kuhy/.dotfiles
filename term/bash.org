@@ -1,70 +1,69 @@
-#+TITLE: Bash config
+#+TITLE: Bash
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-
+/The GNU Bourne Again shell/
 * =.bashrc=
-:PROPERTIES:
-:header-args: :tangle ~/.bashrc :comments both :mkdirp yes :noweb tangle
-:END:
-If not running interactively, don't do anything
-#+BEGIN_SRC sh
-[[ $- != *i* ]] && return
-#+END_SRC
+  :PROPERTIES:
+  :header-args: :tangle ~/.bashrc :comments both :mkdirp yes :noweb tangle
+  :END:
+  If not running interactively, don't do anything
+  #+BEGIN_SRC sh
+  [[ $- != *i* ]] && return
+  #+END_SRC
 
-Set aliases
-#+BEGIN_SRC sh
-alias ls='ls --color=auto'
-alias :q='exit'
-#+END_SRC
+  Set aliases
+  #+BEGIN_SRC sh
+  alias ls='ls --color=auto'
+  alias :q='exit'
+  #+END_SRC
 
-Change prompt
-#+BEGIN_SRC sh
-PROMPT_COMMAND=color_prompt
+  Change prompt
+  #+BEGIN_SRC sh
+  PROMPT_COMMAND=color_prompt
 
-function color_prompt() {
-    if [ "$?" -eq '0' ]; then
-        local GREEN="$(tput setaf 2)"
-        local USER_COLOR="${GREEN}"
-    else
-        local RED="$(tput setaf 1)"
-        local USER_COLOR="${RED}"
-    fi
-    local BOLD="$(tput bold)"
-    local BLUE="$(tput setaf 4)"
-    local DEFAULT="$(tput sgr0)"
-    PS1="\n[${BOLD}${USER_COLOR}\u ${BLUE}\W${DEFAULT}] "
-}
-#+END_SRC
-
+  function color_prompt() {
+      if [ "$?" -eq '0' ]; then
+          local GREEN="$(tput setaf 2)"
+          local USER_COLOR="${GREEN}"
+      else
+          local RED="$(tput setaf 1)"
+          local USER_COLOR="${RED}"
+      fi
+      local BOLD="$(tput bold)"
+      local BLUE="$(tput setaf 4)"
+      local DEFAULT="$(tput sgr0)"
+      PS1="\n[${BOLD}${USER_COLOR}\u ${BLUE}\W${DEFAULT}] "
+  }
+  #+END_SRC
 * =.bash_profile=
-:PROPERTIES:
-:header-args: :tangle ~/.bash_profile :comments both :mkdirp yes :noweb tangle
-:END:
-Add following folders to the path
-#+BEGIN_SRC sh
-export PATH="${HOME}/bin:${PATH}"
-export PATH="${HOME}/.local/bin:${PATH}"
-export PATH="${HOME}/.cargo/bin:${PATH}"
-#+END_SRC
+  :PROPERTIES:
+  :header-args: :tangle ~/.bash_profile :comments both :mkdirp yes :noweb tangle
+  :END:
+  Add following folders to the path
+  #+BEGIN_SRC sh
+  export PATH="${HOME}/bin:${PATH}"
+  export PATH="${HOME}/.local/bin:${PATH}"
+  export PATH="${HOME}/.cargo/bin:${PATH}"
+  #+END_SRC
 
-Set environment variables
-#+BEGIN_SRC sh
-export VISUAL='emacsclient -c -a emacs'
-export _JAVA_AWT_WM_NONREPARENTING='1'
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export XDG_CONFIG_HOME="${HOME}/.config"
-export XDG_CACHE_HOME="${HOME}/.cache"
-export XDG_DATA_HOME="${HOME}/.local/share"
-#+END_SRC
+  Set environment variables
+  #+BEGIN_SRC sh
+  export VISUAL='emacsclient -c -a emacs'
+  export _JAVA_AWT_WM_NONREPARENTING='1'
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export XDG_CONFIG_HOME="${HOME}/.config"
+  export XDG_CACHE_HOME="${HOME}/.cache"
+  export XDG_DATA_HOME="${HOME}/.local/share"
+  #+END_SRC
 
-Source =~/.bashrc=
-#+BEGIN_SRC sh
-[[ -f ~/.bashrc ]] && . ~/.bashrc
-#+END_SRC
+  Source =~/.bashrc=
+  #+BEGIN_SRC sh
+  [[ -f ~/.bashrc ]] && . ~/.bashrc
+  #+END_SRC
 
-If running from =tty1= start =sway=
-#+BEGIN_SRC sh
-if [ "$(tty)" = '/dev/tty1' ]; then
-    exec sway
-fi
-#+END_SRC
+  If running from =tty1= start =sway=
+  #+BEGIN_SRC sh
+  if [ "$(tty)" = '/dev/tty1' ]; then
+      exec sway
+  fi
+  #+END_SRC

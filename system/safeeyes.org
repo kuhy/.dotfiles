@@ -1,255 +1,251 @@
-#+TITLE: Safe Eyes config
+#+TITLE: Safe Eyes
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
-
+/Safe Eyes is a Free and Open Source tool for Linux users to reduce and prevent
+repetitive strain injury (RSI)./
 #+INCLUDE: "../variables.org"
-
-Safe Eyes is a Free and Open Source tool for Linux users to reduce and prevent
-repetitive strain injury (RSI).
-
 * General
-:PROPERTIES:
-:header-args: :tangle ~/.config/safeeyes/safeeyes.json :mkdirp yes :noweb tangle
-:END:
-#+BEGIN_SRC js
-{
-    "allow_postpone": false,
-    "long_break_duration": 60,
-    "long_break_interval": 75,
-    "long_breaks": [
-        {
-            "name": "Walk for a while"
-        },
-        {
-            "name": "Lean back at your seat and relax"
-        }
-    ],
-    "meta": {
-        "config_version": "6.0.1"
-    },
-    "persist_state": false,
-    "plugins": [
-        {
-            "enabled": false,
-            "id": "donotdisturb",
-            "settings": {
-                "skip_break_windows": "",
-                "take_break_windows": "",
-                "unfullscreen": true,
-                "while_on_battery": false
-            },
-            "version": "0.0.2"
-        },
-        {
-            "enabled": true,
-            "id": "notification",
-            "version": "0.0.1"
-        },
-        {
-            "enabled": false,
-            "id": "audiblealert",
-            "settings": {
-                "post_break_alert": true,
-                "pre_break_alert": true
-            },
-            "version": "0.0.3"
-        },
-        {
-            "enabled": false,
-            "id": "trayicon",
-            "settings": {
-                "allow_disabling": true,
-                "disable_options": [
-                    {
-                        "time": 30,
-                        "unit": "minute"
-                    },
-                    {
-                        "time": 1,
-                        "unit": "hour"
-                    },
-                    {
-                        "time": 2,
-                        "unit": "hour"
-                    },
-                    {
-                        "time": 3,
-                        "unit": "hour"
-                    }
-                ],
-                "show_time_in_tray": false
-            },
-            "version": "0.0.3"
-        },
-        {
-            "enabled": false,
-            "id": "smartpause",
-            "settings": {
-                "idle_time": 5,
-                "interpret_idle_as_break": false,
-                "postpone_if_active": false
-            },
-            "version": "0.0.3"
-        },
-        {
-            "enabled": true,
-            "id": "screensaver",
-            "settings": {
-                "command": "",
-                "min_seconds": 3
-            },
-            "version": "0.0.2"
-        },
-        {
-            "enabled": false,
-            "id": "healthstats",
-            "settings": {
-                "statistics_reset_interval": 24
-            },
-            "version": "0.0.2"
-        },
-        {
-            "enabled": true,
-            "id": "mediacontrol",
-            "version": "0.0.1"
-        }
-    ],
-    "postpone_duration": 5,
-    "pre_break_warning_time": 10,
-    "rpc_port": 7200,
-    "short_break_duration": 15,
-    "short_break_interval": 15,
-    "short_breaks": [
-        {
-            "name": "Tightly close your eyes"
-        },
-        {
-            "name": "Roll your eyes a few times to each side"
-        },
-        {
-            "name": "Rotate your eyes in clockwise direction"
-        },
-        {
-            "name": "Rotate your eyes in counterclockwise direction"
-        },
-        {
-            "name": "Blink your eyes"
-        },
-        {
-            "name": "Focus on a point in the far distance"
-        },
-        {
-            "name": "Have some water"
-        }
-    ],
-    "shortcut_disable_time": 2,
-    "shortcut_postpone": 65,
-    "shortcut_skip": 9,
-    "strict_break": false
-}
-#+END_SRC
-
+  :PROPERTIES:
+  :header-args: :tangle ~/.config/safeeyes/safeeyes.json :mkdirp yes :noweb tangle
+  :END:
+  #+BEGIN_SRC js
+  {
+      "allow_postpone": false,
+      "long_break_duration": 60,
+      "long_break_interval": 75,
+      "long_breaks": [
+          {
+              "name": "Walk for a while"
+          },
+          {
+              "name": "Lean back at your seat and relax"
+          }
+      ],
+      "meta": {
+          "config_version": "6.0.1"
+      },
+      "persist_state": false,
+      "plugins": [
+          {
+              "enabled": false,
+              "id": "donotdisturb",
+              "settings": {
+                  "skip_break_windows": "",
+                  "take_break_windows": "",
+                  "unfullscreen": true,
+                  "while_on_battery": false
+              },
+              "version": "0.0.2"
+          },
+          {
+              "enabled": true,
+              "id": "notification",
+              "version": "0.0.1"
+          },
+          {
+              "enabled": false,
+              "id": "audiblealert",
+              "settings": {
+                  "post_break_alert": true,
+                  "pre_break_alert": true
+              },
+              "version": "0.0.3"
+          },
+          {
+              "enabled": false,
+              "id": "trayicon",
+              "settings": {
+                  "allow_disabling": true,
+                  "disable_options": [
+                      {
+                          "time": 30,
+                          "unit": "minute"
+                      },
+                      {
+                          "time": 1,
+                          "unit": "hour"
+                      },
+                      {
+                          "time": 2,
+                          "unit": "hour"
+                      },
+                      {
+                          "time": 3,
+                          "unit": "hour"
+                      }
+                  ],
+                  "show_time_in_tray": false
+              },
+              "version": "0.0.3"
+          },
+          {
+              "enabled": false,
+              "id": "smartpause",
+              "settings": {
+                  "idle_time": 5,
+                  "interpret_idle_as_break": false,
+                  "postpone_if_active": false
+              },
+              "version": "0.0.3"
+          },
+          {
+              "enabled": true,
+              "id": "screensaver",
+              "settings": {
+                  "command": "",
+                  "min_seconds": 3
+              },
+              "version": "0.0.2"
+          },
+          {
+              "enabled": false,
+              "id": "healthstats",
+              "settings": {
+                  "statistics_reset_interval": 24
+              },
+              "version": "0.0.2"
+          },
+          {
+              "enabled": true,
+              "id": "mediacontrol",
+              "version": "0.0.1"
+          }
+      ],
+      "postpone_duration": 5,
+      "pre_break_warning_time": 10,
+      "rpc_port": 7200,
+      "short_break_duration": 15,
+      "short_break_interval": 15,
+      "short_breaks": [
+          {
+              "name": "Tightly close your eyes"
+          },
+          {
+              "name": "Roll your eyes a few times to each side"
+          },
+          {
+              "name": "Rotate your eyes in clockwise direction"
+          },
+          {
+              "name": "Rotate your eyes in counterclockwise direction"
+          },
+          {
+              "name": "Blink your eyes"
+          },
+          {
+              "name": "Focus on a point in the far distance"
+          },
+          {
+              "name": "Have some water"
+          }
+      ],
+      "shortcut_disable_time": 2,
+      "shortcut_postpone": 65,
+      "shortcut_skip": 9,
+      "strict_break": false
+  }
+  #+END_SRC
 * Style
-:PROPERTIES:
-:header-args: :tangle ~/.config/safeeyes/style/safeeyes_style.css :mkdirp yes :noweb tangle
-:END:
-#+BEGIN_SRC css
-.window_main {
-    background: black;
-    opacity: 0.9;
-    border-color: transparent;
-}
+  :PROPERTIES:
+  :header-args: :tangle ~/.config/safeeyes/style/safeeyes_style.css :mkdirp yes :noweb tangle
+  :END:
+  #+BEGIN_SRC css
+  .window_main {
+      background: black;
+      opacity: 0.9;
+      border-color: transparent;
+  }
 
-.btn_skip {
-    color: white;
-    font-size: 10pt;
-    border-radius: 25px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 25px;
-    padding-right: 25px;
-    border-color: white;
-    background: transparent;
-    border-width: 2px;
-    border-image: none;
-}
+  .btn_skip {
+      color: white;
+      font-size: 10pt;
+      border-radius: 25px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 25px;
+      padding-right: 25px;
+      border-color: white;
+      background: transparent;
+      border-width: 2px;
+      border-image: none;
+  }
 
-.btn_skip:hover {
-    background: white;
-    color: black;
-}
+  .btn_skip:hover {
+      background: white;
+      color: black;
+  }
 
-.btn_postpone {
-    color: white;
-    font-size: 10pt;
-    border-radius: 25px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 25px;
-    padding-right: 25px;
-    border-color: white;
-    background: transparent;
-    border-width: 2px;
-    border-image: none;
-}
+  .btn_postpone {
+      color: white;
+      font-size: 10pt;
+      border-radius: 25px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 25px;
+      padding-right: 25px;
+      border-color: white;
+      background: transparent;
+      border-width: 2px;
+      border-image: none;
+  }
 
-.btn_postpone:hover {
-    background: white;
-    color: black;
-}
+  .btn_postpone:hover {
+      background: white;
+      color: black;
+  }
 
-.lbl_message {
-    font-size: 22pt;
-    color: white;
-    font-weight: bold;
-}
+  .lbl_message {
+      font-size: 22pt;
+      color: white;
+      font-weight: bold;
+  }
 
-.lbl_count {
-    font-size: 12pt;
-    color: white;
-}
+  .lbl_count {
+      font-size: 12pt;
+      color: white;
+  }
 
-.lbl_widget {
-    font-size: 9pt;
-    color: white;
-}
+  .lbl_widget {
+      font-size: 9pt;
+      color: white;
+  }
 
-.btn_circle {
-    border-radius: 25px;
-}
+  .btn_circle {
+      border-radius: 25px;
+  }
 
-.lbl_plugin_name {
-    font-weight: bold;
-}
+  .lbl_plugin_name {
+      font-weight: bold;
+  }
 
-.lbl_plugin_description {
-    color: #9B9B9B;
-}
+  .lbl_plugin_description {
+      color: #9B9B9B;
+  }
 
-.info_bar_long_break {
-    opacity: 0.9;
-    border-radius: 5px;
-}
+  .info_bar_long_break {
+      opacity: 0.9;
+      border-radius: 5px;
+  }
 
-.toolbar {
-    background: black;
-    opacity: 0.9;
-    border-color: transparent;
-}
+  .toolbar {
+      background: black;
+      opacity: 0.9;
+      border-color: transparent;
+  }
 
-.btn_menu {
-    border-width: 0px;
-    border-radius: 0px;
-    border-image: None;
-    background: white;
-    border-color: transparent;
-}
+  .btn_menu {
+      border-width: 0px;
+      border-radius: 0px;
+      border-image: None;
+      background: white;
+      border-color: transparent;
+  }
 
-.btn_menu:hover {
-    border-width: 0px;
-    border-radius: 0px;
-    border-image: None;
-    background: whitesmoke;
-    border-color: transparent;
-}
-#+END_SRC
+  .btn_menu:hover {
+      border-width: 0px;
+      border-radius: 0px;
+      border-image: None;
+      background: whitesmoke;
+      border-color: transparent;
+  }
+  #+END_SRC
