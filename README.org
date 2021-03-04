@@ -10,6 +10,7 @@ Repository contains following configuration files:
   - [[file:music/mopidy.org][Mopidy]]
   - [[file:music/ncmpcpp.org][ncmpcpp]]
 - System
+  - [[file:system/gpg.org][GPG]]
   - [[file:system/mimeo.org][mimeo]]
   - [[file:system/safeeyes.org][Safe Eyes]]
   - [[file:system/scripts.org][Scripts]]
