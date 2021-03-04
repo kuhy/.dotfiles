@@ -26,7 +26,7 @@
                (org-org-export-to-org)
             )
           )
-        )" $1
+        )" "$1"
   }
   #+END_SRC
 
@@ -41,6 +41,7 @@
           (epa-file-enable)
           (setq org-crypt-key \"<<crypt_key>>\")
           (setf epa-pinentry-mode 'ask)
+          (setq make-backup-files nil)
           (dolist (file command-line-args-left)
             (with-current-buffer
               (find-file-noselect file)
@@ -48,7 +49,7 @@
               (org-babel-tangle)
             )
           )
-        )" $1
+        )" "$1"
   }
   #+END_SRC
 
@@ -60,13 +61,13 @@
 
   Tangle exported files.
   #+BEGIN_SRC sh
-  EXPORTED_FILES=$(echo "$FILES" | sed 's/$/.org/')
+  EXPORTED_FILES=${FILES//'.org'/.org.org}
   emacs_tangle "$EXPORTED_FILES"
   #+END_SRC
 
   Delete exported files.
   #+BEGIN_SRC sh
-  rm $EXPORTED_FILES
+  rm "$EXPORTED_FILES"
 
   exit 0
   #+END_SRC
@@ -114,9 +115,9 @@
             (find-file-noselect file)
             (org-icalendar-export-to-ics)
           )
-      )" $FILES
+      )" "$FILES"
 
-  for file in "${FILES//'.org'/.ics}"; do
+  for file in ${FILES//'.org'/.ics}; do
       gcalcli import "$file" --calendar "$CALENDAR"
   done
   #+END_SRC
