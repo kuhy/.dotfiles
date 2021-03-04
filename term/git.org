@@ -1,6 +1,7 @@
 #+TITLE: Git
 #+AUTHOR: Kuhy
 #+OPTIONS: prop:t
+#+INCLUDE: "../secrets.org"
 /The fast distributed version control system/
 * Basic
   :PROPERTIES:
@@ -13,12 +14,12 @@
 
    Set my name:
    #+BEGIN_SRC conf
-   name = Ondřej Kuhejda
+   name = <<git_name>>
    #+END_SRC
 
    Set my email:
    #+BEGIN_SRC conf
-   email = ondrejkuhejda@gmail.com
+   email = <<git_email>>
    #+END_SRC
 ** Core
    #+BEGIN_SRC conf
