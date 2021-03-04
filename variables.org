@@ -24,6 +24,11 @@
   wl-copy
   #+END_SRC
 
+  Your preferred pinetry program
+  #+NAME: pinentry
+  #+BEGIN_SRC conf
+  /usr/bin/pinentry-rofi
+  #+END_SRC
 
   Your preferred terminal emulator
   #+NAME: terminal
