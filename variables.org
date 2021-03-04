@@ -11,7 +11,7 @@ Here are defined global variables for all configuration files.
 Your preferred resource opener
 #+NAME: opener
 #+BEGIN_SRC conf
-gio open
+xdg-open
 #+END_SRC
 
 Your preferred application launcher
@@ -19,6 +19,13 @@ Your preferred application launcher
 #+BEGIN_SRC conf
 gtk-launch
 #+END_SRC
+
+Your preferred clip tool
+#+NAME: clip_tool
+#+BEGIN_SRC conf
+wl-copy
+#+END_SRC
+
 
 Your preferred terminal emulator
 #+NAME: terminal

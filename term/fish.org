@@ -9,9 +9,9 @@
 :header-args: :tangle ~/.config/fish/config.fish :comments both :mkdirp yes :noweb tangle
 :END:
 ** Behaviour
-Use vim key bindings.
+Use vim and emacs key bindings at the same time.
 #+BEGIN_SRC sh
-fish_vi_key_bindings
+fish_hybrid_key_bindings
 #+END_SRC
 
 Bootstrap fisher installation
@@ -130,6 +130,17 @@ Start and detach =$EDITOR= from shell.
 #+BEGIN_SRC sh
 function e
     bash -c "eval $VISUAL $argv" >/dev/null &; disown
+end
+#+END_SRC
+
+** Resource opener
+:PROPERTIES:
+:header-args: :tangle ~/.config/fish/functions/o.fish :comments both :mkdirp yes :noweb tangle
+:END:
+Start and detach =$EDITOR= from shell.
+#+BEGIN_SRC sh
+function o
+    <<opener>> $argv
 end
 #+END_SRC
 
