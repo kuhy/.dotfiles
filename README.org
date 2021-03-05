@@ -2,6 +2,8 @@
 #+AUTHOR: Kuhy
 /Kuhy's literate dotfiles./
 
+[[./screenshot.png]]
+
 Repository contains following configuration files:
 - Editor
   - [[file:editor/editorconfig.org][EditorConfig]]
