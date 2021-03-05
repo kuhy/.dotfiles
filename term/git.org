@@ -5,7 +5,7 @@
 /The fast distributed version control system/
 * Basic
   :PROPERTIES:
-  :header-args: :tangle ~/.gitconfig :comments both :mkdirp yes
+  :header-args: :tangle ~/.gitconfig :comments both :mkdirp yes :noweb tangle
   :END:
 ** User
    #+BEGIN_SRC conf
@@ -59,7 +59,7 @@
    #+END_SRC
 * Global .gitignore
   :PROPERTIES:
-  :header-args: :tangle ~/.gitignore :comments both :mkdirp yes
+  :header-args: :tangle ~/.gitignore :comments both :mkdirp yes :noweb tangle
   :END:
 ** Diff
    Patch files:
