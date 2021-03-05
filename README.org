@@ -16,6 +16,7 @@ Repository contains following configuration files:
   - [[file:system/mimeo.org][mimeo]]
   - [[file:system/safeeyes.org][Safe Eyes]]
   - [[file:system/scripts.org][Scripts]]
+  - [[file:system/sudo.org][sudo]]
 - Terminal
   - [[file:term/alacritty.org][Alacritty]]
   - [[file:term/bash.org][Bash]]
@@ -42,6 +43,7 @@ Repository contains following configuration files:
   - =:noweb tangle= to allow expansion of code block's references
   - =:comments yes= to tangle also comments
   - =:mkdirp yes= to allow creating parent directories for tangled files
+  - =:tangle-mode (identity #o440)= to set permissions of tangled files
 
   Some files such as [[file:variables.org][variables.org]] and [[file:secrets.org][secrets.org]] contains code blocks which are shared
   between multiple Org files (these code blocks are annotated with =#+NAME: block_id=);

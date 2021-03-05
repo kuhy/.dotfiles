@@ -10,9 +10,15 @@
   :END:
   Following script installs and tangles literate dotfiles written in Org mode.
 
-  Directory which contains dotfiles:
+  Directory which contains dotfiles (same even with =sudo=):
   #+BEGIN_SRC sh
-  DOTFILES_HOME=$HOME/.dotfiles
+  if [ -v SUDO_USER ]; then
+      USER_HOME=$(eval echo "~$SUDO_USER")
+  else
+      USER_HOME=$HOME
+  fi
+
+  DOTFILES_HOME=$USER_HOME/.dotfiles
   #+END_SRC
 
   Following function Exports Org file to another Org file.
