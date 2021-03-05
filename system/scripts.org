@@ -138,7 +138,7 @@
       tmux new-session -d -s <<music_player>> <<music_player>>
   fi
 
-  <<terminal>> -e 'tmux attach-session -t <<music_player>>'
+  <<terminal>> -e tmux attach-session -t <<music_player>>
   #+END_SRC
 * Blackify PDF
   :PROPERTIES:
