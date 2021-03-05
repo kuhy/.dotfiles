@@ -1,0 +1,22 @@
+#+TITLE: sudo
+#+AUTHOR: Kuhy
+#+OPTIONS: prop:t
+/Give certain users the ability to run some commands as root/
+* Sudoers
+  :PROPERTIES:
+  :header-args: :tangle /etc/sudoers :comments both :mkdirp yes :noweb tangle :tangle-mode (identity #o440)
+  :END:
+  Make =sudo= insult user for each incorrect password attempt
+  #+BEGIN_SRC conf
+  Defaults insults
+  #+END_SRC
+
+  User privilege specification
+  #+BEGIN_SRC conf
+  root ALL=(ALL) ALL
+  #+END_SRC
+
+  Allow members of group wheel to execute any command
+  #+BEGIN_SRC conf
+  %wheel ALL=(ALL) ALL
+  #+END_SRC
