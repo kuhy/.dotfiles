@@ -1,5 +1,7 @@
 #+TITLE: Dotfiles
 #+AUTHOR: Kuhy
+/Kuhy's literate dotfiles./
+
 Repository contains following configuration files:
 - Editor
   - [[file:editor/editorconfig.org][EditorConfig]]
@@ -29,11 +31,30 @@ Repository contains following configuration files:
   - [[file:wm/rofi.org][Rofi]]
   - [[file:wm/sway.org][Sway]]
   - [[file:wm/swaylock.org][swaylock]]
+* How does it work?
+  Every part of my system is configured using some [[https://orgmode.org/][Org Mode]] file. Each file contains textual
+  description alongside code blocks containing the actual configuration. These code
+  blocks can be [[http://www.literateprogramming.com/][tangled]] (extracted) into the dotfiles at specified path using [[https://orgmode.org/worg/org-contrib/babel/intro.html][Babel]].
+  The whole setup requires only Emacs with default packages.
 
-Variables and colors are shared between multiple files via [[file:variables.org][variables.org]].
-* Prerequisites
-  You need only Emacs with =org-mode= and =git=.
-* Instalation
-  #+BEGIN_SRC sh
-  curl -fsSL https://github.com/kuhy/.dotfiles/raw/master/install.sh | sh
-  #+END_SRC
+  Org files contain the following header arguments:
+  - =:tangle file_path= which specifies the actual path to the dotfile
+  - =:noweb tangle= to allow expansion of code block's references
+  - =:comments yes= to tangle also comments
+  - =:mkdirp yes= to allow creating parent directories for tangled files
+
+  Some files such as [[file:variables.org][variables.org]] and [[file:secrets.org][secrets.org]] contains code blocks which are shared
+  between multiple Org files (these code blocks are annotated with =#+NAME: block_id=);
+  because of that, multiple applications can share the same color scheme, etc.
+  These files are included in other files using =#+INCLUDE: file_path= statements.
+  Included source blocks are then referenced in code like this: =<<block_id>>=.
+  To prevent tangling definitions of shared source blocks, the =:tangle no= option is used.
+  Because of that, files which are including these shared files must use =#+OPTIONS: prop:t=;
+  this ensures that custom properties (like =:tangle no=) are also included in destination files.
+
+  File [[file:secrets.org][secrets.org]] contains some sensitive data, therefore content of this file is encrypted
+  using [[https://orgmode.org/manual/Org-Crypt.html][Org Crypt]] (headers are annotated with =:crypt:= tag).
+
+  Unfortunately, built-in function =org-babel-tangle= which is responsible for tangling, does not
+  work correctly with =#+INCLUDE= statements and encrypted files. Because of that, I created a
+  [[file:system/scripts.org][simple script]] which overcomes those shortcomings.
