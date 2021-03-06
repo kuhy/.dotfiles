@@ -1,39 +1,38 @@
 #+TITLE: Dotfiles
 #+AUTHOR: Kuhy
 /Kuhy's literate dotfiles./
-
 [[./screenshot.png]]
-
-Repository contains following configuration files:
-- Editor
-  - [[file:editor/editorconfig.org][EditorConfig]]
-  - [[file:editor/emacs.org][Emacs]]
-  - [[file:editor/idea.org][IntelliJ IDEA]]
-- Music
-  - [[file:music/beets.org][beets]]
-  - [[file:music/mopidy.org][Mopidy]]
-  - [[file:music/ncmpcpp.org][ncmpcpp]]
-- System
-  - [[file:system/gpg.org][GPG]]
-  - [[file:system/mimeo.org][mimeo]]
-  - [[file:system/safeeyes.org][Safe Eyes]]
-  - [[file:system/scripts.org][Scripts]]
-  - [[file:system/sudo.org][sudo]]
-- Terminal
-  - [[file:term/alacritty.org][Alacritty]]
-  - [[file:term/bash.org][Bash]]
-  - [[file:term/bat.org][bat]]
-  - [[file:term/fish.org][Fish]]
-  - [[file:term/git.org][Git]]
-  - [[file:term/tmux.org][tmux]]
-- Web
-  - [[file:web/firefox.org][Firefox]]
-- Window manager
-  - [[file:wm/i3blocks.org][i3blocks]]
-  - [[file:wm/mako.org][mako]]
-  - [[file:wm/rofi.org][Rofi]]
-  - [[file:wm/sway.org][Sway]]
-  - [[file:wm/swaylock.org][swaylock]]
+* Contents
+  Repository contains following configuration files:
+  - Editor
+    - [[file:editor/editorconfig.org][EditorConfig]]
+    - [[file:editor/emacs.org][Emacs]]
+    - [[file:editor/idea.org][IntelliJ IDEA]]
+  - Music
+    - [[file:music/beets.org][beets]]
+    - [[file:music/mopidy.org][Mopidy]]
+    - [[file:music/ncmpcpp.org][ncmpcpp]]
+  - System
+    - [[file:system/gpg.org][GPG]]
+    - [[file:system/mimeo.org][mimeo]]
+    - [[file:system/safeeyes.org][Safe Eyes]]
+    - [[file:system/scripts.org][Scripts]]
+    - [[file:system/sudo.org][sudo]]
+  - Terminal
+    - [[file:term/alacritty.org][Alacritty]]
+    - [[file:term/bash.org][Bash]]
+    - [[file:term/bat.org][bat]]
+    - [[file:term/fish.org][Fish]]
+    - [[file:term/git.org][Git]]
+    - [[file:term/tmux.org][tmux]]
+  - Web
+    - [[file:web/firefox.org][Firefox]]
+  - Window manager
+    - [[file:wm/mako.org][mako]]
+    - [[file:wm/rofi.org][Rofi]]
+    - [[file:wm/sway.org][Sway]]
+    - [[file:wm/swaylock.org][swaylock]]
+    - [[file:wm/waybar.org][Waybar]]
 * How does it work?
   Every part of my system is configured using some [[https://orgmode.org/][Org Mode]] file. Each file contains textual
   description alongside code blocks containing the actual configuration. These code
