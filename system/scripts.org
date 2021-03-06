@@ -13,12 +13,10 @@
   Directory which contains dotfiles (same even with =sudo=):
   #+BEGIN_SRC sh
   if [ -v SUDO_USER ]; then
-      USER_HOME=$(eval echo "~$SUDO_USER")
-  else
-      USER_HOME=$HOME
+      HOME=$(eval echo "~$SUDO_USER")
   fi
 
-  DOTFILES_HOME=$USER_HOME/.dotfiles
+  DOTFILES_HOME=$HOME/.dotfiles
   #+END_SRC
 
   Following function Exports Org file to another Org file.
@@ -26,36 +24,55 @@
   #+BEGIN_SRC sh
   emacs_export_to_org() {
       emacs -Q --batch --eval "
-          (dolist (file command-line-args-left)
-            (with-current-buffer
-              (find-file-noselect file)
-               (org-org-export-to-org)
+          (progn
+            (setq make-backup-files nil)
+            (dolist (file command-line-args-left)
+              (with-current-buffer
+                (find-file-noselect file)
+                (org-org-export-to-org)
+              )
             )
-          )
-        )" "$1"
+          )" "$1"
   }
   #+END_SRC
 
-  Following function tangles all specified Org files
-  and decrypts entries encrypted by =org-crypt=.
+  Following function decrypts entries encrypted by =org-crypt=.
+  It is required to set =<<crypt_key>>= in [[file:../secrets.org][secrets.org]];
+  same key must be used for encryption of Org entries.
+  #+BEGIN_SRC sh
+  emacs_decrypt_entries() {
+      emacs -Q --batch --eval "
+          (progn
+            (require 'org-crypt)
+            (require 'epa-file)
+            (epa-file-enable)
+            (setq org-crypt-key \"<<crypt_key>>\")
+            (setf epa-pinentry-mode 'ask)
+            (setq make-backup-files nil)
+            (dolist (file command-line-args-left)
+              (with-current-buffer
+                (find-file-noselect file)
+                (org-decrypt-entries)
+                (save-buffer)
+              )
+            )
+          )" "$1"
+  }
+  #+END_SRC
+
+  Following function tangles all specified Org files.
   #+BEGIN_SRC sh
   emacs_tangle() {
       emacs -Q --batch --eval "
-        (progn
-          (require 'org-crypt)
-          (require 'epa-file)
-          (epa-file-enable)
-          (setq org-crypt-key \"<<crypt_key>>\")
-          (setf epa-pinentry-mode 'ask)
-          (setq make-backup-files nil)
-          (dolist (file command-line-args-left)
-            (with-current-buffer
-              (find-file-noselect file)
-              (org-decrypt-entries)
-              (org-babel-tangle)
+          (progn
+            (setq make-backup-files nil)
+            (dolist (file command-line-args-left)
+              (with-current-buffer
+                (find-file-noselect file)
+                (org-babel-tangle)
+              )
             )
-          )
-        )" "$1"
+          )" "$1"
   }
   #+END_SRC
 
@@ -65,9 +82,20 @@
   emacs_export_to_org "$FILES"
   #+END_SRC
 
-  Tangle exported files.
+  Decrypt exported files.
+  It is required to drop =sudo= privileges; otherwise files are not decrypted correctly.
   #+BEGIN_SRC sh
   EXPORTED_FILES=${FILES//'.org'/.org.org}
+  if [ -v SUDO_USER ]; then
+      chown "$SUDO_USER" "$EXPORTED_FILES"
+      sudo -u "$SUDO_USER" bash -c "$(declare -f emacs_decrypt_entries); emacs_decrypt_entries $EXPORTED_FILES"
+  else
+      emacs_decrypt_entries "$EXPORTED_FILES"
+  fi
+  #+END_SRC
+
+  Tangle exported files.
+  #+BEGIN_SRC sh
   emacs_tangle "$EXPORTED_FILES"
   #+END_SRC
 
