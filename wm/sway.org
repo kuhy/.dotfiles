@@ -6,6 +6,7 @@
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
 #+INCLUDE: "../variables.org"
+#+INCLUDE: "../secrets.org"
 /Tiling Wayland compositor and replacement for the i3 window manager/
 * Variables
   Logo key. Use Mod1 for Alt.
@@ -51,7 +52,7 @@
 ** Redshift
    start redshift
    #+BEGIN_SRC conf
-   exec redshift -l $(curl ipinfo.io | jq -j .loc | tr ',' ':') -m wayland
+   exec redshift -l <<gps_location>> -m wayland
    #+END_SRC
 ** Idle
    This will lock your screen after 300 seconds of inactivity, then turn off
@@ -319,7 +320,7 @@
    #+BEGIN_SRC conf
    bindsym XF86AudioRaiseVolume exec amixer sset Master 10%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
    bindsym XF86AudioLowerVolume exec amixer sset Master 10%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
-   bindsym XF86AudioMute exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $SWAYSOCK.wob
+   bindsym XF86AudioMute exec amixer sset Master toggle
    #+END_SRC
 
    Monitor brightness (https://github.com/haikarainen/light)
@@ -357,7 +358,7 @@
    #+END_SRC
 ** Gaps
    #+BEGIN_SRC conf
-   gaps inner 8
+   gaps inner 5
    smart_gaps on
    #+END_SRC
 ** Status Bar
@@ -372,22 +373,26 @@
 
    show i3blocks inside a status bar
    #+BEGIN_SRC conf
-       status_command i3blocks
-       #swaybar_command waybar
+       #status_command i3blocks
+       swaybar_command waybar
+   #+END_SRC
+
+   set bar colors
+   #+BEGIN_SRC conf
+   #     colors {
+   #         background <<base00>>
+   #         separator  <<base01>>
+   #         statusline <<base04>>
+
+            # State             Border  BG      Text
+   #         focused_workspace   <<base05>> <<base0D>> <<base00>>
+   #         active_workspace    <<base05>> <<base03>> <<base00>>
+   #         inactive_workspace  <<base03>> <<base01>> <<base05>>
+   #         urgent_workspace    <<base08>> <<base08>> <<base00>>
+   #         binding_mode        <<base00>> <<base0A>> <<base00>>
+   #     }
    #+END_SRC
 
    #+BEGIN_SRC conf
-       colors {
-           background <<base00>>
-           separator  <<base01>>
-           statusline <<base04>>
-
-           # State             Border  BG      Text
-           focused_workspace   <<base05>> <<base0D>> <<base00>>
-           active_workspace    <<base05>> <<base03>> <<base00>>
-           inactive_workspace  <<base03>> <<base01>> <<base05>>
-           urgent_workspace    <<base08>> <<base08>> <<base00>>
-           binding_mode        <<base00>> <<base0A>> <<base00>>
-       }
    }
    #+END_SRC
