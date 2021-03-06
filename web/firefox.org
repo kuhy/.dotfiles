@@ -275,6 +275,13 @@
    }
    #+END_SRC
 
+   do not show microphone icon
+   #+BEGIN_SRC css
+   #webrtcIndicator {
+       display: none;
+   }
+   #+END_SRC
+
    hiding useless stuffs
    #+BEGIN_SRC css
    .titlebar-placeholder,#wrapper-alltabs-button,.tab-close-button,.tab-icon-image,#main-window :-moz-any(#back-button, #forward-button) {
@@ -499,6 +506,6 @@
    Change color of scroll bar:
    #+BEGIN_SRC css
    html,body{
-       scrollbar-color: <<base03>> <<base02>> !important;
+       scrollbar-color: <<base03>> <<base01>> !important;
    }
    #+END_SRC
