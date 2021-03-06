@@ -13,6 +13,7 @@
     - [[file:music/mopidy.org][Mopidy]]
     - [[file:music/ncmpcpp.org][ncmpcpp]]
   - System
+    - [[file:system/agetty.org][agetty]]
     - [[file:system/gpg.org][GPG]]
     - [[file:system/mimeo.org][mimeo]]
     - [[file:system/safeeyes.org][Safe Eyes]]

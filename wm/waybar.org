@@ -117,7 +117,7 @@
        "format": "{icon}  {capacity}%",
        "format-icons": ["", "", "", "", ""],
        "states": {
-           "warning": 20,
+           "warning": 25,
            "critical": 10
        },
        "tooltip": false
