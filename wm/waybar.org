@@ -174,15 +174,15 @@
        border-bottom: 3px solid <<base0A>>;
    }
 
-   #battery.charging {
-       border-bottom: 3px solid <<base0B>>;
-   }
-
    #battery.warning, #cpu.warning, #memory.warning {
        border-bottom: 3px solid <<base09>>;
    }
 
    #battery.critical, #cpu.critical, #memory.critical {
        border-bottom: 3px solid <<base08>>;
+   }
+
+   #battery.charging {
+       border-bottom: 3px solid <<base0B>>;
    }
    #+END_SRC
