@@ -61,9 +61,9 @@
   [[ -f ~/.bashrc ]] && . ~/.bashrc
   #+END_SRC
 
-  If running from =tty1= start =sway=
+  If running from =tty1= start =sway= and redirect output to the [[file:/var/log/sway.log][sway.log]]
   #+BEGIN_SRC sh
   if [ "$(tty)" = '/dev/tty1' ]; then
-      exec sway
+      exec sway > /var/log/sway.log 2>&1
   fi
   #+END_SRC

@@ -111,6 +111,14 @@
   :END:
   Setups system after new installation.
 
+  Create a log file that will be used by Sway
+  #+BEGIN_SRC sh
+  sudo touch /var/log/sway.log
+  sudo chown <<username>> /var/log/sway.log
+  sudo chmod 600 /var/log/sway.log
+  #+END_SRC
+
+
   Configure MIME types and corresponding handlers using [[file:../system/mimeo.org][mimeo]].
   #+BEGIN_SRC sh
   mimeo --create emacs.desktop Emacs 'emacsclient -c -a emacs %F' 'glob:text/*' 'noterm'
