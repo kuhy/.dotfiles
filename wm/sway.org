@@ -32,7 +32,7 @@
   input * {
       xkb_layout cz
       xkb_variant coder
-      xkb_options ctrl:nocaps
+      xkb_options ctrl:nocaps,compose:rctrl
   #+END_SRC
 
   Setup touchpad:
@@ -73,10 +73,6 @@
 ** Safe Eyes
    #+BEGIN_SRC conf
    exec safeeyes
-   #+END_SRC
-** Mopidy
-   #+BEGIN_SRC conf
-   exec mopidy
    #+END_SRC
 * Key bindings
 ** Basics
@@ -143,14 +139,14 @@
    #+BEGIN_SRC conf
        bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
-   bindsym $mod+Shift+p exec swaynag -t warning -m 'Power-off?' -b 'Yes' 'shutdown -P "now"'
+       bindsym $mod+Shift+p exec swaynag -t warning -m 'Power-off?' -b 'Yes' 'shutdown -P "now"'
 
-   bindsym $mod+Shift+r exec swaynag -t warning -m 'Reboot?' -b 'Yes' 'shutdown -r "now"'
+       bindsym $mod+Shift+r exec swaynag -t warning -m 'Reboot?' -b 'Yes' 'shutdown -r "now"'
    #+END_SRC
 
    lock screen
    #+BEGIN_SRC conf
-   bindsym $mod+Shift+s exec sh ~/.config/swaylock/lock.sh
+       bindsym $mod+Shift+s exec sh ~/.config/swaylock/lock.sh
    #+END_SRC
 ** Rofi scripts
    start your app launcher

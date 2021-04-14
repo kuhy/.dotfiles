@@ -13,12 +13,12 @@
     - [[file:music/mopidy.org][Mopidy]]
     - [[file:music/ncmpcpp.org][ncmpcpp]]
   - System
-    - [[file:system/agetty.org][agetty]]
     - [[file:system/gpg.org][GPG]]
     - [[file:system/mimeo.org][mimeo]]
     - [[file:system/safeeyes.org][Safe Eyes]]
     - [[file:system/scripts.org][Scripts]]
     - [[file:system/sudo.org][sudo]]
+    - [[file:system/systemd.org][systemd]]
   - Terminal
     - [[file:term/alacritty.org][Alacritty]]
     - [[file:term/bash.org][Bash]]

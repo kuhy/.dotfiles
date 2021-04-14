@@ -117,8 +117,9 @@
        "format": "{icon}  {capacity}%",
        "format-icons": ["", "", "", "", ""],
        "states": {
-           "warning": 25,
-           "critical": 10
+           "warning": 20,
+           "critical": 10,
+           "fatal": 5
        },
        "tooltip": false
    }
@@ -179,6 +180,11 @@
    }
 
    #battery.critical, #cpu.critical, #memory.critical {
+       border-bottom: 3px solid <<base08>>;
+   }
+
+   #battery.fatal {
+       color: <<base08>>;
        border-bottom: 3px solid <<base08>>;
    }
 

@@ -110,11 +110,15 @@
         kept-old-versions      5) ; and how many of the old
   #+END_SRC
 * Org
-  Allow to run dot files from =org-mode=.
+  Allow to evaluate source blocks from =org-mode=.
   #+BEGIN_SRC elisp
   (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((dot . t))) ; this line activates dot
+   'org-babel-load-languages '(
+      (dot . t)
+      (R . t)
+      (plantuml . t)
+    )
+  )
   #+END_SRC
 
   Highlight LaTeX commands inside Org Mode.
@@ -137,6 +141,11 @@
   Set org-mode keybindings:
   #+BEGIN_SRC elisp
   (global-set-key (kbd "C-c a") 'org-agenda)
+  #+END_SRC
+
+  Do not indent tags:
+  #+BEGIN_SRC elisp
+  (setq org-tags-column 0)
   #+END_SRC
 
   Hide leading stars
@@ -232,6 +241,8 @@
     :init
     (setq evil-want-keybinding nil)
     :config
+    (global-undo-tree-mode)
+    (evil-set-undo-system 'undo-tree)
     (evil-mode))
   #+END_SRC
 
@@ -351,9 +362,21 @@
     :init (setq markdown-command "multimarkdown"))
   #+END_SRC
 
+  PlantUML support:
+  #+BEGIN_SRC elisp
+  (use-package plantuml-mode
+    :custom (org-plantuml-jar-path (expand-file-name "/usr/share/java/plantuml/plantuml.jar"))
+  )
+  #+END_SRC
+
   Cucumber support:
   #+BEGIN_SRC elisp
   (use-package feature-mode)
+  #+END_SRC
+
+  Syntax highlighting for systemd Files
+  #+BEGIN_SRC elisp
+  (use-package systemd)
   #+END_SRC
 
   Project Interaction Library
@@ -434,6 +457,11 @@
   (use-package rust-mode)
   #+END_SRC
 
+  LUA syntax highlighting
+  #+BEGIN_SRC elisp
+  (use-package lua-mode)
+  #+END_SRC
+
   Haskell syntax highlighting
   #+BEGIN_SRC elisp
   (use-package haskell-mode
@@ -464,6 +492,7 @@
   Treemacs
   #+BEGIN_SRC elisp
   (use-package treemacs
+    :config (treemacs-follow-mode t)
     :bind ("C-=" . treemacs)
     :hook (treemacs-mode . hide-mode-line-mode))
 
@@ -513,11 +542,14 @@
     (centaur-tabs-set-icons t)
     (centaur-tabs-gray-out-icons 'buffer)
     (centaur-tabs-set-close-button nil)
+    (centaur-tabs-height 20)
     :bind
       (:map evil-normal-state-map
         ("g t" . centaur-tabs-forward)
         ("g T" . centaur-tabs-backward))
     :config
+    (centaur-tabs-headline-match)
+    (centaur-tabs-change-fonts "<<font>>" 100)
     (centaur-tabs-mode t))
   #+END_SRC
 

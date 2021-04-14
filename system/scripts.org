@@ -118,6 +118,11 @@
   sudo chmod 600 /var/log/sway.log
   #+END_SRC
 
+  Enable some =systemd= services
+  #+BEGIN_SRC sh
+  sudo systemctl enable ufw
+  systemctl --user enable mopidy
+  #+END_SRC
 
   Configure MIME types and corresponding handlers using [[file:../system/mimeo.org][mimeo]].
   #+BEGIN_SRC sh

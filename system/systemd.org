@@ -1,0 +1,39 @@
+#+TITLE: systemd
+#+AUTHOR: Kuhy
+#+OPTIONS: prop:t
+#+INCLUDE: "../secrets.org"
+/system and service manager/
+* agetty
+  :PROPERTIES:
+  :header-args: :tangle /etc/systemd/system/getty@tty1.service.d/override.conf :comments no :mkdirp yes :noweb tangle :tangle-mode (identity #o444)
+  :END:
+  Automatically login to virtual console number 1
+  #+BEGIN_SRC conf
+  [Service]
+  ExecStart=
+  ExecStart=-/usr/bin/agetty --autologin <<username>> --noclear %I $TERM
+  #+END_SRC
+* Mopidy
+  :PROPERTIES:
+  :header-args: :tangle .config/systemd/user/mopidy.service :comments no :mkdirp yes :noweb tangle
+  :END:
+  [[file:../music/mopidy.org][Mopidy]] needs to be started after network connection is established.
+  #+BEGIN_SRC conf
+  [Unit]
+  Description=Mopidy music server
+  After=avahi-daemon.service
+  After=dbus.service
+  After=network-online.target
+  Wants=network-online.target
+  After=nss-lookup.target
+  After=pulseaudio.service
+  After=remote-fs.target
+  After=sound.target
+
+  [Service]
+  ExecStartPre=/bin/sleep 30
+  ExecStart=/usr/bin/mopidy
+
+  [Install]
+  WantedBy=default.target
+  #+END_SRC
