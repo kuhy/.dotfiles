@@ -13,6 +13,13 @@
   set-option -g default-shell /usr/bin/fish
   #+END_SRC
 
+  fix 256 color scheme
+  #+BEGIN_SRC conf
+  set  -g default-terminal "tmux-256color"
+  set -ag terminal-overrides ",alacritty:RGB"
+  #+END_SRC
+
+
   Start windows and panes at 1, not 0
   #+BEGIN_SRC conf
   set -g base-index 1

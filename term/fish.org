@@ -67,7 +67,7 @@
    abbr gl 'git log'
    abbr ga 'git add'
    abbr gc 'git commit'
-   abbr gd 'git difftool --dir-diff'
+   abbr gd 'git diff'
 
    abbr dnf 'sudo dnf'
    abbr pacman 'sudo pacman'

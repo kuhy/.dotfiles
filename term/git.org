@@ -14,12 +14,12 @@
 
    Set my name:
    #+BEGIN_SRC conf
-   name = <<git_name>>
+   name = <<name>>
    #+END_SRC
 
    Set my email:
    #+BEGIN_SRC conf
-   email = <<git_email>>
+   email = <<email>>
    #+END_SRC
 ** Core
    #+BEGIN_SRC conf
@@ -50,12 +50,17 @@
 ** Diff
    Change diff tool to [[https://github.com/ymattw/ydiff][ydiff]]:
    #+BEGIN_SRC conf
-   [diff]
-     tool = ydiff
-   [difftool]
-     prompt = false
-   [difftool "ydiff"]
-     cmd = ydiff -s
+   [pager]
+   diff = delta
+   log = delta
+   reflog = delta
+   show = delta
+
+   [delta]
+   features = side-by-side line-numbers decorations
+   pager = less --mouse --wheel-lines=3
+   navigate = true
+   syntax-theme = base16
    #+END_SRC
 * Global .gitignore
   :PROPERTIES:
