@@ -74,6 +74,12 @@
    #+BEGIN_SRC conf
    exec safeeyes
    #+END_SRC
+** sway-alttab
+   Execute daemon that enables to switch to the last focused window using
+   specified key binding.
+   #+BEGIN_SRC conf
+   exec sway-alttab -c $mod+Tab
+   #+END_SRC
 * Key bindings
 ** Basics
    start a tmux in terminal
@@ -109,6 +115,11 @@
    start emacs
    #+BEGIN_SRC conf
        bindsym $mod+e exec eval $VISUAL
+   #+END_SRC
+
+   start YouTube player
+   #+BEGIN_SRC conf
+       bindsym $mod+y exec freetube
    #+END_SRC
 
    attach tmux session with music player
