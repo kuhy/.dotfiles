@@ -45,6 +45,9 @@
    alias del 'rmtrash'
    alias deldir 'rmdirtrash'
    alias mv 'mv -vn'
+   alias cp 'cp -vn'
+   alias mnt 'udisksctl mount -b'
+   alias umnt 'udisksctl unmount -b'
    thefuck --alias | source
    #+END_SRC
 

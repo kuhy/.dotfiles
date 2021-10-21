@@ -43,6 +43,14 @@
       middle_emulation enabled
   }
   #+END_SRC
+
+  Hide the cursor after timeout:
+  #+BEGIN_SRC conf
+  seat * {
+      hide_cursor 5000
+  }
+  #+END_SRC
+
 * Daemons
 ** Notifications
    start mako
@@ -80,6 +88,11 @@
    #+BEGIN_SRC conf
    exec sway-alttab -c $mod+Tab
    #+END_SRC
+** udiskie
+   Daemon that automounts removable media:
+   #+BEGIN_SRC conf
+   exec udiskie
+   #+END_SRC
 * Key bindings
 ** Basics
    start a tmux in terminal
@@ -115,6 +128,11 @@
    start emacs
    #+BEGIN_SRC conf
        bindsym $mod+e exec eval $VISUAL
+   #+END_SRC
+
+   open =org-agenda=
+   #+BEGIN_SRC conf
+       bindsym $mod+a exec emacsclient -ce "(my-org-agenda)"
    #+END_SRC
 
    start YouTube player
@@ -267,7 +285,7 @@
 
    move focus to the parent container
    #+BEGIN_SRC conf
-       bindsym $mod+a focus parent
+       bindsym $mod+p focus parent
    #+END_SRC
 ** Scratchpad
    Sway has a "scratchpad", which is a bag of holding for windows.
