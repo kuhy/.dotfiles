@@ -5,10 +5,14 @@
 /A window switcher, application launcher and dmenu replacement/
 * General
   :PROPERTIES:
-  :header-args: :tangle ~/.config/rofi/config :comments both :mkdirp yes :noweb tangle
+  :header-args: :tangle ~/.config/rofi/config.rasi :comments both :mkdirp yes :noweb tangle
   :END:
   #+BEGIN_SRC css
-  rofi.theme: ~/.config/rofi/theme.rasi
+  configuration {
+
+  }
+
+  @theme "theme"
   #+END_SRC
 * Theme
   :PROPERTIES:
@@ -75,6 +79,10 @@
   element {
       border:           0;
       padding:          1px ;
+  }
+  element-text {
+      background-color: inherit;
+      text-color:       inherit;
   }
   element normal.normal {
       background-color: @normal-background;
