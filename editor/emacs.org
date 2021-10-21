@@ -29,6 +29,7 @@
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
   ;(setq package-check-signature nil)
   (package-initialize)
   #+END_SRC
@@ -39,6 +40,11 @@
     (package-refresh-contents)
     (package-install 'use-package))
   (require 'use-package)
+  #+END_SRC
+
+  Use General for keybindings:
+  #+BEGIN_SRC elisp
+  (use-package general)
   #+END_SRC
 
   Hide default welcome screen.
@@ -100,6 +106,17 @@
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   #+END_SRC
 
+  Switch the spell checker based on the identified language
+  #+BEGIN_SRC elisp
+  (use-package guess-language
+    :custom
+      (guess-language-languages '(en cs))
+      (guess-language-min-paragraph-length 35)
+    :config (add-hook 'text-mode-hook (lambda () (guess-language-mode 1)))
+  )
+  #+END_SRC
+
+
   Write backups to ~/.emacs.d/backup/
   #+BEGIN_SRC elisp
   (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
@@ -110,6 +127,19 @@
         kept-old-versions      5) ; and how many of the old
   #+END_SRC
 * Org
+  Set org-mode keybindings:
+  #+BEGIN_SRC elisp
+  (use-package org
+    :general
+    ("C-c a" '(my-org-agenda :no-autoload t))
+    :preface
+    (defun my-org-agenda ()
+      (interactive)
+      (progn (org-agenda 1 "n")
+        (org-agenda-fortnight-view)))
+  )
+  #+END_SRC
+
   Allow to evaluate source blocks from =org-mode=.
   #+BEGIN_SRC elisp
   (org-babel-do-load-languages
@@ -138,14 +168,24 @@
   (setq org-confirm-babel-evaluate nil)
   #+END_SRC
 
-  Set org-mode keybindings:
+  Include my Org files into the agenda
   #+BEGIN_SRC elisp
-  (global-set-key (kbd "C-c a") 'org-agenda)
+  (setq org-agenda-files '("~/Documents/notes"))
+  #+END_SRC
+
+  Allow to use alphabetical characters in ordered lists:
+  #+BEGIN_SRC elisp
+  (setq org-list-allow-alphabetical t)
   #+END_SRC
 
   Do not indent tags:
   #+BEGIN_SRC elisp
   (setq org-tags-column 0)
+  #+END_SRC
+
+  Calendar for =org-mode=
+  #+BEGIN_SRC elisp
+  ;(use-package calfw-org)
   #+END_SRC
 
   Hide leading stars
@@ -307,6 +347,15 @@
     :config (which-key-mode))
   #+END_SRC
 
+  Set up email client:
+  #+BEGIN_SRC elisp
+  (use-package notmuch
+    :config
+    (setq notmuch-fcc-dirs '(("<<email>>" . "personal/sent")))
+    (setq notmuch-show-logo nil)
+  )
+  #+END_SRC
+
   =Git= interface.
   #+BEGIN_SRC elisp
   (use-package magit)
@@ -324,6 +373,18 @@
     :demand t
     :hook (magit-post-refresh diff-hl-magit-post-refresh)
     :config (global-diff-hl-mode))
+  #+END_SRC
+
+  Package for TidalCycles integration
+  #+BEGIN_SRC elisp
+  (use-package tidal
+    :config (setq tidal-boot-script-path "~/.config/tidal/BootTidal.hs")
+  )
+  #+END_SRC
+
+  Use mode that comes with =supercollider= package (on Arch Linux)
+  #+BEGIN_SRC elisp
+  (require 'sclang)
   #+END_SRC
 
   LaTeX
@@ -350,6 +411,11 @@
     (add-hook 'TeX-mode-hook 'my-company-latex-setup)
     (add-hook 'org-mode-hook 'my-company-latex-setup)
   )
+  #+END_SRC
+
+  YAML support:
+  #+BEGIN_SRC elisp
+  (use-package yaml-mode)
   #+END_SRC
 
   Markdown support:
@@ -656,6 +722,14 @@
      ) . form-feed-mode)
   )
   #+END_SRC
+
+  Use ace window for window switching.
+  #+BEGIN_SRC elisp
+  (use-package ace-window
+    :general
+    ("M-o" 'ace-window)
+  )
+  #+END_SRC
 * Theme
   Set base 16 theme:
   #+BEGIN_SRC elisp
@@ -702,4 +776,15 @@
   Set color of =org-mode= verbatim
   #+BEGIN_SRC elisp
   (set-face-attribute 'org-verbatim nil :foreground "<<base0F>>")
+  #+END_SRC
+
+  Set color of =org-mode= headings
+  #+BEGIN_SRC elisp
+  (custom-set-faces
+    '(org-level-1 ((t (:foreground "<<base08>>" :bold t :underline t))))
+    '(org-level-2 ((t (:foreground "<<base0A>>" :bold t))))
+    '(org-level-3 ((t (:foreground "<<base0D>>" :bold t))))
+    '(org-level-4 ((t (:foreground "<<base0C>>"))))
+    '(org-level-5 ((t (:foreground "<<base0B>>"))))
+  )
   #+END_SRC

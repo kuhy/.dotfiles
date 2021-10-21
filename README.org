@@ -12,6 +12,7 @@
     - [[file:music/beets.org][beets]]
     - [[file:music/mopidy.org][Mopidy]]
     - [[file:music/ncmpcpp.org][ncmpcpp]]
+    - [[file:music/tidal.org][Tidal Cycles]]
   - System
     - [[file:system/gpg.org][GPG]]
     - [[file:system/mimeo.org][mimeo]]
