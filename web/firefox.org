@@ -102,9 +102,9 @@
    colorscheme theme
    #+END_SRC
 
-   Use DuckDuckGo
+   Use browser search engine
    #+BEGIN_SRC conf
-   set searchengine startpage
+   set searchengine ""
    #+END_SRC
 ** Theme
    :PROPERTIES:
@@ -131,9 +131,9 @@
 
        --tridactyl-fg: var(--base05);
        --tridactyl-bg: var(--base00);
-       --tridactyl-url-fg: var(--base08);
+       --tridactyl-url-fg: var(--base0D);
        --tridactyl-url-bg: var(--base00);
-       --tridactyl-highlight-box-bg: var(--base0B);
+       --tridactyl-highlight-box-bg: var(--base04);
        --tridactyl-highlight-box-fg: var(--base00);
 
        /* Hint character tags */
@@ -149,15 +149,15 @@
    }
 
    #command-line-holder {    order: 1;
-       border: 2px solid var(--base0B);
+       border: 2px solid var(--base04);
        color: var(--tridactyl-bg);
    }
 
    #tridactyl-input {    padding: 1rem;
        color: var(--tridactyl-fg);
        width: 90%;
-       font-size: 1.5rem;
-       line-height: 1.5;
+       font-size: 1.2rem;
+       line-height: 1.2;
        background: var(--tridactyl-bg);
        padding-left: unset;
        padding: 1rem;
@@ -168,7 +168,7 @@
        border-spacing: 0;
        table-layout: fixed;
        padding: 1rem;
-       padding-top: 1rem;
+       padding-top: unset;
        padding-bottom: 1rem;
    }
 
@@ -228,7 +228,7 @@
        border-bottom: unset;
        padding: 1rem !important;
        padding-left: unset;
-       padding-bottom: 0.2rem;
+       padding-bottom: unset;
    }
 
    #cmdline_iframe {    position: fixed !important;
@@ -250,11 +250,11 @@
        padding: 0.8ex !important;
    }
 
-   #completions .focused {    background: var(--base0B);
+   #completions .focused {    background: var(--tridactyl-highlight-box-bg);
        color: var(--base00);
    }
 
-   #completions .focused .url {    background: var(--base0B);
+   #completions .focused .url {    background: var(--tridactyl-highlight-box-bg);
        color: var(--base00);
    }
    #+END_SRC
@@ -409,7 +409,7 @@
    reducing the tabs height more
    #+BEGIN_SRC css
    :root #tabbrowser-tabs {
-    --tab-min-height: 25px !important;
+    --tab-min-height: 22px !important;
    }
    #+END_SRC
 
@@ -479,6 +479,29 @@
    }
 
    #+END_SRC
+
+   Disable tab rounding:
+   #+BEGIN_SRC css
+   .tab-background {
+     border-radius: 0px 0px !important;
+     margin-bottom: 0px !important;
+     margin-block: 0px 0 !important;
+   }
+
+   .tabbrowser-tab:not([selected=true]):not([multiselected=true]) .tab-background {
+     background-color: color-mix(in srgb, currentColor 5%, transparent);
+   }
+
+   menupopup>menu,
+   menupopup>menuitem {
+     padding-block: 2px !important;
+   }
+
+   :root {
+     --arrowpanel-menuitem-padding: 2px !important;
+   }
+   #+END_SRC
+
 
    Make urlbar appear more compact
    #+BEGIN_SRC css
