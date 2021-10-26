@@ -338,7 +338,7 @@
 ** Fn keys
    Create fifo for =wob=:
    #+BEGIN_SRC conf
-   exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob --border-color $(echo '<<base0D>>' | sed -e 's/#/#FF/') --background-color $(echo '<<base00>>' | sed -e 's/#/#FF/') --bar-color $(echo '<<base07>>' | sed -e 's/#/#FF/')
+   exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob --border-color '<<base0D>>FF' --background-color '<<base00>>FF' --bar-color '<<base07>>FF'
    #+END_SRC
 
    Audio
