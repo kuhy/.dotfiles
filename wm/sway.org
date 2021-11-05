@@ -76,7 +76,7 @@
 ** Emacs daemon
    Run emacs in background so I can use emacsclient:
    #+BEGIN_SRC conf
-   exec emacs --daemon
+   exec emacs --daemon && emacsclient -e "(my-org-agenda)"
    #+END_SRC
 ** Safe Eyes
    #+BEGIN_SRC conf
@@ -132,7 +132,7 @@
 
    open =org-agenda=
    #+BEGIN_SRC conf
-       bindsym $mod+a exec emacsclient -ce "(my-org-agenda)"
+       bindsym $mod+a exec emacsclient -ce '(switch-to-buffer "*Org Agenda*")'
    #+END_SRC
 
    start YouTube player
