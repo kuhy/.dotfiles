@@ -95,6 +95,7 @@
    quickmark i https://is.muni.cz/auth/student
    quickmark c https://calendar.google.com
    quickmark g https://github.com/kuhy
+   quickmark s https://www.southparkstudios.com/random-episode
    #+END_SRC
 
    Load theme.
