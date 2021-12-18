@@ -30,6 +30,7 @@
   - Web
     - [[file:web/firefox.org][Firefox]]
   - Window manager
+    - [[file:wm/kanshi.org][kanshi]]
     - [[file:wm/mako.org][mako]]
     - [[file:wm/rofi.org][Rofi]]
     - [[file:wm/sway.org][Sway]]
