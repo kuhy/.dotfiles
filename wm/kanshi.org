@@ -1,0 +1,37 @@
+#+TITLE: kanshi
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/kanshi/config"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+/Dynamic display configuration/
+* Nomad profile
+  This profile is applied when the laptop is not connected to any additional
+  monitor.
+  #+BEGIN_SRC conf
+  profile nomad {
+      output eDP-1 mode 1920x1080
+  }
+  #+END_SRC
+* Home profile
+  This profile is applied when the laptop is connected to the external monitor
+  via HDMI.
+  #+BEGIN_SRC conf
+  profile home {
+      output eDP-1 mode 1920x1080 position 0,0
+      output HDMI-A-2 mode 2560x1440 position 1920,0
+
+      exec swaymsg workspace 1 output HDMI-A-2
+      exec swaymsg workspace 2 output HDMI-A-2
+      exec swaymsg workspace 3 output HDMI-A-2
+      exec swaymsg workspace 4 output HDMI-A-2
+      exec swaymsg workspace 5 output HDMI-A-2
+
+      exec swaymsg workspace 6 output eDP-1
+      exec swaymsg workspace 7 output eDP-1
+      exec swaymsg workspace 8 output eDP-1
+      exec swaymsg workspace 9 output eDP-1
+      exec swaymsg workspace 10 output eDP-1
+  }
+  #+END_SRC

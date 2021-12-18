@@ -93,6 +93,11 @@
    #+BEGIN_SRC conf
    exec udiskie
    #+END_SRC
+** kanshi
+   Start kanshi (needed for dynamic display configuration):
+   #+BEGIN_SRC conf
+   exec kanshi
+   #+END_SRC
 * Key bindings
 ** Basics
    start a tmux in terminal
