@@ -33,5 +33,8 @@
       exec swaymsg workspace 8 output eDP-1
       exec swaymsg workspace 9 output eDP-1
       exec swaymsg workspace 10 output eDP-1
+
+      exec swaymsg workspace 10
+      exec swaymsg workspace 1
   }
   #+END_SRC
