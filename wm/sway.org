@@ -6,7 +6,6 @@
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
 #+INCLUDE: "../variables.org"
-#+INCLUDE: "../secrets.org"
 /Tiling Wayland compositor and replacement for the i3 window manager/
 * Variables
   Logo key. Use Mod1 for Alt.
@@ -50,54 +49,6 @@
       hide_cursor 5000
   }
   #+END_SRC
-
-* Daemons
-** Notifications
-   start mako
-   #+BEGIN_SRC conf
-   exec mako
-   #+END_SRC
-** Redshift
-   start redshift
-   #+BEGIN_SRC conf
-   exec redshift -l <<gps_location>> -m wayland
-   #+END_SRC
-** Idle
-   This will lock your screen after 300 seconds of inactivity, then turn off
-   your displays after another 300 seconds, and turn your screens back on when
-   resumed. It will also lock your screen before your computer goes to sleep.
-   #+BEGIN_SRC conf
-   #exec swayidle -w \
-   #       timeout 300 'sh ~/.config/swaylock/lock.sh' \
-   #       timeout 600 'swaymsg "output * dpms off"' \
-   #            resume 'swaymsg "output * dpms on"' \
-   #       before-sleep 'sh ~/.config/swaylock/lock.sh'
-   #+END_SRC
-** Emacs daemon
-   Run emacs in background so I can use emacsclient:
-   #+BEGIN_SRC conf
-   exec emacs --daemon && emacsclient -e "(my-org-agenda)"
-   #+END_SRC
-** Safe Eyes
-   #+BEGIN_SRC conf
-   exec safeeyes
-   #+END_SRC
-** sway-alttab
-   Execute daemon that enables to switch to the last focused window using
-   specified key binding.
-   #+BEGIN_SRC conf
-   exec sway-alttab -c $mod+Tab
-   #+END_SRC
-** udiskie
-   Daemon that automounts removable media:
-   #+BEGIN_SRC conf
-   exec udiskie
-   #+END_SRC
-** kanshi
-   Start kanshi (needed for dynamic display configuration):
-   #+BEGIN_SRC conf
-   exec kanshi
-   #+END_SRC
 * Key bindings
 ** Basics
    start a tmux in terminal
@@ -137,7 +88,7 @@
 
    open =org-agenda=
    #+BEGIN_SRC conf
-       bindsym $mod+a exec emacsclient -ce '(switch-to-buffer "*Org Agenda*")'
+       bindsym $mod+a exec emacsclient -ce '(my-org-agenda)'
    #+END_SRC
 
    start YouTube player
@@ -391,38 +342,8 @@
    gaps inner 5
    smart_gaps on
    #+END_SRC
-** Status Bar
-   #+BEGIN_SRC conf
-   bar {
-   #+END_SRC
-
-   set position of status bar
-   #+BEGIN_SRC conf
-       position top
-   #+END_SRC
-
-   show i3blocks inside a status bar
-   #+BEGIN_SRC conf
-       #status_command i3blocks
-       swaybar_command waybar
-   #+END_SRC
-
-   set bar colors
-   #+BEGIN_SRC conf
-   #     colors {
-   #         background <<base00>>
-   #         separator  <<base01>>
-   #         statusline <<base04>>
-
-            # State             Border  BG      Text
-   #         focused_workspace   <<base05>> <<base0D>> <<base00>>
-   #         active_workspace    <<base05>> <<base03>> <<base00>>
-   #         inactive_workspace  <<base03>> <<base01>> <<base05>>
-   #         urgent_workspace    <<base08>> <<base08>> <<base00>>
-   #         binding_mode        <<base00>> <<base0A>> <<base00>>
-   #     }
-   #+END_SRC
-
-   #+BEGIN_SRC conf
-   }
-   #+END_SRC
+* Daemons
+  Start the =sway-session.target= which will trigger the execution of daemons related to Sway.
+  #+BEGIN_SRC conf
+  exec "systemctl --user import-environment; systemctl --user start sway-session.target"
+  #+END_SRC

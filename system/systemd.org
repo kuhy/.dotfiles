@@ -3,37 +3,222 @@
 #+OPTIONS: prop:t
 #+INCLUDE: "../secrets.org"
 /system and service manager/
-* agetty
-  :PROPERTIES:
-  :header-args: :tangle /etc/systemd/system/getty@tty1.service.d/override.conf :comments no :mkdirp yes :noweb tangle :tangle-mode (identity #o444)
-  :END:
-  Automatically login to virtual console number 1
-  #+BEGIN_SRC conf
-  [Service]
-  ExecStart=
-  ExecStart=-/usr/bin/agetty --autologin <<username>> --noclear %I $TERM
-  #+END_SRC
-* Mopidy
-  :PROPERTIES:
-  :header-args: :tangle .config/systemd/user/mopidy.service :comments no :mkdirp yes :noweb tangle
-  :END:
-  [[file:../music/mopidy.org][Mopidy]] needs to be started after network connection is established.
-  #+BEGIN_SRC conf
-  [Unit]
-  Description=Mopidy music server
-  After=avahi-daemon.service
-  After=dbus.service
-  After=network-online.target
-  Wants=network-online.target
-  After=nss-lookup.target
-  After=pulseaudio.service
-  After=remote-fs.target
-  After=sound.target
+* System units
+** agetty
+   :PROPERTIES:
+   :header-args: :tangle /etc/systemd/system/getty@tty1.service.d/override.conf :comments no :mkdirp yes :noweb tangle :tangle-mode (identity #o444)
+   :END:
+   Automatically login to virtual console number 1
+   #+BEGIN_SRC conf
+   [Service]
+   ExecStart=
+   ExecStart=-/usr/bin/agetty --autologin <<username>> --noclear %I $TERM
+   #+END_SRC
+* User units
+** Mopidy
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/systemd/user/mopidy.service :comments no :mkdirp yes :noweb tangle
+   :END:
+   [[file:../music/mopidy.org][Mopidy]] needs to be started after network connection is established.
+   #+BEGIN_SRC conf
+   [Unit]
+   Description=Mopidy music server
+   After=avahi-daemon.service
+   After=dbus.service
+   After=network-online.target
+   Wants=network-online.target
+   After=nss-lookup.target
+   After=pulseaudio.service
+   After=remote-fs.target
+   After=sound.target
 
-  [Service]
-  ExecStartPre=/bin/sleep 30
-  ExecStart=/usr/bin/mopidy
+   [Service]
+   ExecStartPre=/bin/sleep 30
+   ExecStart=/usr/bin/mopidy
 
-  [Install]
-  WantedBy=default.target
-  #+END_SRC
+   [Install]
+   WantedBy=default.target
+   #+END_SRC
+** Emacs daemon
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/systemd/user/emacs.service :comments no :mkdirp yes :noweb tangle
+   :END:
+   Run [[file:../editor/emacs.org][Emacs]] in background, so I can use =emacsclient=:
+   #+BEGIN_SRC conf
+   [Unit]
+   Description=Emacs text editor
+   Documentation=info:emacs man:emacs(1)
+
+   [Service]
+   Type=forking
+   ExecStart=/usr/bin/emacs --daemon
+   ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+   Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+   Restart=on-failure
+
+   [Install]
+   WantedBy=default.target
+   #+END_SRC
+** udiskie
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/systemd/user/udiskie.service :comments no :mkdirp yes :noweb tangle
+   :END:
+   Daemon that automounts removable media:
+   #+BEGIN_SRC conf
+   [Unit]
+   Description=Daemon that handles automounting of usb devices
+
+   [Service]
+   Type=simple
+   ExecStart=/usr/bin/udiskie
+
+   [Install]
+   WantedBy=default.target
+   #+END_SRC
+** Sway
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/systemd/user/sway-session.target :comments no :mkdirp yes :noweb tangle
+   :END:
+   Here are daemons that are related to [[file:../wm/sway.org][Sway]].
+
+   To ensure that these daemons will be started after Sway, the
+   =sway-session.target= needs to be defined:
+   #+BEGIN_SRC conf
+   [Unit]
+   Description=Sway compositor session
+   Documentation=man:systemd.special
+   BindsTo=graphical-session.target
+   Wants=graphical-session-pre.target
+   After=graphical-session-pre.target
+   #+END_SRC
+*** Notifications
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/mako.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Start [[file:../wm/mako.org][mako]]:
+    #+BEGIN_SRC conf
+    [Unit]
+    Description=Lightweight notification daemon for Wayland
+    Documentation=man:mako(1)
+    PartOf=graphical-session.target
+
+    [Service]
+    Type=simple
+    ExecStart=/usr/bin/mako
+
+    [Install]
+    WantedBy=sway-session.target
+    #+END_SRC
+*** Redshift
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/redshift.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Start Redshift
+    #+BEGIN_SRC conf
+    [Unit]
+    Description=Application that adjusts the computer display's color temperature
+    Documentation=man:redshift(1)
+    PartOf=graphical-session.target
+
+    [Service]
+    Type=simple
+    ExecStart=/usr/bin/redshift -l <<gps_location>> -m wayland
+
+    [Install]
+    WantedBy=sway-session.target
+    #+END_SRC
+*** Idle
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/swayidle.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    This will lock your screen after 300 seconds of inactivity, then turn off
+    your displays after another 300 seconds, and turn your screens back on when
+    resumed. It will also lock your screen before your computer goes to sleep.
+    #+BEGIN_SRC conf
+    [Unit]
+    Description=Idle manager for Wayland
+    Documentation=man:swayidle(1)
+    PartOf=graphical-session.target
+
+    [Service]
+    Type=simple
+    ExecStart=/usr/bin/swayidle -w \
+                timeout 300 'swaylock -f -c 000000' \
+                timeout 600 'swaymsg "output * dpms off"' \
+                    resume 'swaymsg "output * dpms on"' \
+                before-sleep 'sh ~/~/.config/swaylock/lock.sh'
+
+    [Install]
+    WantedBy=sway-session.target
+    #+END_SRC
+*** Waybar
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/waybar.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Start [[file:../wm/waybar.org][Waybar]]:
+    #+BEGIN_SRC conf
+    [Unit]
+    Description=Highly customizable Wayland bar for Sway and Wlroots based compositors.
+    Documentation=man:waybar(5)
+    PartOf=graphical-session.target
+
+    [Service]
+    Type=simple
+    ExecStart=/usr/bin/waybar
+
+    [Install]
+    WantedBy=sway-session.target
+    #+END_SRC
+*** Safe Eyes
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/safeeyes.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Start [[file:../system/safeeyes.org][Safe Eyes]] daemon:
+    #+BEGIN_SRC conf
+    [Unit]
+    Description=Break reminder
+    PartOf=graphical-session.target
+
+    [Service]
+    Type=simple
+    ExecStart=/usr/bin/safeeyes
+
+    [Install]
+    WantedBy=sway-session.target
+    #+END_SRC
+*** sway-alttab
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/sway-alttab.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Execute daemon that enables to switch to the last focused window using
+    specified key binding.
+    #+BEGIN_SRC conf
+    [Unit]
+    Description=Daemon that enables to switch to the last focused window
+    BindsTo=sway-session.target
+
+    [Service]
+    Type=forking
+    ExecStart=/usr/bin/sway-alttab -c 'Mod4+Tab'
+
+    [Install]
+    WantedBy=sway-session.target
+    #+END_SRC
+*** kanshi
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/kanshi.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Start [[file:../wm/kanshi.org][kanshi]]:
+    #+BEGIN_SRC conf
+    [Unit]
+    Description=Dynamic output configuration for Wayland compositors
+    Documentation=man:kanshi(1)
+    BindsTo=sway-session.target
+
+    [Service]
+    Type=simple
+    ExecStart=/usr/bin/kanshi
+
+    [Install]
+    WantedBy=sway-session.target
+    #+END_SRC

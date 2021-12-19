@@ -140,6 +140,11 @@
   )
   #+END_SRC
 
+  Show agenda always in the current window:
+  #+BEGIN_SRC elisp
+  (setq org-agenda-window-setup "current-window")
+  #+END_SRC
+
   Allow to evaluate source blocks from =org-mode=.
   #+BEGIN_SRC elisp
   (org-babel-do-load-languages
