@@ -9,58 +9,58 @@
   :END:
 ** User
    #+BEGIN_SRC conf
-   [user]
+     [user]
    #+END_SRC
 
    Set my name:
    #+BEGIN_SRC conf
-   name = <<name>>
+     name = <<name>>
    #+END_SRC
 
    Set my email:
    #+BEGIN_SRC conf
-   email = <<email>>
+     email = <<email>>
    #+END_SRC
 ** Core
    #+BEGIN_SRC conf
-   [core]
+     [core]
    #+END_SRC
 
    Use global .gitignore:
    #+BEGIN_SRC conf
-   excludesfile = ~/.gitignore
+     excludesfile = ~/.gitignore
    #+END_SRC
 ** Alias
    #+BEGIN_SRC conf
-   [alias]
+     [alias]
    #+END_SRC
 
    Alias for graphical =log=:
    #+BEGIN_SRC conf
-   grog = log --graph --abbrev-commit --decorate --all \
-       --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white \
-           ) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow \
-           )%d%C(reset)%n %C(white)%s%C(reset)'
+     grog = log --graph --abbrev-commit --decorate --all \
+         --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white \
+             ) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow \
+             )%d%C(reset)%n %C(white)%s%C(reset)'
    #+END_SRC
 
    Alias for =difftool=:
    #+BEGIN_SRC conf
-   df = difftool
+     df = difftool
    #+END_SRC
 ** Diff
    Change diff tool to [[https://github.com/ymattw/ydiff][ydiff]]:
    #+BEGIN_SRC conf
-   [pager]
-   diff = delta
-   log = delta
-   reflog = delta
-   show = delta
+     [pager]
+     diff = delta
+     log = delta
+     reflog = delta
+     show = delta
 
-   [delta]
-   features = side-by-side line-numbers decorations
-   pager = less --mouse --wheel-lines=3
-   navigate = true
-   syntax-theme = base16
+     [delta]
+     features = side-by-side line-numbers decorations
+     pager = less --mouse --wheel-lines=3
+     navigate = true
+     syntax-theme = base16
    #+END_SRC
 * Global .gitignore
   :PROPERTIES:
@@ -69,66 +69,66 @@
 ** Diff
    Patch files:
    #+BEGIN_SRC conf
-   *.patch
+     *.patch
    #+END_SRC
 
    Diff files:
    #+BEGIN_SRC conf
-   *.diff
+     *.diff
    #+END_SRC
 ** Jetbrains
    Project settings:
    #+BEGIN_SRC conf
-   .idea/
+     .idea/
    #+END_SRC
 
    Module files:
    #+BEGIN_SRC conf
-   *.iml
+     *.iml
    #+END_SRC
 ** Linux
    Temporary files of some editors:
    #+BEGIN_SRC conf
-   *~
+     *~
    #+END_SRC
 
    Temporary files which can be created if a process still has a handle open of
    a deleted file:
    #+BEGIN_SRC conf
-   .fuse_hidden*
+     .fuse_hidden*
    #+END_SRC
 
    Linux trash folder which might appear on any partition or disk:
    #+BEGIN_SRC conf
-   .Trash-*
+     .Trash-*
    #+END_SRC
 
    =.nfs= files are created when an open file is removed but is still being
    accessed:
    #+BEGIN_SRC conf
-   .nfs*
+     .nfs*
    #+END_SRC
 ** Vim
    Swap files:
    #+BEGIN_SRC conf
-   [._]*.s[a-v][a-z]
-   [._]*.sw[a-p]
-   [._]s[a-rt-v][a-z]
-   [._]ss[a-gi-z]
-   [._]sw[a-p]
+     [._]*.s[a-v][a-z]
+     [._]*.sw[a-p]
+     [._]s[a-rt-v][a-z]
+     [._]ss[a-gi-z]
+     [._]sw[a-p]
    #+END_SRC
 
    Session file:
    #+BEGIN_SRC conf
-   Session.vim
+     Session.vim
    #+END_SRC
 
    Temporary files:
    #+BEGIN_SRC conf
-   .netrwhist
+     .netrwhist
    #+END_SRC
 
    Persistent undo files:
    #+BEGIN_SRC conf
-   [._]*.un~
+     [._]*.un~
    #+END_SRC

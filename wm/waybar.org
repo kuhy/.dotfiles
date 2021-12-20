@@ -9,124 +9,124 @@
   :END:
 ** Opening bracket
    #+BEGIN_SRC js
-   {
+     {
    #+END_SRC
 ** Layout
    #+BEGIN_SRC js
-   "layer": "top",
-   "modules-left": ["sway/workspaces", "sway/mode"],
-   "modules-center": ["mpd"],
-   "modules-right": ["tray", "clock", "backlight", "pulseaudio", "memory", "cpu", "battery"],
+     "layer": "top",
+     "modules-left": ["sway/workspaces", "sway/mode"],
+     "modules-center": ["mpd"],
+     "modules-right": ["tray", "clock", "backlight", "pulseaudio", "memory", "cpu", "battery"],
    #+END_SRC
 ** Sway workspaces
    #+BEGIN_SRC js
-   "sway/workspaces": {
-       "tooltip": false
-   },
+     "sway/workspaces": {
+         "tooltip": false
+     },
    #+END_SRC
 ** Sway mode
    #+BEGIN_SRC js
-   "sway/mode": {
-       "tooltip": false
-   },
+     "sway/mode": {
+         "tooltip": false
+     },
    #+END_SRC
 ** MPD
    #+BEGIN_SRC js
-   "mpd": {
-       "format": "{stateIcon}  {artist}: {title}",
-       "format-disconnected": "disconnected",
-       "format-stopped": "",
-       "interval": 10,
-       "state-icons": {
-           "paused": "",
-           "playing": ""
-       },
-       "tooltip": false
-    },
+     "mpd": {
+         "format": "{stateIcon}  {artist}: {title}",
+         "format-disconnected": "disconnected",
+         "format-stopped": "",
+         "interval": 10,
+         "state-icons": {
+             "paused": "",
+             "playing": ""
+         },
+         "tooltip": false
+      },
    #+END_SRC
 ** Tray
    #+BEGIN_SRC js
-   "tray": {
-       "icon-size": 15,
-       "spacing": 10
-   },
+     "tray": {
+         "icon-size": 15,
+         "spacing": 10
+     },
    #+END_SRC
 ** Clock
    #+BEGIN_SRC js
-   "clock": {
-       "format": " {:%H:%M}",
-       "format-alt": " {:%a, %d.%m. %H:%M}",
-       "tooltip": false
-   },
+     "clock": {
+         "format": " {:%H:%M}",
+         "format-alt": " {:%a, %d.%m. %H:%M}",
+         "tooltip": false
+     },
    #+END_SRC
 ** Backlight
    #+BEGIN_SRC js
-   "backlight": {
-       "device": "intel_backlight",
-       "format": "{icon} {percent}%",
-       "format-icons": ["", "", ""],
-       "states": {
-           "high": 90,
-       },
-       "tooltip": false
-   },
+     "backlight": {
+         "device": "intel_backlight",
+         "format": "{icon} {percent}%",
+         "format-icons": ["", "", ""],
+         "states": {
+             "high": 90,
+         },
+         "tooltip": false
+     },
    #+END_SRC
 ** Sound
    #+BEGIN_SRC js
-   "pulseaudio": {
-       "format": "{icon} {volume}%",
-       "format-muted": " {volume}%",
-       "format-icons": {
-           "headphone": "",
-           "default": ["", "", ""]
-       },
-       "states": {
-           "normal": 1,
-           "no-sound": 0,
-       },
-       "tooltip": false
-   },
+     "pulseaudio": {
+         "format": "{icon} {volume}%",
+         "format-muted": " {volume}%",
+         "format-icons": {
+             "headphone": "",
+             "default": ["", "", ""]
+         },
+         "states": {
+             "normal": 1,
+             "no-sound": 0,
+         },
+         "tooltip": false
+     },
    #+END_SRC
 ** Memory
    #+BEGIN_SRC js
-   "memory": {
-       "interval": 30,
-       "format": " {percentage}%",
-       "states": {
-           "critical": 95,
-           "warning": 90
-       },
-       "max-length": 10
-   },
+     "memory": {
+         "interval": 30,
+         "format": " {percentage}%",
+         "states": {
+             "critical": 95,
+             "warning": 90
+         },
+         "max-length": 10
+     },
    #+END_SRC
 ** CPU
    #+BEGIN_SRC js
-   "cpu": {
-       "interval": 15,
-       "format": " {usage}%",
-       "states": {
-           "critical": 90,
-           "warning": 80
-       },
-       "max-length": 10
-   },
+     "cpu": {
+         "interval": 15,
+         "format": " {usage}%",
+         "states": {
+             "critical": 90,
+             "warning": 80
+         },
+         "max-length": 10
+     },
    #+END_SRC
 ** Battery
    #+BEGIN_SRC js
-   "battery": {
-       "format": "{icon}  {capacity}%",
-       "format-icons": ["", "", "", "", ""],
-       "states": {
-           "warning": 20,
-           "critical": 10,
-           "fatal": 5
-       },
-       "tooltip": false
-   }
+     "battery": {
+         "format": "{icon}  {capacity}%",
+         "format-icons": ["", "", "", "", ""],
+         "states": {
+             "warning": 20,
+             "critical": 10,
+             "fatal": 5
+         },
+         "tooltip": false
+     }
    #+END_SRC
 ** Closing bracket
    #+BEGIN_SRC js
-   }
+     }
    #+END_SRC
 * Style
   :PROPERTIES:
@@ -134,61 +134,61 @@
   :END:
 ** General
    #+BEGIN_SRC css
-   * {
-       border: none;
-       border-radius: 0;
-       font-family: Monoid Nerd Font;
-       font-size: 13px;
-       min-height: 20px;
-       background: <<base00>>;
-       color: <<base04>>;
-   }
+     * {
+         border: none;
+         border-radius: 0;
+         font-family: Monoid Nerd Font;
+         font-size: 13px;
+         min-height: 20px;
+         background: <<base00>>;
+         color: <<base04>>;
+     }
    #+END_SRC
 ** Modules
    #+BEGIN_SRC css
-   #workspaces button {
-       padding: 0 5px;
-       background: transparent;
-       border-bottom: 3px solid <<base00>>;
-   }
+     #workspaces button {
+         padding: 0 5px;
+         background: transparent;
+         border-bottom: 3px solid <<base00>>;
+     }
 
-   #workspaces button.focused {
-       border-bottom: 3px solid <<base0D>>;
-   }
+     #workspaces button.focused {
+         border-bottom: 3px solid <<base0D>>;
+     }
 
-   #mode, #tray, #clock, #backlight, #pulseaudio, #memory, #cpu {
-       padding: 0 10px;
-       margin: 0 5px;
-       border-bottom: 3px solid <<base00>>;
-   }
+     #mode, #tray, #clock, #backlight, #pulseaudio, #memory, #cpu {
+         padding: 0 10px;
+         margin: 0 5px;
+         border-bottom: 3px solid <<base00>>;
+     }
 
-   #battery {
-       padding: 0 10px;
-       border-bottom: 3px solid <<base00>>;
-   }
+     #battery {
+         padding: 0 10px;
+         border-bottom: 3px solid <<base00>>;
+     }
 
-   #backlight.high {
-       border-bottom: 3px solid <<base04>>;
-   }
+     #backlight.high {
+         border-bottom: 3px solid <<base04>>;
+     }
 
-   #pulseaudio.muted, #pulseaudio.no-sound {
-       border-bottom: 3px solid <<base0A>>;
-   }
+     #pulseaudio.muted, #pulseaudio.no-sound {
+         border-bottom: 3px solid <<base0A>>;
+     }
 
-   #battery.warning, #cpu.warning, #memory.warning {
-       border-bottom: 3px solid <<base09>>;
-   }
+     #battery.warning, #cpu.warning, #memory.warning {
+         border-bottom: 3px solid <<base09>>;
+     }
 
-   #battery.critical, #cpu.critical, #memory.critical {
-       border-bottom: 3px solid <<base08>>;
-   }
+     #battery.critical, #cpu.critical, #memory.critical {
+         border-bottom: 3px solid <<base08>>;
+     }
 
-   #battery.fatal {
-       color: <<base08>>;
-       border-bottom: 3px solid <<base08>>;
-   }
+     #battery.fatal {
+         color: <<base08>>;
+         border-bottom: 3px solid <<base08>>;
+     }
 
-   #battery.charging {
-       border-bottom: 3px solid <<base0B>>;
-   }
+     #battery.charging {
+         border-bottom: 3px solid <<base0B>>;
+     }
    #+END_SRC

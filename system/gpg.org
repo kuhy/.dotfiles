@@ -10,5 +10,5 @@
   :END:
   Set pinentry program:
   #+BEGIN_SRC conf
-  pinentry-program <<pinentry>>
+    pinentry-program <<pinentry>>
   #+END_SRC

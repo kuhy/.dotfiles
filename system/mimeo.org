@@ -8,14 +8,14 @@
   :header-args: :tangle ~/.config/mimeo/default_arguments.txt :comments no :mkdirp yes :noweb tangle
   :END:
   #+BEGIN_SRC conf
-  --term 'alacritty -e %s'
+    --term 'alacritty -e %s'
   #+END_SRC
 * Associations
   :PROPERTIES:
   :header-args: :tangle ~/.config/mimeo/associations.txt :comments both :mkdirp yes :noweb tangle
   :END:
   #+BEGIN_SRC conf
-  intellij-idea-ultimate-edition
-    \.java$
-    \.kt$
+    intellij-idea-ultimate-edition
+      \.java$
+      \.kt$
   #+END_SRC

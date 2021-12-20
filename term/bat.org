@@ -9,5 +9,5 @@
 
 Use terminal colors:
 #+BEGIN_SRC conf
---theme=base16
+  --theme=base16
 #+END_SRC

@@ -12,98 +12,98 @@
 
   Directory which contains dotfiles (same even with =sudo=):
   #+BEGIN_SRC sh
-  if [ -v SUDO_USER ]; then
-      HOME=$(eval echo "~$SUDO_USER")
-  fi
+    if [ -v SUDO_USER ]; then
+        HOME=$(eval echo "~$SUDO_USER")
+    fi
 
-  DOTFILES_HOME=$HOME/.dotfiles
+    DOTFILES_HOME=$HOME/.dotfiles
   #+END_SRC
 
   Following function Exports Org file to another Org file.
   Exporting is needed because =#+INCLUDE= isn't executed during tangling.
   #+BEGIN_SRC sh
-  emacs_export_to_org() {
-      emacs -Q --batch --eval "
-          (progn
-            (setq make-backup-files nil)
-            (dolist (file command-line-args-left)
-              (with-current-buffer
-                (find-file-noselect file)
-                (org-org-export-to-org)
+    emacs_export_to_org() {
+        emacs -Q --batch --eval "
+            (progn
+              (setq make-backup-files nil)
+              (dolist (file command-line-args-left)
+                (with-current-buffer
+                  (find-file-noselect file)
+                  (org-org-export-to-org)
+                )
               )
-            )
-          )" "$1"
-  }
+            )" "$1"
+    }
   #+END_SRC
 
   Following function decrypts entries encrypted by =org-crypt=.
   It is required to set =<<crypt_key>>= in [[file:../secrets.org][secrets.org]];
   same key must be used for encryption of Org entries.
   #+BEGIN_SRC sh
-  emacs_decrypt_entries() {
-      emacs -Q --batch --eval "
-          (progn
-            (require 'org-crypt)
-            (require 'epa-file)
-            (epa-file-enable)
-            (setq org-crypt-key \"<<crypt_key>>\")
-            (setf epa-pinentry-mode 'ask)
-            (setq make-backup-files nil)
-            (dolist (file command-line-args-left)
-              (with-current-buffer
-                (find-file-noselect file)
-                (org-decrypt-entries)
-                (save-buffer)
+    emacs_decrypt_entries() {
+        emacs -Q --batch --eval "
+            (progn
+              (require 'org-crypt)
+              (require 'epa-file)
+              (epa-file-enable)
+              (setq org-crypt-key \"<<crypt_key>>\")
+              (setf epa-pinentry-mode 'ask)
+              (setq make-backup-files nil)
+              (dolist (file command-line-args-left)
+                (with-current-buffer
+                  (find-file-noselect file)
+                  (org-decrypt-entries)
+                  (save-buffer)
+                )
               )
-            )
-          )" "$1"
-  }
+            )" "$1"
+    }
   #+END_SRC
 
   Following function tangles all specified Org files.
   #+BEGIN_SRC sh
-  emacs_tangle() {
-      emacs -Q --batch --eval "
-          (progn
-            (setq make-backup-files nil)
-            (dolist (file command-line-args-left)
-              (with-current-buffer
-                (find-file-noselect file)
-                (org-babel-tangle)
+    emacs_tangle() {
+        emacs -Q --batch --eval "
+            (progn
+              (setq make-backup-files nil)
+              (dolist (file command-line-args-left)
+                (with-current-buffer
+                  (find-file-noselect file)
+                  (org-babel-tangle)
+                )
               )
-            )
-          )" "$1"
-  }
+            )" "$1"
+    }
   #+END_SRC
 
   Export all Org files matching passed arguments except the files in the root directory:
   #+BEGIN_SRC sh
-  FILES=$(find "$DOTFILES_HOME/$*" -path "$DOTFILES_HOME/[!.]*/*.org")
-  emacs_export_to_org "$FILES"
+    FILES=$(find "$DOTFILES_HOME/$*" -path "$DOTFILES_HOME/[!.]*/*.org")
+    emacs_export_to_org "$FILES"
   #+END_SRC
 
   Decrypt exported files.
   It is required to drop =sudo= privileges; otherwise files are not decrypted correctly.
   #+BEGIN_SRC sh
-  EXPORTED_FILES=${FILES//'.org'/.org.org}
-  if [ -v SUDO_USER ]; then
-      chown "$SUDO_USER" "$EXPORTED_FILES"
-      sudo -u "$SUDO_USER" bash -c "$(declare -f emacs_decrypt_entries); emacs_decrypt_entries $EXPORTED_FILES"
-  else
-      emacs_decrypt_entries "$EXPORTED_FILES"
-  fi
+    EXPORTED_FILES=${FILES//'.org'/.org.org}
+    if [ -v SUDO_USER ]; then
+        chown "$SUDO_USER" "$EXPORTED_FILES"
+        sudo -u "$SUDO_USER" bash -c "$(declare -f emacs_decrypt_entries); emacs_decrypt_entries $EXPORTED_FILES"
+    else
+        emacs_decrypt_entries "$EXPORTED_FILES"
+    fi
   #+END_SRC
 
   Tangle exported files.
   #+BEGIN_SRC sh
-  emacs_tangle "$EXPORTED_FILES"
+    emacs_tangle "$EXPORTED_FILES"
   #+END_SRC
 
   Delete exported files.
   #+BEGIN_SRC sh
-  rm "$EXPORTED_FILES"
+    rm "$EXPORTED_FILES"
 
-  exit 0
+    exit 0
   #+END_SRC
 * System configuration
   :PROPERTIES:
@@ -113,34 +113,34 @@
 
   Create a log file that will be used by Sway
   #+BEGIN_SRC sh
-  sudo touch /var/log/sway.log
-  sudo chown <<username>> /var/log/sway.log
-  sudo chmod 600 /var/log/sway.log
+    sudo touch /var/log/sway.log
+    sudo chown <<username>> /var/log/sway.log
+    sudo chmod 600 /var/log/sway.log
   #+END_SRC
 
   Enable some =systemd= services
   #+BEGIN_SRC sh
-  sudo systemctl enable ufw
-  systemctl --user enable mopidy
+    sudo systemctl enable ufw
+    systemctl --user enable mopidy
   #+END_SRC
 
   Configure MIME types and corresponding handlers using [[file:../system/mimeo.org][mimeo]].
   #+BEGIN_SRC sh
-  mimeo --create emacs.desktop Emacs 'emacsclient -c -a emacs %F' 'glob:text/*' 'noterm'
-  mimeo --prefer 'glob:text/*' emacs.desktop
-  mimeo --create mpv.desktop mpv 'mpv %F' 'glob:video/*' 'noterm'
-  mimeo --prefer 'glob:video/*' mpv.desktop
-  mimeo --prefer 'glob:Video/*' mpv.desktop
-  mimeo --create firefox.desktop Firefox 'firefox %U' 'glob:x-scheme-handler/*' 'noterm'
-  mimeo --prefer 'glob:x-scheme-handler/*' firefox.desktop
-  mimeo --create imv.desktop imv 'imv %F' 'glob:image/*' 'noterm'
-  mimeo --prefer 'glob:image/*' imv.desktop
-  mimeo --create zathura.desktop zathura 'zathura %F' 'application/pdf' 'noterm'
-  mimeo --prefer 'application/pdf' zathura.desktop
-  mimeo --create zathura.desktop zathura 'zathura %F' 'application/pdf' 'noterm'
-  mimeo --prefer 'application/pdf' zathura.desktop
-  mimeo --create audacity.desktop Audacity 'audacity %F' 'glob:audio/*' 'noterm'
-  mimeo --prefer 'glob:audio/*' audacity.desktop
+    mimeo --create emacs.desktop Emacs 'emacsclient -c -a emacs %F' 'glob:text/*' 'noterm'
+    mimeo --prefer 'glob:text/*' emacs.desktop
+    mimeo --create mpv.desktop mpv 'mpv %F' 'glob:video/*' 'noterm'
+    mimeo --prefer 'glob:video/*' mpv.desktop
+    mimeo --prefer 'glob:Video/*' mpv.desktop
+    mimeo --create firefox.desktop Firefox 'firefox %U' 'glob:x-scheme-handler/*' 'noterm'
+    mimeo --prefer 'glob:x-scheme-handler/*' firefox.desktop
+    mimeo --create imv.desktop imv 'imv %F' 'glob:image/*' 'noterm'
+    mimeo --prefer 'glob:image/*' imv.desktop
+    mimeo --create zathura.desktop zathura 'zathura %F' 'application/pdf' 'noterm'
+    mimeo --prefer 'application/pdf' zathura.desktop
+    mimeo --create zathura.desktop zathura 'zathura %F' 'application/pdf' 'noterm'
+    mimeo --prefer 'application/pdf' zathura.desktop
+    mimeo --create audacity.desktop Audacity 'audacity %F' 'glob:audio/*' 'noterm'
+    mimeo --prefer 'glob:audio/*' audacity.desktop
   #+END_SRC
 * Orgcal
   :PROPERTIES:
@@ -148,25 +148,25 @@
   :END:
   Import given org files to google calendar:
   #+BEGIN_SRC sh
-  CALENDAR="$1"
+    CALENDAR="$1"
 
-  yes | gcalcli --refresh --calendar "$CALENDAR" delete '*'
+    yes | gcalcli --refresh --calendar "$CALENDAR" delete '*'
 
-  shift
+    shift
 
-  FILES=$(find "$*" -name "*.org")
+    FILES=$(find "$*" -name "*.org")
 
-  emacs -Q --batch --eval "
-      (dolist (file command-line-args-left)
-          (with-current-buffer
-            (find-file-noselect file)
-            (org-icalendar-export-to-ics)
-          )
-      )" "$FILES"
+    emacs -Q --batch --eval "
+        (dolist (file command-line-args-left)
+            (with-current-buffer
+              (find-file-noselect file)
+              (org-icalendar-export-to-ics)
+            )
+        )" "$FILES"
 
-  for file in ${FILES//'.org'/.ics}; do
-      gcalcli import "$file" --calendar "$CALENDAR"
-  done
+    for file in ${FILES//'.org'/.ics}; do
+        gcalcli import "$file" --calendar "$CALENDAR"
+    done
   #+END_SRC
 * Music player
   :PROPERTIES:
@@ -174,12 +174,12 @@
   :END:
   Open music player in tmux session:
   #+BEGIN_SRC sh
-  if ! tmux has -t='<<music_player>>'; then
-      echo "creating <<music_player>> session"
-      tmux new-session -d -s <<music_player>> <<music_player>>
-  fi
+    if ! tmux has -t='<<music_player>>'; then
+        echo "creating <<music_player>> session"
+        tmux new-session -d -s <<music_player>> <<music_player>>
+    fi
 
-  <<terminal>> -e tmux attach-session -t <<music_player>>
+    <<terminal>> -e tmux attach-session -t <<music_player>>
   #+END_SRC
 * Blackify PDF
   :PROPERTIES:
@@ -188,19 +188,19 @@
   Convert a color PDF to greyscale PDF.
   Very useful for black-and-white book readers.
   #+BEGIN_SRC sh
-  for FILE in "$@"; do
-      gs \
-        -sOutputFile="$FILE".temp \
-        -sDEVICE=pdfwrite \
-        -sColorConversionStrategy=Gray \
-        -dProcessColorModel=/DeviceGray \
-        -dCompatibilityLevel=1.4 \
-        -dNOPAUSE \
-        -dBATCH \
-        "$FILE"
+    for FILE in "$@"; do
+        gs \
+          -sOutputFile="$FILE".temp \
+          -sDEVICE=pdfwrite \
+          -sColorConversionStrategy=Gray \
+          -dProcessColorModel=/DeviceGray \
+          -dCompatibilityLevel=1.4 \
+          -dNOPAUSE \
+          -dBATCH \
+          "$FILE"
 
-      rm "$FILE"
+        rm "$FILE"
 
-      mv "$FILE".temp "$FILE"
-  done
+        mv "$FILE".temp "$FILE"
+    done
   #+END_SRC

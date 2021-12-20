@@ -11,785 +11,785 @@
 * General
   Hide toolbars.
   #+BEGIN_SRC elisp
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (toggle-scroll-bar -1)
-  (add-to-list 'default-frame-alist
-               '(vertical-scroll-bars . nil))
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    (toggle-scroll-bar -1)
+    (add-to-list 'default-frame-alist
+                 '(vertical-scroll-bars . nil))
   #+END_SRC
 
   Fix problem with downloading =undo-tree=.
   =undo-tree= is required by Evil and other packages.
   #+BEGIN_SRC elisp
-  ;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+    ;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
   #+END_SRC
 
   Load package manager, add the Melpa package registry.
   #+BEGIN_SRC elisp
-  (require 'package)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-  ;(setq package-check-signature nil)
-  (package-initialize)
+    (require 'package)
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+    (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+    (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+    ;(setq package-check-signature nil)
+    (package-initialize)
   #+END_SRC
 
   Bootstrap use-package.
   #+BEGIN_SRC elisp
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
-  (require 'use-package)
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package))
+    (require 'use-package)
   #+END_SRC
 
   Use General for keybindings:
   #+BEGIN_SRC elisp
-  (use-package general)
+    (use-package general)
   #+END_SRC
 
   Hide default welcome screen.
   #+BEGIN_SRC elisp
-  (setq inhibit-startup-screen t)
+    (setq inhibit-startup-screen t)
   #+END_SRC
 
   Install package automatically if not already present on your system.
   #+BEGIN_SRC elisp
-  (setq use-package-always-ensure t)
+    (setq use-package-always-ensure t)
   #+END_SRC
 
   Setup font.
   #+BEGIN_SRC elisp
-  (add-to-list 'default-frame-alist
-    '(font . "monoid"))
-  (set-face-attribute 'default t :font "monoid" :height 100)
+    (add-to-list 'default-frame-alist
+      '(font . "monoid"))
+    (set-face-attribute 'default t :font "monoid" :height 100)
   #+END_SRC
 
   Display relative line number
   #+BEGIN_SRC elisp
-  (setq-default display-line-numbers-type 'relative)
-  (global-display-line-numbers-mode t)
+    (setq-default display-line-numbers-type 'relative)
+    (global-display-line-numbers-mode t)
   #+END_SRC
 
   Show matching pairs of parentheses
   #+BEGIN_SRC elisp
-  (show-paren-mode 1)
+    (show-paren-mode 1)
   #+END_SRC
 
   Highlight trailing whitespaces
   #+BEGIN_SRC elisp
-  (defun my-show-trailing-ws ()
-    "Show trailing whitespace in the current buffer, unless it is read-only."
-    (setq-local show-trailing-whitespace (not buffer-read-only)))
+    (defun my-show-trailing-ws ()
+      "Show trailing whitespace in the current buffer, unless it is read-only."
+      (setq-local show-trailing-whitespace (not buffer-read-only)))
 
-  (add-hook 'post-command-hook 'my-show-trailing-ws)
+    (add-hook 'post-command-hook 'my-show-trailing-ws)
   #+END_SRC
 
   Draw tabs with the same color as trailing whitespace
   #+BEGIN_SRC elisp
-  (add-hook 'font-lock-mode-hook
-            (lambda ()
-              (font-lock-add-keywords nil
-                '(("\t" 0 'trailing-whitespace prepend)))))
+    (add-hook 'font-lock-mode-hook
+              (lambda ()
+                (font-lock-add-keywords nil
+                  '(("\t" 0 'trailing-whitespace prepend)))))
   #+END_SRC
 
   Save typing one or two characters:
   #+BEGIN_SRC elisp
-  (defalias 'yes-or-no-p 'y-or-n-p)
+    (defalias 'yes-or-no-p 'y-or-n-p)
   #+END_SRC
 
   Highlight invalid spelling
   #+BEGIN_SRC elisp
-  (setq ispell-program-name "aspell")
-  (setq ispell-list-command "--list")
+    (setq ispell-program-name "aspell")
+    (setq ispell-list-command "--list")
 
-  (add-hook 'text-mode-hook 'flyspell-mode)
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+    (add-hook 'text-mode-hook 'flyspell-mode)
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   #+END_SRC
 
   Switch the spell checker based on the identified language
   #+BEGIN_SRC elisp
-  (use-package guess-language
-    :custom
-      (guess-language-languages '(en cs))
-      (guess-language-min-paragraph-length 35)
-    :config (add-hook 'text-mode-hook (lambda () (guess-language-mode 1)))
-  )
+    (use-package guess-language
+      :custom
+        (guess-language-languages '(en cs))
+        (guess-language-min-paragraph-length 35)
+      :config (add-hook 'text-mode-hook (lambda () (guess-language-mode 1)))
+    )
   #+END_SRC
 
 
   Write backups to ~/.emacs.d/backup/
   #+BEGIN_SRC elisp
-  (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
-        backup-by-copying      t  ; Don't de-link hard links
-        version-control        t  ; Use version numbers on backups
-        delete-old-versions    t  ; Automatically delete excess backups
-        kept-new-versions      20 ; how many of the newest versions to keep
-        kept-old-versions      5) ; and how many of the old
+    (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+          backup-by-copying      t  ; Don't de-link hard links
+          version-control        t  ; Use version numbers on backups
+          delete-old-versions    t  ; Automatically delete excess backups
+          kept-new-versions      20 ; how many of the newest versions to keep
+          kept-old-versions      5) ; and how many of the old
   #+END_SRC
 * Org
   Set org-mode keybindings:
   #+BEGIN_SRC elisp
-  (use-package org
-    :general
-    ("C-c a" '(my-org-agenda :no-autoload t))
-    :preface
-    (defun my-org-agenda ()
-      (interactive)
-      (progn (org-agenda 1 "n")
-        (org-agenda-fortnight-view)))
-  )
+    (use-package org
+      :general
+      ("C-c a" '(my-org-agenda :no-autoload t))
+      :preface
+      (defun my-org-agenda ()
+        (interactive)
+        (progn (org-agenda 1 "n")
+          (org-agenda-fortnight-view)))
+    )
   #+END_SRC
 
   Show agenda always in the current window:
   #+BEGIN_SRC elisp
-  (setq org-agenda-window-setup "current-window")
+    (setq org-agenda-window-setup "current-window")
   #+END_SRC
 
   Allow to evaluate source blocks from =org-mode=.
   #+BEGIN_SRC elisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages '(
-      (dot . t)
-      (R . t)
-      (plantuml . t)
+    (org-babel-do-load-languages
+     'org-babel-load-languages '(
+        (dot . t)
+        (R . t)
+        (plantuml . t)
+      )
     )
-  )
   #+END_SRC
 
   Highlight LaTeX commands inside Org Mode.
   #+BEGIN_SRC elisp
-  (setq org-highlight-latex-and-related '(latex script entities))
+    (setq org-highlight-latex-and-related '(latex script entities))
   #+END_SRC
 
   Change org-mode exporting process to pdf.
   Needed for bibtex support.
   #+BEGIN_SRC elisp
-  (setq org-latex-pdf-process
-        '("latexmk -pdflatex='pdflatex -shell-escape -interaction nonstopmode' -pdf -bibtex -f %f"))
+    (setq org-latex-pdf-process
+          '("latexmk -pdflatex='pdflatex -shell-escape -interaction nonstopmode' -pdf -bibtex -f %f"))
   #+END_SRC
 
   Run org-mode code snippets without confirmation.
   #+BEGIN_SRC elisp
-  (setq org-confirm-babel-evaluate nil)
+    (setq org-confirm-babel-evaluate nil)
   #+END_SRC
 
   Include my Org files into the agenda
   #+BEGIN_SRC elisp
-  (setq org-agenda-files '("~/Documents/notes"))
+    (setq org-agenda-files '("~/Documents/notes"))
   #+END_SRC
 
   Allow to use alphabetical characters in ordered lists:
   #+BEGIN_SRC elisp
-  (setq org-list-allow-alphabetical t)
+    (setq org-list-allow-alphabetical t)
   #+END_SRC
 
   Do not indent tags:
   #+BEGIN_SRC elisp
-  (setq org-tags-column 0)
+    (setq org-tags-column 0)
   #+END_SRC
 
   Calendar for =org-mode=
   #+BEGIN_SRC elisp
-  ;(use-package calfw-org)
+    ;(use-package calfw-org)
   #+END_SRC
 
   Hide leading stars
   #+BEGIN_SRC elisp
-  ;(setq org-hide-leading-stars t)
+    ;(setq org-hide-leading-stars t)
   #+END_SRC
 
   Make headings bigger
   #+BEGIN_SRC elisp
-  ;(custom-set-faces
-  ;  '(org-level-1 ((t (:height 1.7))))
-  ;  '(org-level-2 ((t (:height 1.6))))
-  ;  '(org-level-3 ((t (:height 1.5))))
-  ;  '(org-level-4 ((t (:height 1.4))))
-  ;)
+    ;(custom-set-faces
+    ;  '(org-level-1 ((t (:height 1.7))))
+    ;  '(org-level-2 ((t (:height 1.6))))
+    ;  '(org-level-3 ((t (:height 1.5))))
+    ;  '(org-level-4 ((t (:height 1.4))))
+    ;)
   #+END_SRC
 
   Make org-mode stars a little more super
   #+BEGIN_SRC elisp
-  ;(use-package org-superstar
-  ;  :custom
-  ;    (org-superstar-headline-bullets-list '("◉" "◎" "◈" "◇"))
-  ;  :config
-  ;  (add-hook 'org-mode-hook
-  ;    (lambda () (org-superstar-mode 1)))
-  ;)
+    ;(use-package org-superstar
+    ;  :custom
+    ;    (org-superstar-headline-bullets-list '("◉" "◎" "◈" "◇"))
+    ;  :config
+    ;  (add-hook 'org-mode-hook
+    ;    (lambda () (org-superstar-mode 1)))
+    ;)
   #+END_SRC
 
   Enable encryption using =org-crypt=:
   #+BEGIN_SRC elisp
-  (require 'org-crypt)
-  (require 'epa-file)
-  (epa-file-enable)
-  (org-crypt-use-before-save-magic)
-  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
-  (setq org-crypt-key "<<crypt_key>>")
+    (require 'org-crypt)
+    (require 'epa-file)
+    (epa-file-enable)
+    (org-crypt-use-before-save-magic)
+    (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+    (setq org-crypt-key "<<crypt_key>>")
   #+END_SRC
   This makes gpg ask gpg-agent instead of emacs:
   #+BEGIN_SRC elisp
-  (setf epa-pinentry-mode 'ask)
+    (setf epa-pinentry-mode 'ask)
    #+END_SRC
 * Packages
   Use dashboard as a welcome screen.
   #+BEGIN_SRC elisp
-  (use-package dashboard
-    :custom
-    (dashboard-set-heading-icons t)
-    (dashboard-set-file-icons t)
-    (dashboard-startup-banner 3)
-    (dashboard-page-separator "\n\n\n")
-    (dashboard-center-content t)
-    (dashboard-items '((recents  . 5)
-                       (bookmarks . 5)
-                       (projects . 5)
-                       (agenda . 5)
-                       (registers . 5)))
-    (initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
-    :config
-    (dashboard-setup-startup-hook)
-  )
+    (use-package dashboard
+      :custom
+      (dashboard-set-heading-icons t)
+      (dashboard-set-file-icons t)
+      (dashboard-startup-banner 3)
+      (dashboard-page-separator "\n\n\n")
+      (dashboard-center-content t)
+      (dashboard-items '((recents  . 5)
+                         (bookmarks . 5)
+                         (projects . 5)
+                         (agenda . 5)
+                         (registers . 5)))
+      (initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
+      :config
+      (dashboard-setup-startup-hook)
+    )
   #+END_SRC
 
   Minor mode that hides the mode-line
   #+BEGIN_SRC elisp
-  (use-package hide-mode-line)
+    (use-package hide-mode-line)
   #+END_SRC
 
   Package to display a terminal in an Emacs buffer.
   #+BEGIN_SRC elisp
-  (use-package vterm
-    :custom (vterm-shell "fish"))
+    (use-package vterm
+      :custom (vterm-shell "fish"))
   #+END_SRC
 
   Use editorconfig.
   #+BEGIN_SRC elisp
-  (use-package editorconfig
-    :config
-    (editorconfig-mode 1))
+    (use-package editorconfig
+      :config
+      (editorconfig-mode 1))
   #+END_SRC
 
   Alows managing window configurations similary to tiling WMs.
   #+BEGIN_SRC elisp
-  ;(use-package eyebrowse
-  ;  :config
-  ;  (eyebrowse-mode)
-  ;  (eyebrowse-setup-opinionated-keys))
+    ;(use-package eyebrowse
+    ;  :config
+    ;  (eyebrowse-mode)
+    ;  (eyebrowse-setup-opinionated-keys))
   #+END_SRC
 
   Support for vim keybindings.
   #+BEGIN_SRC elisp
-  (use-package evil
-    :defer .1
-    :init
-    (setq evil-want-keybinding nil)
-    :config
-    (global-undo-tree-mode)
-    (evil-set-undo-system 'undo-tree)
-    (evil-mode))
+    (use-package evil
+      :defer .1
+      :init
+      (setq evil-want-keybinding nil)
+      :config
+      (global-undo-tree-mode)
+      (evil-set-undo-system 'undo-tree)
+      (evil-mode))
   #+END_SRC
 
   Collection of Evil bindings
   #+BEGIN_SRC elisp
-  (use-package evil-collection
-    :after evil
-    :custom (evil-collection-company-use-tng nil)
-    :config
-    (evil-collection-init))
+    (use-package evil-collection
+      :after evil
+      :custom (evil-collection-company-use-tng nil)
+      :config
+      (evil-collection-init))
   #+END_SRC
 
   Customizable key sequence to escape from insert state
   and everything else in Emacs.
   #+BEGIN_SRC elisp
-  (use-package evil-escape
-    :custom
-    (evil-escape-unordered-key-sequence t)
-    :config
-    (evil-escape-mode))
+    (use-package evil-escape
+      :custom
+      (evil-escape-unordered-key-sequence t)
+      :config
+      (evil-escape-mode))
   #+END_SRC
 
   Tool for minibuffer completion.
   #+BEGIN_SRC elisp
-  (use-package ivy
-    :defer .1
-    :custom
-    (ivy-use-virtual-buffers t)
-    (ivy-count-format "%d/%d ")
-    :config
-    (ivy-mode))
+    (use-package ivy
+      :defer .1
+      :custom
+      (ivy-use-virtual-buffers t)
+      (ivy-count-format "%d/%d ")
+      :config
+      (ivy-mode))
   #+END_SRC
 
   =Counsel=, a collection of Ivy-enhanced versions of common Emacs commands.
   #+BEGIN_SRC elisp
-  (use-package counsel
-    :after ivy
-    :config (counsel-mode))
+    (use-package counsel
+      :after ivy
+      :config (counsel-mode))
   #+END_SRC
 
   More friendly interface for ivy.
   #+BEGIN_SRC elisp
-  (use-package ivy-rich
-    :after ivy
-    :custom
-    (ivy-rich-path-style 'abbrev)
-    :config
-    (ivy-rich-mode 1))
+    (use-package ivy-rich
+      :after ivy
+      :custom
+      (ivy-rich-path-style 'abbrev)
+      :config
+      (ivy-rich-mode 1))
   #+END_SRC
 
   Better experience with icons for ivy
   #+BEGIN_SRC elisp
-  (use-package all-the-icons-ivy-rich
-    :init (all-the-icons-ivy-rich-mode 1))
+    (use-package all-the-icons-ivy-rich
+      :init (all-the-icons-ivy-rich-mode 1))
   #+END_SRC
 
   Package that displays available keybindings in popup.
   #+BEGIN_SRC elisp
-  (use-package which-key
-    :defer 0.2
-    :diminish
-    :config (which-key-mode))
+    (use-package which-key
+      :defer 0.2
+      :diminish
+      :config (which-key-mode))
   #+END_SRC
 
   Set up email client:
   #+BEGIN_SRC elisp
-  (use-package notmuch
-    :config
-    (setq notmuch-fcc-dirs '(("<<email>>" . "personal/sent")))
-    (setq notmuch-show-logo nil)
-  )
+    (use-package notmuch
+      :config
+      (setq notmuch-fcc-dirs '(("<<email>>" . "personal/sent")))
+      (setq notmuch-show-logo nil)
+    )
   #+END_SRC
 
   =Git= interface.
   #+BEGIN_SRC elisp
-  (use-package magit)
+    (use-package magit)
   #+END_SRC
 
   =Magit= support for =evil-mode=.
   #+BEGIN_SRC elisp
-  (use-package evil-magit
-    :after (evil magit))
+    (use-package evil-magit
+      :after (evil magit))
   #+END_SRC
 
   Package for highlighting uncommitted changes.
   #+BEGIN_SRC elisp
-  (use-package diff-hl
-    :demand t
-    :hook (magit-post-refresh diff-hl-magit-post-refresh)
-    :config (global-diff-hl-mode))
+    (use-package diff-hl
+      :demand t
+      :hook (magit-post-refresh diff-hl-magit-post-refresh)
+      :config (global-diff-hl-mode))
   #+END_SRC
 
   Package for TidalCycles integration
   #+BEGIN_SRC elisp
-  (use-package tidal
-    :config (setq tidal-boot-script-path "~/.config/tidal/BootTidal.hs")
-  )
+    (use-package tidal
+      :config (setq tidal-boot-script-path "~/.config/tidal/BootTidal.hs")
+    )
   #+END_SRC
 
   Use mode that comes with =supercollider= package (on Arch Linux)
   #+BEGIN_SRC elisp
-  (require 'sclang)
+    (require 'sclang)
   #+END_SRC
 
   LaTeX
   #+BEGIN_SRC elisp
-  (use-package tex
-    :defer t
-    :ensure auctex
-    :config
-    (TeX-source-correlate-mode)
-    (add-to-list 'TeX-view-program-selection
-                 '(output-pdf "Zathura")))
+    (use-package tex
+      :defer t
+      :ensure auctex
+      :config
+      (TeX-source-correlate-mode)
+      (add-to-list 'TeX-view-program-selection
+                   '(output-pdf "Zathura")))
   #+END_SRC
 
   Completion back-ends for for math unicode symbols and latex tags
   #+BEGIN_SRC elisp
-  (use-package company-math
-    :config
-    (defun my-company-latex-setup ()
-      (setq-local company-backends
-        (append '((company-math-symbols-latex company-latex-commands))
-          company-backends))
-      (company-mode 1)
+    (use-package company-math
+      :config
+      (defun my-company-latex-setup ()
+        (setq-local company-backends
+          (append '((company-math-symbols-latex company-latex-commands))
+            company-backends))
+        (company-mode 1)
+      )
+      (add-hook 'TeX-mode-hook 'my-company-latex-setup)
+      (add-hook 'org-mode-hook 'my-company-latex-setup)
     )
-    (add-hook 'TeX-mode-hook 'my-company-latex-setup)
-    (add-hook 'org-mode-hook 'my-company-latex-setup)
-  )
   #+END_SRC
 
   YAML support:
   #+BEGIN_SRC elisp
-  (use-package yaml-mode)
+    (use-package yaml-mode)
   #+END_SRC
 
   Markdown support:
   #+BEGIN_SRC elisp
-  (use-package markdown-mode
-    :commands (markdown-mode gfm-mode)
-    :mode (("README\\.md\\'" . gfm-mode)
-           ("\\.md\\'" . markdown-mode)
-           ("\\.markdown\\'" . markdown-mode))
-    :init (setq markdown-command "multimarkdown"))
+    (use-package markdown-mode
+      :commands (markdown-mode gfm-mode)
+      :mode (("README\\.md\\'" . gfm-mode)
+             ("\\.md\\'" . markdown-mode)
+             ("\\.markdown\\'" . markdown-mode))
+      :init (setq markdown-command "multimarkdown"))
   #+END_SRC
 
   PlantUML support:
   #+BEGIN_SRC elisp
-  (use-package plantuml-mode
-    :custom (org-plantuml-jar-path (expand-file-name "/usr/share/java/plantuml/plantuml.jar"))
-  )
+    (use-package plantuml-mode
+      :custom (org-plantuml-jar-path (expand-file-name "/usr/share/java/plantuml/plantuml.jar"))
+    )
   #+END_SRC
 
   Cucumber support:
   #+BEGIN_SRC elisp
-  (use-package feature-mode)
+    (use-package feature-mode)
   #+END_SRC
 
   Syntax highlighting for systemd Files
   #+BEGIN_SRC elisp
-  (use-package systemd)
+    (use-package systemd)
   #+END_SRC
 
   Project Interaction Library
   #+BEGIN_SRC elisp
-  (use-package projectile
-    :config
-    (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
-    (projectile-mode +1))
+    (use-package projectile
+      :config
+      (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
+      (projectile-mode +1))
   #+END_SRC
 
   Ivy UI for Projectile
   #+BEGIN_SRC elisp
-  (use-package counsel-projectile
-    :after projectile
-    :config (counsel-projectile-mode))
+    (use-package counsel-projectile
+      :after projectile
+      :config (counsel-projectile-mode))
   #+END_SRC
 
   On the fly syntax checking for GNU Emacs
   #+BEGIN_SRC elisp
-  (use-package flycheck
-    :init (global-flycheck-mode))
+    (use-package flycheck
+      :init (global-flycheck-mode))
   #+END_SRC
 
   Text completion framework
   #+BEGIN_SRC elisp
-  (use-package company)
+    (use-package company)
   #+END_SRC
 
   Emacs client/library for the Language Server Protocol
   #+BEGIN_SRC elisp
-  (use-package lsp-mode
-    :hook (python-mode . lsp)
-    :hook (java-mode . lsp)
-    :commands lsp)
+    (use-package lsp-mode
+      :hook (python-mode . lsp)
+      :hook (java-mode . lsp)
+      :commands lsp)
 
-  (use-package lsp-ui
-    :custom
-    (lsp-ui-sideline-enable nil)
-    (lsp-ui-doc-delay 1.5)
-    :commands lsp-ui-mode)
+    (use-package lsp-ui
+      :custom
+      (lsp-ui-sideline-enable nil)
+      (lsp-ui-doc-delay 1.5)
+      :commands lsp-ui-mode)
 
-  (use-package company-lsp :commands company-lsp)
+    (use-package company-lsp :commands company-lsp)
   #+END_SRC
 
   Debug adapter protocol
   #+BEGIN_SRC elisp
-  (use-package dap-mode
-    :after lsp-mode
-    :config
-    (dap-mode t)
-    (dap-ui-mode t)
-    (require 'dap-python)
-  )
+    (use-package dap-mode
+      :after lsp-mode
+      :config
+      (dap-mode t)
+      (dap-ui-mode t)
+      (require 'dap-python)
+    )
   #+END_SRC
 
   LSP for Java
   #+BEGIN_SRC elisp
-  (use-package hydra)
-  (use-package lsp-java :after lsp
-    :config (add-hook 'java-mode-hook 'lsp)
-            (require 'dap-java))
+    (use-package hydra)
+    (use-package lsp-java :after lsp
+      :config (add-hook 'java-mode-hook 'lsp)
+              (require 'dap-java))
   #+END_SRC
 
   A template system
   #+BEGIN_SRC elisp
-  (use-package yasnippet-snippets)
-  (use-package yasnippet
-    :config (yas-global-mode 1))
+    (use-package yasnippet-snippets)
+    (use-package yasnippet
+      :config (yas-global-mode 1))
   #+END_SRC
 
   Groovy syntax highlighting
   #+BEGIN_SRC elisp
-  (use-package groovy-mode)
+    (use-package groovy-mode)
   #+END_SRC
 
   Rust syntax highlighting
   #+BEGIN_SRC elisp
-  (use-package rust-mode)
+    (use-package rust-mode)
   #+END_SRC
 
   LUA syntax highlighting
   #+BEGIN_SRC elisp
-  (use-package lua-mode)
+    (use-package lua-mode)
   #+END_SRC
 
   Haskell syntax highlighting
   #+BEGIN_SRC elisp
-  (use-package haskell-mode
-    :custom (haskell-interactive-popup-errors nil)
-    :config (evil-set-initial-state 'haskell-interactive-mode 'emacs)
-  )
+    (use-package haskell-mode
+      :custom (haskell-interactive-popup-errors nil)
+      :config (evil-set-initial-state 'haskell-interactive-mode 'emacs)
+    )
   #+END_SRC
 
   Set up Emacs for R
   #+BEGIN_SRC elisp
-  (add-to-list 'package-pinned-packages '(ess . "melpa-stable") t)
-  (use-package ess)
+    (add-to-list 'package-pinned-packages '(ess . "melpa-stable") t)
+    (use-package ess)
   #+END_SRC
 
   Evil for org-mode
   #+BEGIN_SRC elisp
-  (use-package evil-org
-    :after org
-    :config
-    (add-hook 'org-mode-hook 'evil-org-mode)
-    (add-hook 'evil-org-mode-hook
-              (lambda ()
-                (evil-org-set-key-theme)))
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
+    (use-package evil-org
+      :after org
+      :config
+      (add-hook 'org-mode-hook 'evil-org-mode)
+      (add-hook 'evil-org-mode-hook
+                (lambda ()
+                  (evil-org-set-key-theme)))
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys))
   #+END_SRC
 
   Treemacs
   #+BEGIN_SRC elisp
-  (use-package treemacs
-    :config (treemacs-follow-mode t)
-    :bind ("C-=" . treemacs)
-    :hook (treemacs-mode . hide-mode-line-mode))
+    (use-package treemacs
+      :config (treemacs-follow-mode t)
+      :bind ("C-=" . treemacs)
+      :hook (treemacs-mode . hide-mode-line-mode))
 
-  (use-package treemacs-evil
-    :after treemacs evil)
+    (use-package treemacs-evil
+      :after treemacs evil)
 
-  (use-package treemacs-projectile
-    :after treemacs projectile)
+    (use-package treemacs-projectile
+      :after treemacs projectile)
 
-  (use-package lsp-treemacs
-    :after treemacs lsp)
+    (use-package lsp-treemacs
+      :after treemacs lsp)
 
-  (use-package kaolin-themes
-    :config
-    (require 'kaolin-themes-treemacs))
+    (use-package kaolin-themes
+      :config
+      (require 'kaolin-themes-treemacs))
   #+END_SRC
 
   Highlight indentation
   #+BEGIN_SRC elisp
-  (use-package highlight-indent-guides
-    :custom
-    (highlight-indent-guides-method 'character)
-    (highlight-indent-guides-character ?\|)
-    (highlight-indent-guides-responsive 'top)
-    :config
-    (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
+    (use-package highlight-indent-guides
+      :custom
+      (highlight-indent-guides-method 'character)
+      (highlight-indent-guides-character ?\|)
+      (highlight-indent-guides-responsive 'top)
+      :config
+      (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
   #+END_SRC
 
   Icon fonts for emacs.  Needs manual installation of the fonts: =M-x
   all-the-icons-install-fonts=
   #+BEGIN_SRC elisp
-  (use-package all-the-icons)
+    (use-package all-the-icons)
   #+END_SRC
 
   Better mode-line
   #+BEGIN_SRC elisp
-  (use-package doom-modeline
-    :init (doom-modeline-mode 1)
-    :custom (doom-modeline-icon t))
+    (use-package doom-modeline
+      :init (doom-modeline-mode 1)
+      :custom (doom-modeline-icon t))
   #+END_SRC
 
   Tab support
   #+BEGIN_SRC elisp
-  (use-package centaur-tabs
-    :demand
-    :custom
-    (centaur-tabs-set-icons t)
-    (centaur-tabs-gray-out-icons 'buffer)
-    (centaur-tabs-set-close-button nil)
-    (centaur-tabs-height 20)
-    :bind
-      (:map evil-normal-state-map
-        ("g t" . centaur-tabs-forward)
-        ("g T" . centaur-tabs-backward))
-    :config
-    (centaur-tabs-headline-match)
-    (centaur-tabs-change-fonts "<<font>>" 100)
-    (centaur-tabs-mode t))
+    (use-package centaur-tabs
+      :demand
+      :custom
+      (centaur-tabs-set-icons t)
+      (centaur-tabs-gray-out-icons 'buffer)
+      (centaur-tabs-set-close-button nil)
+      (centaur-tabs-height 20)
+      :bind
+        (:map evil-normal-state-map
+          ("g t" . centaur-tabs-forward)
+          ("g T" . centaur-tabs-backward))
+      :config
+      (centaur-tabs-headline-match)
+      (centaur-tabs-change-fonts "<<font>>" 100)
+      (centaur-tabs-mode t))
   #+END_SRC
 
   Pop-up shell
   #+BEGIN_SRC elisp
-  (use-package shell-pop
-    :hook (
-    (shell-pop-in-after . hide-mode-line-mode)
-    (shell-pop-in-after . centaur-tabs-local-mode))
-    :bind ("C-:" . shell-pop)
-    :custom
-    (shell-pop-window-size 25)
-    (shell-pop-shell-type '("vterm" "*vterm*" (lambda nil (vterm))))
-  )
+    (use-package shell-pop
+      :hook (
+      (shell-pop-in-after . hide-mode-line-mode)
+      (shell-pop-in-after . centaur-tabs-local-mode))
+      :bind ("C-:" . shell-pop)
+      :custom
+      (shell-pop-window-size 25)
+      (shell-pop-shell-type '("vterm" "*vterm*" (lambda nil (vterm))))
+    )
   #+END_SRC
 
   Visually distinguish active windows
   #+BEGIN_SRC elisp
-  (use-package dimmer
-    :custom
-    (dimmer-fraction 0.3)
-    :config
-    (dimmer-configure-which-key)
-    (dimmer-mode t))
+    (use-package dimmer
+      :custom
+      (dimmer-fraction 0.3)
+      :config
+      (dimmer-configure-which-key)
+      (dimmer-mode t))
   #+END_SRC
 
   Display visual hint on evil edit operations
   #+BEGIN_SRC elisp
-  (use-package evil-goggles
-    :config (evil-goggles-mode))
+    (use-package evil-goggles
+      :config (evil-goggles-mode))
   #+END_SRC
 
   Scroll bar
   #+BEGIN_SRC elisp
-  (use-package yascroll
-    :config
-    (progn
-      (global-yascroll-bar-mode 1)
-      (set-face-attribute 'yascroll:thumb-fringe t
-        :background "<<base03>>"
-        :foreground "<<base03>>")
-    ))
+    (use-package yascroll
+      :config
+      (progn
+        (global-yascroll-bar-mode 1)
+        (set-face-attribute 'yascroll:thumb-fringe t
+          :background "<<base03>>"
+          :foreground "<<base03>>")
+      ))
   #+END_SRC
 
   Add support for Grammarly
   #+BEGIN_SRC elisp
-  ;(use-package flycheck-grammarly)
+    ;(use-package flycheck-grammarly)
   #+END_SRC
 
   Distraction-free words correction with flyspell via Ivy.
   #+BEGIN_SRC elisp
-  (use-package flyspell-correct-ivy
-    :bind ("C-;" . flyspell-correct-wrapper)
-    :init
-    (setq flyspell-correct-interface #'flyspell-correct-ivy))
+    (use-package flyspell-correct-ivy
+      :bind ("C-;" . flyspell-correct-wrapper)
+      :init
+      (setq flyspell-correct-interface #'flyspell-correct-ivy))
   #+END_SRC
 
   Show free keybindings for modkeys or prefixes
   #+BEGIN_SRC elisp
-  (use-package free-keys)
+    (use-package free-keys)
   #+END_SRC
 
   Simple but effective sorting and filtering for Emacs:
   #+BEGIN_SRC elisp
-  (use-package prescient
-    :config (prescient-persist-mode))
+    (use-package prescient
+      :config (prescient-persist-mode))
 
-  (use-package ivy-prescient
-    :after counsel
-    :custom
-    (ivy-prescient-sort-commands
-      '(:not swiper
-             ivy-switch-buffer
-             flyspell-correct-ivy))
-    :config (ivy-prescient-mode))
+    (use-package ivy-prescient
+      :after counsel
+      :custom
+      (ivy-prescient-sort-commands
+        '(:not swiper
+               ivy-switch-buffer
+               flyspell-correct-ivy))
+      :config (ivy-prescient-mode))
 
-  (use-package company-prescient
-    :config (company-prescient-mode))
+    (use-package company-prescient
+      :config (company-prescient-mode))
   #+END_SRC
 
   Highlight TODO keywords
   #+BEGIN_SRC elisp
-  (use-package hl-todo
-    :custom
-    (hl-todo-keyword-faces
-      '(("TODO"  . "<<base0B>>")
-        ("FIXME" . "<<base08>>")))
-    :config (global-hl-todo-mode))
+    (use-package hl-todo
+      :custom
+      (hl-todo-keyword-faces
+        '(("TODO"  . "<<base0B>>")
+          ("FIXME" . "<<base08>>")))
+      :config (global-hl-todo-mode))
   #+END_SRC
 
   Powerthesaurus integration for Emacs
   #+BEGIN_SRC elisp
-  (use-package powerthesaurus)
+    (use-package powerthesaurus)
   #+END_SRC
 
   Display ugly ^L page breaks as tidy horizontal lines
   #+BEGIN_SRC elisp
-  (use-package form-feed
-    :custom-face
-      (form-feed-line ((t (:strike-through "<<base03>>"))))
-    :hook
-    ((emacs-lisp-mode lisp-mode scheme-mode compilation-mode
-       outline-mode help-mode
-     ) . form-feed-mode)
-  )
+    (use-package form-feed
+      :custom-face
+        (form-feed-line ((t (:strike-through "<<base03>>"))))
+      :hook
+      ((emacs-lisp-mode lisp-mode scheme-mode compilation-mode
+         outline-mode help-mode
+       ) . form-feed-mode)
+    )
   #+END_SRC
 
   Use ace window for window switching.
   #+BEGIN_SRC elisp
-  (use-package ace-window
-    :general
-    ("M-o" 'ace-window)
-  )
+    (use-package ace-window
+      :general
+      ("M-o" 'ace-window)
+    )
   #+END_SRC
 * Theme
   Set base 16 theme:
   #+BEGIN_SRC elisp
-  (use-package base16-theme
-    :init
-    (setq base16-default-dark-colors
-    '(:base00 "<<base00>>"
-      :base01 "<<base01>>"
-      :base02 "<<base02>>"
-      :base03 "<<base03>>"
-      :base04 "<<base04>>"
-      :base05 "<<base05>>"
-      :base06 "<<base06>>"
-      :base07 "<<base07>>"
-      :base08 "<<base08>>"
-      :base09 "<<base09>>"
-      :base0A "<<base0A>>"
-      :base0B "<<base0B>>"
-      :base0C "<<base0C>>"
-      :base0D "<<base0D>>"
-      :base0E "<<base0E>>"
-      :base0F "<<base0F>>"))
-    :config
-    (load-theme 'base16-default-dark t)
-    (custom-set-faces
-      '(diff-hl-change ((t (:background "<<base0E>>" :foreground "<<base0E>>"))))
-      '(diff-hl-delete ((t (:background "<<base08>>" :foreground "<<base08>>"))))
-      '(diff-hl-insert ((t (:background "<<base0B>>" :foreground "<<base0B>>"))))
+    (use-package base16-theme
+      :init
+      (setq base16-default-dark-colors
+      '(:base00 "<<base00>>"
+        :base01 "<<base01>>"
+        :base02 "<<base02>>"
+        :base03 "<<base03>>"
+        :base04 "<<base04>>"
+        :base05 "<<base05>>"
+        :base06 "<<base06>>"
+        :base07 "<<base07>>"
+        :base08 "<<base08>>"
+        :base09 "<<base09>>"
+        :base0A "<<base0A>>"
+        :base0B "<<base0B>>"
+        :base0C "<<base0C>>"
+        :base0D "<<base0D>>"
+        :base0E "<<base0E>>"
+        :base0F "<<base0F>>"))
+      :config
+      (load-theme 'base16-default-dark t)
+      (custom-set-faces
+        '(diff-hl-change ((t (:background "<<base0E>>" :foreground "<<base0E>>"))))
+        '(diff-hl-delete ((t (:background "<<base08>>" :foreground "<<base08>>"))))
+        '(diff-hl-insert ((t (:background "<<base0B>>" :foreground "<<base0B>>"))))
+      )
     )
-  )
   #+END_SRC
 
   Set the cursor color based on the evil state
   #+BEGIN_SRC elisp
-  (defvar my/base16-colors base16-default-dark-colors)
-  (setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
-        evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
-        evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
-        evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
-        evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
-        evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
+    (defvar my/base16-colors base16-default-dark-colors)
+    (setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
+          evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
+          evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
+          evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
+          evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
+          evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
   #+END_SRC
 
   Set color of =org-mode= verbatim
   #+BEGIN_SRC elisp
-  (set-face-attribute 'org-verbatim nil :foreground "<<base0F>>")
+    (set-face-attribute 'org-verbatim nil :foreground "<<base0F>>")
   #+END_SRC
 
   Set color of =org-mode= headings
   #+BEGIN_SRC elisp
-  (custom-set-faces
-    '(org-level-1 ((t (:foreground "<<base08>>" :bold t :underline t))))
-    '(org-level-2 ((t (:foreground "<<base0A>>" :bold t))))
-    '(org-level-3 ((t (:foreground "<<base0D>>" :bold t))))
-    '(org-level-4 ((t (:foreground "<<base0C>>"))))
-    '(org-level-5 ((t (:foreground "<<base0B>>"))))
-  )
+    (custom-set-faces
+      '(org-level-1 ((t (:foreground "<<base08>>" :bold t :underline t))))
+      '(org-level-2 ((t (:foreground "<<base0A>>" :bold t))))
+      '(org-level-3 ((t (:foreground "<<base0D>>" :bold t))))
+      '(org-level-4 ((t (:foreground "<<base0C>>"))))
+      '(org-level-5 ((t (:foreground "<<base0B>>"))))
+    )
   #+END_SRC

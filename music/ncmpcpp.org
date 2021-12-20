@@ -10,24 +10,24 @@
 ** Music visualizer
    Set visualizer data source:
    #+BEGIN_SRC conf
-   visualizer_data_source = localhost:5555
+     visualizer_data_source = localhost:5555
    #+END_SRC
    Note: Below parameter is needed for =ncmpcpp= to determine which output
    provides data for visualizer and thus allow syncing between visualization and
    sound as currently there are some problems with it.
    #+BEGIN_SRC conf
-   visualizer_output_name = Visualizer feed
+     visualizer_output_name = Visualizer feed
    #+END_SRC
    If you set format to =44100:16:2=, make it 'yes'.
    #+BEGIN_SRC conf
-   visualizer_in_stereo = yes
+     visualizer_in_stereo = yes
    #+END_SRC
    Note: To enable spectrum frequency visualization you need to compile =ncmpcpp=
    with =fftw3= support.
    #+BEGIN_SRC conf
-   visualizer_type = spectrum
-   visualizer_look = +|
-   visualizer_spectrum_smooth_look = no
+     visualizer_type = spectrum
+     visualizer_look = +|
+     visualizer_spectrum_smooth_look = no
    #+END_SRC
 * Keybindings
   :PROPERTIES:
@@ -37,26 +37,26 @@
 
   Basic movement:
   #+BEGIN_SRC conf
-  def_key "j"
-      scroll_down
-  def_key "k"
-      scroll_up
+    def_key "j"
+        scroll_down
+    def_key "k"
+        scroll_up
 
-  def_key "h"
-      previous_column
-  def_key "l"
-      next_column
+    def_key "h"
+        previous_column
+    def_key "l"
+        next_column
 
-  def_key "g"
-    move_home
-  def_key "G"
-    move_end
+    def_key "g"
+      move_home
+    def_key "G"
+      move_end
   #+END_SRC
 
   Deletion:
   #+BEGIN_SRC conf
-  def_key "d"
-    delete_playlist_items
-  def_key "d"
-    delete_stored_playlist
+    def_key "d"
+      delete_playlist_items
+    def_key "d"
+      delete_stored_playlist
   #+END_SRC

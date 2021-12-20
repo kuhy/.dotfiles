@@ -10,54 +10,54 @@
 * Directories
   Set directory for storing music.
   #+BEGIN_SRC yaml
-  directory: ~/Music
-  library: ~/.config/beets/musiclibrary.db
+    directory: ~/Music
+    library: ~/.config/beets/musiclibrary.db
   #+END_SRC
 * Import
   #+BEGIN_SRC yaml
-  import:
-      # Write metadata to music files:
-      write: yes
+    import:
+        # Write metadata to music files:
+        write: yes
 
-      # Move imported files from source to the music directory.
-      move: yes
-      copy: no
-      delete: no
+        # Move imported files from source to the music directory.
+        move: yes
+        copy: no
+        delete: no
   #+END_SRC
 
   Files matching these patterns are deleted from source after import:
   #+BEGIN_SRC yaml
-  clutter: ["Thumbs.DB", ".DS_Store", "*.m3u", ".pls", "*.jpg"]
+    clutter: ["Thumbs.DB", ".DS_Store", "*.m3u", ".pls", "*.jpg"]
   #+END_SRC
 * Paths
   Set paths and filenames for music files relative to music directory:
   #+BEGIN_SRC yaml
-  paths:
-      default: Albums/$albumartist/$year-$album/$track-$title
-      singleton: Singles/$artist-$title
-      comp: Compilations/$year-$album/$track-$artist-$title
+    paths:
+        default: Albums/$albumartist/$year-$album/$track-$title
+        singleton: Singles/$artist-$title
+        comp: Compilations/$year-$album/$track-$artist-$title
   #+END_SRC
 
   Filename for the album art:
   #+BEGIN_SRC yaml
-  art_filename: cover  # results in "cover.jpg"
+    art_filename: cover  # results in "cover.jpg"
   #+END_SRC
 
   Replace following characters in path:
   #+BEGIN_SRC yaml
-  replace:
-      '[\\/]': _
-      '^\.': _
-      '[\x00-\x1f]': _
-      '[<>:"\?\*\|]': _
-      '\.$': _
-      '\s+$': ''
-      '^\s+': ''
-      '^-': _
-      ' ': _
+    replace:
+        '[\\/]': _
+        '^\.': _
+        '[\x00-\x1f]': _
+        '[<>:"\?\*\|]': _
+        '\.$': _
+        '\s+$': ''
+        '^\s+': ''
+        '^-': _
+        ' ': _
   #+END_SRC
 * Plugins
   Use following plugins:
   #+BEGIN_SRC yaml
-  plugins: the fetchart scrub spotify info ftintitle edit
+    plugins: the fetchart scrub spotify info ftintitle edit
   #+END_SRC

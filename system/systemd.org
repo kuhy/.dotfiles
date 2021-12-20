@@ -10,9 +10,9 @@
    :END:
    Automatically login to virtual console number 1
    #+BEGIN_SRC conf
-   [Service]
-   ExecStart=
-   ExecStart=-/usr/bin/agetty --autologin <<username>> --noclear %I $TERM
+     [Service]
+     ExecStart=
+     ExecStart=-/usr/bin/agetty --autologin <<username>> --noclear %I $TERM
    #+END_SRC
 * User units
 ** Mopidy
@@ -21,23 +21,23 @@
    :END:
    [[file:../music/mopidy.org][Mopidy]] needs to be started after network connection is established.
    #+BEGIN_SRC conf
-   [Unit]
-   Description=Mopidy music server
-   After=avahi-daemon.service
-   After=dbus.service
-   After=network-online.target
-   Wants=network-online.target
-   After=nss-lookup.target
-   After=pulseaudio.service
-   After=remote-fs.target
-   After=sound.target
+     [Unit]
+     Description=Mopidy music server
+     After=avahi-daemon.service
+     After=dbus.service
+     After=network-online.target
+     Wants=network-online.target
+     After=nss-lookup.target
+     After=pulseaudio.service
+     After=remote-fs.target
+     After=sound.target
 
-   [Service]
-   ExecStartPre=/bin/sleep 30
-   ExecStart=/usr/bin/mopidy
+     [Service]
+     ExecStartPre=/bin/sleep 30
+     ExecStart=/usr/bin/mopidy
 
-   [Install]
-   WantedBy=default.target
+     [Install]
+     WantedBy=default.target
    #+END_SRC
 ** Emacs daemon
    :PROPERTIES:
@@ -45,19 +45,19 @@
    :END:
    Run [[file:../editor/emacs.org][Emacs]] in background, so I can use =emacsclient=:
    #+BEGIN_SRC conf
-   [Unit]
-   Description=Emacs text editor
-   Documentation=info:emacs man:emacs(1)
+     [Unit]
+     Description=Emacs text editor
+     Documentation=info:emacs man:emacs(1)
 
-   [Service]
-   Type=forking
-   ExecStart=/usr/bin/emacs --daemon
-   ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
-   Environment=SSH_AUTH_SOCK=%t/keyring/ssh
-   Restart=on-failure
+     [Service]
+     Type=forking
+     ExecStart=/usr/bin/emacs --daemon
+     ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+     Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+     Restart=on-failure
 
-   [Install]
-   WantedBy=default.target
+     [Install]
+     WantedBy=default.target
    #+END_SRC
 ** udiskie
    :PROPERTIES:
@@ -65,15 +65,15 @@
    :END:
    Daemon that automounts removable media:
    #+BEGIN_SRC conf
-   [Unit]
-   Description=Daemon that handles automounting of usb devices
+     [Unit]
+     Description=Daemon that handles automounting of usb devices
 
-   [Service]
-   Type=simple
-   ExecStart=/usr/bin/udiskie
+     [Service]
+     Type=simple
+     ExecStart=/usr/bin/udiskie
 
-   [Install]
-   WantedBy=default.target
+     [Install]
+     WantedBy=default.target
    #+END_SRC
 ** Sway
    :PROPERTIES:
@@ -84,12 +84,12 @@
    To ensure that these daemons will be started after Sway, the
    =sway-session.target= needs to be defined:
    #+BEGIN_SRC conf
-   [Unit]
-   Description=Sway compositor session
-   Documentation=man:systemd.special
-   BindsTo=graphical-session.target
-   Wants=graphical-session-pre.target
-   After=graphical-session-pre.target
+     [Unit]
+     Description=Sway compositor session
+     Documentation=man:systemd.special
+     BindsTo=graphical-session.target
+     Wants=graphical-session-pre.target
+     After=graphical-session-pre.target
    #+END_SRC
 *** Notifications
     :PROPERTIES:
@@ -97,17 +97,17 @@
     :END:
     Start [[file:../wm/mako.org][mako]]:
     #+BEGIN_SRC conf
-    [Unit]
-    Description=Lightweight notification daemon for Wayland
-    Documentation=man:mako(1)
-    PartOf=graphical-session.target
+      [Unit]
+      Description=Lightweight notification daemon for Wayland
+      Documentation=man:mako(1)
+      PartOf=graphical-session.target
 
-    [Service]
-    Type=simple
-    ExecStart=/usr/bin/mako
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/mako
 
-    [Install]
-    WantedBy=sway-session.target
+      [Install]
+      WantedBy=sway-session.target
     #+END_SRC
 *** Redshift
     :PROPERTIES:
@@ -115,17 +115,17 @@
     :END:
     Start Redshift
     #+BEGIN_SRC conf
-    [Unit]
-    Description=Application that adjusts the computer display's color temperature
-    Documentation=man:redshift(1)
-    PartOf=graphical-session.target
+      [Unit]
+      Description=Application that adjusts the computer display's color temperature
+      Documentation=man:redshift(1)
+      PartOf=graphical-session.target
 
-    [Service]
-    Type=simple
-    ExecStart=/usr/bin/redshift -l <<gps_location>> -m wayland
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/redshift -l <<gps_location>> -m wayland
 
-    [Install]
-    WantedBy=sway-session.target
+      [Install]
+      WantedBy=sway-session.target
     #+END_SRC
 *** Idle
     :PROPERTIES:
@@ -135,21 +135,21 @@
     your displays after another 300 seconds, and turn your screens back on when
     resumed. It will also lock your screen before your computer goes to sleep.
     #+BEGIN_SRC conf
-    [Unit]
-    Description=Idle manager for Wayland
-    Documentation=man:swayidle(1)
-    PartOf=graphical-session.target
+      [Unit]
+      Description=Idle manager for Wayland
+      Documentation=man:swayidle(1)
+      PartOf=graphical-session.target
 
-    [Service]
-    Type=simple
-    ExecStart=/usr/bin/swayidle -w \
-                timeout 300 'swaylock -f -c 000000' \
-                timeout 600 'swaymsg "output * dpms off"' \
-                    resume 'swaymsg "output * dpms on"' \
-                before-sleep 'sh ~/~/.config/swaylock/lock.sh'
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/swayidle -w \
+                  timeout 300 'swaylock -f -c 000000' \
+                  timeout 600 'swaymsg "output * dpms off"' \
+                      resume 'swaymsg "output * dpms on"' \
+                  before-sleep 'sh ~/~/.config/swaylock/lock.sh'
 
-    [Install]
-    WantedBy=sway-session.target
+      [Install]
+      WantedBy=sway-session.target
     #+END_SRC
 *** Waybar
     :PROPERTIES:
@@ -157,17 +157,17 @@
     :END:
     Start [[file:../wm/waybar.org][Waybar]]:
     #+BEGIN_SRC conf
-    [Unit]
-    Description=Highly customizable Wayland bar for Sway and Wlroots based compositors.
-    Documentation=man:waybar(5)
-    PartOf=graphical-session.target
+      [Unit]
+      Description=Highly customizable Wayland bar for Sway and Wlroots based compositors.
+      Documentation=man:waybar(5)
+      PartOf=graphical-session.target
 
-    [Service]
-    Type=simple
-    ExecStart=/usr/bin/waybar
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/waybar
 
-    [Install]
-    WantedBy=sway-session.target
+      [Install]
+      WantedBy=sway-session.target
     #+END_SRC
 *** Safe Eyes
     :PROPERTIES:
@@ -175,16 +175,16 @@
     :END:
     Start [[file:../system/safeeyes.org][Safe Eyes]] daemon:
     #+BEGIN_SRC conf
-    [Unit]
-    Description=Break reminder
-    PartOf=graphical-session.target
+      [Unit]
+      Description=Break reminder
+      PartOf=graphical-session.target
 
-    [Service]
-    Type=simple
-    ExecStart=/usr/bin/safeeyes
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/safeeyes
 
-    [Install]
-    WantedBy=sway-session.target
+      [Install]
+      WantedBy=sway-session.target
     #+END_SRC
 *** sway-alttab
     :PROPERTIES:
@@ -193,16 +193,16 @@
     Execute daemon that enables to switch to the last focused window using
     specified key binding.
     #+BEGIN_SRC conf
-    [Unit]
-    Description=Daemon that enables to switch to the last focused window
-    BindsTo=sway-session.target
+      [Unit]
+      Description=Daemon that enables to switch to the last focused window
+      BindsTo=sway-session.target
 
-    [Service]
-    Type=forking
-    ExecStart=/usr/bin/sway-alttab -c 'Mod4+Tab'
+      [Service]
+      Type=forking
+      ExecStart=/usr/bin/sway-alttab -c 'Mod4+Tab'
 
-    [Install]
-    WantedBy=sway-session.target
+      [Install]
+      WantedBy=sway-session.target
     #+END_SRC
 *** kanshi
     :PROPERTIES:
@@ -210,15 +210,15 @@
     :END:
     Start [[file:../wm/kanshi.org][kanshi]]:
     #+BEGIN_SRC conf
-    [Unit]
-    Description=Dynamic output configuration for Wayland compositors
-    Documentation=man:kanshi(1)
-    BindsTo=sway-session.target
+      [Unit]
+      Description=Dynamic output configuration for Wayland compositors
+      Documentation=man:kanshi(1)
+      BindsTo=sway-session.target
 
-    [Service]
-    Type=simple
-    ExecStart=/usr/bin/kanshi
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/kanshi
 
-    [Install]
-    WantedBy=sway-session.target
+      [Install]
+      WantedBy=sway-session.target
     #+END_SRC

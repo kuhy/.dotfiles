@@ -10,214 +10,214 @@
 * General
   set fish as a default shell
   #+BEGIN_SRC conf
-  set-option -g default-shell /usr/bin/fish
+    set-option -g default-shell /usr/bin/fish
   #+END_SRC
 
   fix 256 color scheme
   #+BEGIN_SRC conf
-  set  -g default-terminal "tmux-256color"
-  set -ag terminal-overrides ",alacritty:RGB"
+    set  -g default-terminal "tmux-256color"
+    set -ag terminal-overrides ",alacritty:RGB"
   #+END_SRC
 
 
   Start windows and panes at 1, not 0
   #+BEGIN_SRC conf
-  set -g base-index 1
-  setw -g pane-base-index 1
+    set -g base-index 1
+    setw -g pane-base-index 1
   #+END_SRC
 
   tell tmux to handle interactions with the clipboard for you
   #+BEGIN_SRC conf
-  set -g set-clipboard on
+    set -g set-clipboard on
   #+END_SRC
 
   use emacs shortcuts in =tmux= command promt
   #+BEGIN_SRC conf
-  set -g status-keys emacs
+    set -g status-keys emacs
   #+END_SRC
 
   increase scrollback buffer size
   #+BEGIN_SRC conf
-  set -g history-limit 50000
+    set -g history-limit 50000
   #+END_SRC
 
   =tmux= messages are displayed for 4 seconds
   #+BEGIN_SRC conf
-  set -g display-time 4000
+    set -g display-time 4000
   #+END_SRC
 
   focus events enabled for terminals that support them
   #+BEGIN_SRC conf
-  set -g focus-events on
+    set -g focus-events on
   #+END_SRC
 
   address vim mode switching delay
   #+BEGIN_SRC conf
-  set -sg escape-time 0
+    set -sg escape-time 0
   #+END_SRC
 
   Configure Vim mode for navigating text and selection
   #+BEGIN_SRC conf
-  setw -g mode-keys vi
-  bind-key -T copy-mode-vi 'v' send -X begin-selection
-  bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel '<<clip_tool>>'
-  bind-key -n M-c copy-mode
+    setw -g mode-keys vi
+    bind-key -T copy-mode-vi 'v' send -X begin-selection
+    bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel '<<clip_tool>>'
+    bind-key -n M-c copy-mode
   #+END_SRC
 
   panes spliting and closing
   #+BEGIN_SRC conf
-  bind-key -n M-- splitw -v
-  bind-key -n M-| splitw -h
-  bind-key -n M-q killp
+    bind-key -n M-- splitw -v
+    bind-key -n M-| splitw -h
+    bind-key -n M-q killp
   #+END_SRC
 
   command execution
   #+BEGIN_SRC conf
-  bind-key -n M-x command-prompt
+    bind-key -n M-x command-prompt
   #+END_SRC
 
   session switching
   #+BEGIN_SRC conf
-  bind-key -n M-S choose-tree -Zs
+    bind-key -n M-S choose-tree -Zs
   #+END_SRC
 
   vim keybinding to move between panes
   #+BEGIN_SRC conf
-  bind-key -n M-h select-pane -L
-  bind-key -n M-j select-pane -D
-  bind-key -n M-k select-pane -U
-  bind-key -n M-l select-pane -R
+    bind-key -n M-h select-pane -L
+    bind-key -n M-j select-pane -D
+    bind-key -n M-k select-pane -U
+    bind-key -n M-l select-pane -R
   #+END_SRC
 
   switch windows alt+number
   #+BEGIN_SRC conf
-  bind-key -n M-1 if-shell 'tmux select-window -t :1' '' 'new-window -t :1'
-  bind-key -n M-2 if-shell 'tmux select-window -t :2' '' 'new-window -t :2'
-  bind-key -n M-3 if-shell 'tmux select-window -t :3' '' 'new-window -t :3'
-  bind-key -n M-4 if-shell 'tmux select-window -t :4' '' 'new-window -t :4'
-  bind-key -n M-5 if-shell 'tmux select-window -t :5' '' 'new-window -t :5'
-  bind-key -n M-6 if-shell 'tmux select-window -t :6' '' 'new-window -t :6'
-  bind-key -n M-7 if-shell 'tmux select-window -t :7' '' 'new-window -t :7'
-  bind-key -n M-8 if-shell 'tmux select-window -t :8' '' 'new-window -t :8'
-  bind-key -n M-9 if-shell 'tmux select-window -t :9' '' 'new-window -t :9'
-  bind-key -n M-0 if-shell 'tmux select-window -t :0' '' 'new-window -t :0'
+    bind-key -n M-1 if-shell 'tmux select-window -t :1' '' 'new-window -t :1'
+    bind-key -n M-2 if-shell 'tmux select-window -t :2' '' 'new-window -t :2'
+    bind-key -n M-3 if-shell 'tmux select-window -t :3' '' 'new-window -t :3'
+    bind-key -n M-4 if-shell 'tmux select-window -t :4' '' 'new-window -t :4'
+    bind-key -n M-5 if-shell 'tmux select-window -t :5' '' 'new-window -t :5'
+    bind-key -n M-6 if-shell 'tmux select-window -t :6' '' 'new-window -t :6'
+    bind-key -n M-7 if-shell 'tmux select-window -t :7' '' 'new-window -t :7'
+    bind-key -n M-8 if-shell 'tmux select-window -t :8' '' 'new-window -t :8'
+    bind-key -n M-9 if-shell 'tmux select-window -t :9' '' 'new-window -t :9'
+    bind-key -n M-0 if-shell 'tmux select-window -t :0' '' 'new-window -t :0'
   #+END_SRC
 
   Hide status bar when there is only one window:
   #+BEGIN_SRC conf
-  set-hook -g window-linked 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
-  set-hook -g window-unlinked 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
-  set-hook -g client-attached 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
+    set-hook -g window-linked 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
+    set-hook -g window-unlinked 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
+    set-hook -g client-attached 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
   #+END_SRC
 
   TODO notify when command exits
   #+BEGIN_SRC conf
-  set-window-option -g visual-bell on
-  set-window-option -g bell-action other
+    set-window-option -g visual-bell on
+    set-window-option -g bell-action other
   #+END_SRC
 * Appearance
   Status update interval
   #+BEGIN_SRC conf
-  set -g status-interval 1
+    set -g status-interval 1
   #+END_SRC
 
   Basic status bar colors
   #+BEGIN_SRC conf
-  set -g status-fg "<<base06>>"
-  set -g status-bg "<<base01>>"
+    set -g status-fg "<<base06>>"
+    set -g status-bg "<<base01>>"
   #+END_SRC
 
   Left side of status bar
   #+BEGIN_SRC conf
-  set -g status-left-style bg=default,fg=default
-  set -g status-left-length 150
-  set -g status-left ""
+    set -g status-left-style bg=default,fg=default
+    set -g status-left-length 150
+    set -g status-left ""
   #+END_SRC
 
   Right side of status bar
   #+BEGIN_SRC conf
-  set -g status-right bg=default,fg=default
-  set -g status-right-length 150
-  set -g status-right "#[fg=<<base01>>,bg=<<base06>>,bold] #S "
+    set -g status-right bg=default,fg=default
+    set -g status-right-length 150
+    set -g status-right "#[fg=<<base01>>,bg=<<base06>>,bold] #S "
   #+END_SRC
 
   Window status
   #+BEGIN_SRC conf
-  set -g window-status-format " #W "
-  set -g window-status-current-format "#[fg=<<base01>>,bg=<<base0D>>] #W "
+    set -g window-status-format " #W "
+    set -g window-status-current-format "#[fg=<<base01>>,bg=<<base0D>>] #W "
   #+END_SRC
 
   Current window status
   #+BEGIN_SRC conf
-  set -g window-status-current-style bg=default,fg=default
+    set -g window-status-current-style bg=default,fg=default
   #+END_SRC
 
   Window with activity status
   #+BEGIN_SRC conf
-  set -g window-status-activity-style bg=default,fg=default
+    set -g window-status-activity-style bg=default,fg=default
   #+END_SRC
 
   Window separator
   #+BEGIN_SRC conf
-  set -g window-status-separator ""
+    set -g window-status-separator ""
   #+END_SRC
 
   Window status alignment
   #+BEGIN_SRC conf
-  set -g status-justify left
+    set -g status-justify left
   #+END_SRC
 
   Pane border
   #+BEGIN_SRC conf
-  set -g pane-border-style bg=default,fg="<<base01>>"
+    set -g pane-border-style bg=default,fg="<<base01>>"
   #+END_SRC
 
   Active pane border
   #+BEGIN_SRC conf
-  set -g pane-active-border-style bg=default,fg="<<base0D>>"
+    set -g pane-active-border-style bg=default,fg="<<base0D>>"
   #+END_SRC
 
   Pane number indicator
   #+BEGIN_SRC conf
-  set -g display-panes-colour default
-  set -g display-panes-active-colour default
+    set -g display-panes-colour default
+    set -g display-panes-active-colour default
   #+END_SRC
 
   Clock mode
   #+BEGIN_SRC conf
-  set -g clock-mode-colour "<<base0D>>"
-  set -g clock-mode-style 12
+    set -g clock-mode-colour "<<base0D>>"
+    set -g clock-mode-style 12
   #+END_SRC
 
   Message
   #+BEGIN_SRC conf
-  set -g message-style bg="<<base06>>",fg="<<base01>>"
+    set -g message-style bg="<<base06>>",fg="<<base01>>"
   #+END_SRC
 
   Command message
   #+BEGIN_SRC conf
-  set -g message-command-style bg="<<base06>>",fg="<<base01>>"
+    set -g message-command-style bg="<<base06>>",fg="<<base01>>"
   #+END_SRC
 
   Mode
   #+BEGIN_SRC conf
-  set -g mode-style bg="<<base06>>",fg="<<base01>>"
+    set -g mode-style bg="<<base06>>",fg="<<base01>>"
   #+END_SRC
 * Plugins
   Plugins are installed using [[https://github.com/tmux-plugins/tpm][=tpm=]].
   #+BEGIN_SRC conf
-  set -g @plugin 'tmux-plugins/tpm'
+    set -g @plugin 'tmux-plugins/tpm'
   #+END_SRC
 
   Use =extrakto= for copying to clipboard:
   #+BEGIN_SRC conf
-  set -g @extrakto_clip_tool "<<clip_tool>>"
-  set -g @extrakto_key 'none'
-  bind-key -n M-e run-shell "~/.tmux/plugins/extrakto/scripts/open.sh #{pane_id}"
-  set -g @plugin 'laktak/extrakto'
+    set -g @extrakto_clip_tool "<<clip_tool>>"
+    set -g @extrakto_key 'none'
+    bind-key -n M-e run-shell "~/.tmux/plugins/extrakto/scripts/open.sh #{pane_id}"
+    set -g @plugin 'laktak/extrakto'
   #+END_SRC
 
   Initialize TMUX plugin manager (keep this line at the very bottom of =tmux.conf=)
   #+BEGIN_SRC conf
-  run '~/.tmux/plugins/tpm/tpm'
+    run '~/.tmux/plugins/tpm/tpm'
   #+END_SRC
