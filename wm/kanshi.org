@@ -22,19 +22,27 @@
         output eDP-1 mode 1920x1080 position 0,0
         output HDMI-A-2 mode 2560x1440 position 1920,0
 
-        exec swaymsg workspace 1 output HDMI-A-2
-        exec swaymsg workspace 2 output HDMI-A-2
-        exec swaymsg workspace 3 output HDMI-A-2
-        exec swaymsg workspace 4 output HDMI-A-2
-        exec swaymsg workspace 5 output HDMI-A-2
-
-        exec swaymsg workspace 6 output eDP-1
-        exec swaymsg workspace 7 output eDP-1
-        exec swaymsg workspace 8 output eDP-1
-        exec swaymsg workspace 9 output eDP-1
-        exec swaymsg workspace 10 output eDP-1
-
-        exec swaymsg workspace 10
-        exec swaymsg workspace 1
+        exec ~/.config/kanshi/assign.sh
     }
   #+END_SRC
+** Setup script
+   :PROPERTIES:
+   :header-args: :tangle ~/.config/kanshi/assign.sh :comments both :shebang "#!/bin/sh" :mkdirp yes :noweb tangle
+   :END:
+   Following script assigns workspaces to the monitors:
+   #+BEGIN_SRC sh
+     swaymsg workspace 1 output HDMI-A-2
+     swaymsg workspace 2 output HDMI-A-2
+     swaymsg workspace 3 output HDMI-A-2
+     swaymsg workspace 4 output HDMI-A-2
+     swaymsg workspace 5 output HDMI-A-2
+
+     swaymsg workspace 6 output eDP-1
+     swaymsg workspace 7 output eDP-1
+     swaymsg workspace 8 output eDP-1
+     swaymsg workspace 9 output eDP-1
+     swaymsg workspace 10 output eDP-1
+
+     swaymsg workspace 10
+     swaymsg workspace 1
+   #+END_SRC
