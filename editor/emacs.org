@@ -592,6 +592,16 @@
       (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
   #+END_SRC
 
+  Lightweight syntax highlighting improvement for numbers and escape
+  sequences (e.g. =\n=, =\t=):
+  #+BEGIN_SRC elisp
+    (use-package highlight-numbers
+     :hook (prog-mode . highlight-numbers-mode))
+
+    (use-package highlight-escape-sequences
+     :hook (prog-mode . hes-mode))
+  #+END_SRC
+
   Icon fonts for emacs.  Needs manual installation of the fonts: =M-x
   all-the-icons-install-fonts=
   #+BEGIN_SRC elisp
