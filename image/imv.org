@@ -1,0 +1,90 @@
+#+TITLE: imv
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments both
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/imv/config"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+/Image viewer for X11 and Wayland/
+* Options
+  #+BEGIN_SRC conf
+    [options]
+  #+END_SRC
+
+  Suppress built-in key bindings, and specify them explicitly in this
+  config file.
+  #+BEGIN_SRC conf
+    suppress_default_binds = true
+  #+END_SRC
+* Aliases
+  Any arguments passed to an alias are appended to the command.
+  #+BEGIN_SRC conf
+    [aliases]
+  #+END_SRC
+
+  Alias for executing the command in the Bash:
+  #+BEGIN_SRC conf
+    bash = exec bash -c
+  #+END_SRC
+* Binds
+  #+BEGIN_SRC conf
+    [binds]
+  #+END_SRC
+
+  Image navigation
+  #+BEGIN_SRC conf
+    <Shift+H> = prev
+    <Shift+J> = next
+    <Shift+K> = prev
+    <Shift+L> = next
+    <Left> = prev
+    <Right> = next
+    <Up> = prev
+    <Down> = next
+
+    gg = goto 1
+    <Shift+G> = goto -1
+  #+END_SRC
+
+  Panning
+  #+BEGIN_SRC conf
+    h = pan 50 0
+    j = pan 0 -50
+    k = pan 0 50
+    l = pan -50 0
+  #+END_SRC
+
+  Zooming
+  #+BEGIN_SRC conf
+    <Shift+plus> = zoom 1
+    <minus> = zoom -1
+    a = zoom actual
+  #+END_SRC
+
+  Rotate Clockwise by 90 degrees
+  #+BEGIN_SRC conf
+    r = rotate by 90
+  #+END_SRC
+
+  Other commands
+  #+BEGIN_SRC conf
+    q = quit
+    <Escape> = quit
+    f = fullscreen
+    p = exec notify-send $imv_current_file
+    c = center
+    <Return> = reset
+    # d = bash "echo ${imv_current_file%.*}.*"
+  #+END_SRC
+
+  Gif playback
+  #+BEGIN_SRC conf
+    <period> = next_frame
+    <space> = toggle_playing
+  #+END_SRC
+
+  Slideshow control
+  #+BEGIN_SRC conf
+    s = slideshow +1
+    <Shift+S> = slideshow 0
+  #+END_SRC
