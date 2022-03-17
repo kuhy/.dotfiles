@@ -140,6 +140,11 @@
     )
   #+END_SRC
 
+  Enable =org-habit= module:
+  #+BEGIN_SRC elisp
+    (add-to-list 'org-modules 'org-habit t)
+  #+END_SRC
+
   Show agenda always in the current window:
   #+BEGIN_SRC elisp
     (setq org-agenda-window-setup "current-window")
@@ -801,5 +806,13 @@
       '(org-level-3 ((t (:foreground "<<base0D>>" :bold t))))
       '(org-level-4 ((t (:foreground "<<base0C>>"))))
       '(org-level-5 ((t (:foreground "<<base0B>>"))))
+    )
+  #+END_SRC
+
+  Improve look of =org-mode= agenda:
+  #+BEGIN_SRC elisp
+    (custom-set-faces
+      '(org-agenda-date-today ((t (:foreground "<<base0A>>" :bold t :underline t))))
+      '(org-agenda-date ((t (:underline t))))
     )
   #+END_SRC
