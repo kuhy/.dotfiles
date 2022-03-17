@@ -5,6 +5,7 @@
 #+PROPERTY: header-args+ :tangle "~/.config/imv/config"
 #+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
+#+INCLUDE: "../variables.org"
 /Image viewer for X11 and Wayland/
 * Options
   #+BEGIN_SRC conf
@@ -71,10 +72,23 @@
     q = quit
     <Escape> = quit
     f = fullscreen
-    p = exec notify-send $imv_current_file
     c = center
     <Return> = reset
-    # d = bash "echo ${imv_current_file%.*}.*"
+  #+END_SRC
+
+  Show a notification with the path of the current image:
+  #+BEGIN_SRC conf
+    p = exec notify-send "$imv_current_file"
+  #+END_SRC
+
+  Copy the path of the current image to the clipboard:
+  #+BEGIN_SRC conf
+    y = exec <<clip_tool>> "$imv_current_file"
+  #+END_SRC
+
+  Move the current image to the trash:
+  #+BEGIN_SRC conf
+    d = exec rmtrash "$imv_current_file"; next
   #+END_SRC
 
   Gif playback
