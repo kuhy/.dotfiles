@@ -57,6 +57,11 @@
     (setq use-package-always-ensure t)
   #+END_SRC
 
+  Disable =native-comp= warnings:
+  #+BEGIN_SRC elisp
+    (setq native-comp-async-report-warnings-errors nil)
+  #+END_SRC
+
   Setup font.
   #+BEGIN_SRC elisp
     (add-to-list 'default-frame-alist
@@ -70,9 +75,19 @@
     (global-display-line-numbers-mode t)
   #+END_SRC
 
+  Disable cursor blinking:
+  #+BEGIN_SRC elisp
+    (blink-cursor-mode 0)
+  #+END_SRC
+
   Show matching pairs of parentheses
   #+BEGIN_SRC elisp
     (show-paren-mode 1)
+  #+END_SRC
+
+  Use dot and single space to end the sentence:
+  #+BEGIN_SRC elisp
+    (setq sentence-end-double-space nil)
   #+END_SRC
 
   Highlight trailing whitespaces
@@ -115,7 +130,6 @@
       :config (add-hook 'text-mode-hook (lambda () (guess-language-mode 1)))
     )
   #+END_SRC
-
 
   Write backups to ~/.emacs.d/backup/
   #+BEGIN_SRC elisp
@@ -654,12 +668,13 @@
 
   Visually distinguish active windows
   #+BEGIN_SRC elisp
-    (use-package dimmer
-      :custom
-      (dimmer-fraction 0.3)
-      :config
-      (dimmer-configure-which-key)
-      (dimmer-mode t))
+    ;(use-package dimmer
+    ;  :custom
+    ;  (dimmer-fraction 0.3)
+    ;  (dimmer-watch-frame-focus-events nil)
+    ;  :config
+    ;  (dimmer-configure-which-key)
+    ;  (dimmer-mode t))
   #+END_SRC
 
   Display visual hint on evil edit operations
