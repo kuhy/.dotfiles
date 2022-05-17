@@ -128,6 +128,7 @@
   #+BEGIN_SRC sh
     mimeo --create emacs.desktop Emacs 'emacsclient -c -a emacs %F' 'glob:text/*' 'noterm'
     mimeo --prefer 'glob:text/*' emacs.desktop
+    mimeo --prefer 'text/org' emacs.desktop
     mimeo --create mpv.desktop mpv 'mpv %F' 'glob:video/*' 'noterm'
     mimeo --prefer 'glob:video/*' mpv.desktop
     mimeo --prefer 'glob:Video/*' mpv.desktop
