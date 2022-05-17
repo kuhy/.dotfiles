@@ -222,3 +222,20 @@
       [Install]
       WantedBy=sway-session.target
     #+END_SRC
+*** autotiling
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/autotiling.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Use autotiling:
+    #+BEGIN_SRC conf
+      [Unit]
+      Description=Automatically switch the horizontal / vertical window split orientation
+      BindsTo=sway-session.target
+
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/autotiling
+
+      [Install]
+      WantedBy=sway-session.target
+    #+END_SRC
