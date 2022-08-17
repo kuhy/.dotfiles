@@ -1,0 +1,50 @@
+#+TITLE: Vim
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments no
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.vimrc"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+/Editor of the Beast/
+* General
+  Extend default configuration:
+  #+BEGIN_SRC conf
+    unlet! skip_defaults_vim
+    source $VIMRUNTIME/defaults.vim
+    set mouse-=a
+  #+END_SRC
+
+  Open files ending with =.pl= as prolog files:
+  #+BEGIN_SRC conf
+    let g:filetype_pl="prolog"
+  #+END_SRC
+* Appearance
+  With the =relativenumber= option, each line in your file is numbered relative to
+  the cursor's current position to show the distance to that line.
+  #+BEGIN_SRC conf
+    set number relativenumber
+  #+END_SRC
+
+  Show the cursor position all the time
+  #+BEGIN_SRC conf
+    set ruler
+  #+END_SRC
+
+  Don't wake up system with blinking cursor.
+  #+BEGIN_SRC conf
+    let &guicursor = &guicursor . ",a:blinkon0"
+  #+END_SRC
+
+  Use terminal colors
+  #+BEGIN_SRC conf
+    set notermguicolors
+    set t_Co=8
+  #+END_SRC
+
+  Set color of line numbers:
+  #+BEGIN_SRC conf
+    highlight LineNr ctermfg=white
+    highlight CursorLineNr ctermfg=red
+    set cursorline
+    set cursorlineopt=number
+  #+END_SRC

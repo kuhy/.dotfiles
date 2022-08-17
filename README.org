@@ -8,6 +8,7 @@
     - [[file:editor/editorconfig.org][EditorConfig]]
     - [[file:editor/emacs.org][Emacs]]
     - [[file:editor/idea.org][IntelliJ IDEA]]
+    - [[file:editor/vim.org][Vim]]
   - Image
     - [[file:image/imv.org][imv]]
   - Music

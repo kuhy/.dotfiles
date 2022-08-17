@@ -40,6 +40,7 @@
      alias cat 'bat'
      alias ls 'exa'
      alias top 'ytop'
+     alias vi 'vim'
      alias rm 'echo "Use \'del\', or the full path i.e. \'/bin/rm\'"'
      alias rmdir 'echo "Use \'deldir\', or the full path i.e. \'/bin/rmdir\'"'
      alias del 'rmtrash'
