@@ -140,8 +140,8 @@
          font-family: Monoid Nerd Font;
          font-size: 13px;
          min-height: 20px;
-         background: <<base00>>;
-         color: <<base04>>;
+         background: #<<base00>>;
+         color: #<<base04>>;
      }
    #+END_SRC
 ** Modules
@@ -149,46 +149,46 @@
      #workspaces button {
          padding: 0 5px;
          background: transparent;
-         border-bottom: 3px solid <<base00>>;
+         border-bottom: 3px solid #<<base00>>;
      }
 
      #workspaces button.focused {
-         border-bottom: 3px solid <<base0D>>;
+         border-bottom: 3px solid #<<base0D>>;
      }
 
      #mode, #tray, #clock, #backlight, #pulseaudio, #memory, #cpu {
          padding: 0 10px;
          margin: 0 5px;
-         border-bottom: 3px solid <<base00>>;
+         border-bottom: 3px solid #<<base00>>;
      }
 
      #battery {
          padding: 0 10px;
-         border-bottom: 3px solid <<base00>>;
+         border-bottom: 3px solid #<<base00>>;
      }
 
      #backlight.high {
-         border-bottom: 3px solid <<base04>>;
+         border-bottom: 3px solid #<<base04>>;
      }
 
      #pulseaudio.muted, #pulseaudio.no-sound {
-         border-bottom: 3px solid <<base0A>>;
+         border-bottom: 3px solid #<<base0A>>;
      }
 
      #battery.warning, #cpu.warning, #memory.warning {
-         border-bottom: 3px solid <<base09>>;
+         border-bottom: 3px solid #<<base09>>;
      }
 
      #battery.critical, #cpu.critical, #memory.critical {
-         border-bottom: 3px solid <<base08>>;
+         border-bottom: 3px solid #<<base08>>;
      }
 
      #battery.fatal {
-         color: <<base08>>;
-         border-bottom: 3px solid <<base08>>;
+         color: #<<base08>>;
+         border-bottom: 3px solid #<<base08>>;
      }
 
      #battery.charging {
-         border-bottom: 3px solid <<base0B>>;
+         border-bottom: 3px solid #<<base0B>>;
      }
    #+END_SRC

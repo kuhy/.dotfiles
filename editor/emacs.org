@@ -112,6 +112,11 @@
     (defalias 'yes-or-no-p 'y-or-n-p)
   #+END_SRC
 
+  Automatically insert newlines in text modes:
+  #+BEGIN_SRC elisp
+    (add-hook 'text-mode-hook 'auto-fill-mode)
+  #+END_SRC
+
   Highlight invalid spelling
   #+BEGIN_SRC elisp
     (setq ispell-program-name "aspell")
@@ -152,6 +157,11 @@
         (progn (org-agenda 1 "n")
           (org-agenda-fortnight-view)))
     )
+  #+END_SRC
+
+  Use hard indentation:
+  #+BEGIN_SRC R
+    (setq org-adapt-indentation t)
   #+END_SRC
 
   Enable =org-habit= module:
@@ -250,7 +260,7 @@
   This makes gpg ask gpg-agent instead of emacs:
   #+BEGIN_SRC elisp
     (setf epa-pinentry-mode 'ask)
-   #+END_SRC
+  #+END_SRC
 * Packages
   Use dashboard as a welcome screen.
   #+BEGIN_SRC elisp
@@ -690,8 +700,8 @@
       (progn
         (global-yascroll-bar-mode 1)
         (set-face-attribute 'yascroll:thumb-fringe t
-          :background "<<base03>>"
-          :foreground "<<base03>>")
+          :background "#<<base03>>"
+          :foreground "#<<base03>>")
       ))
   #+END_SRC
 
@@ -736,8 +746,8 @@
     (use-package hl-todo
       :custom
       (hl-todo-keyword-faces
-        '(("TODO"  . "<<base0B>>")
-          ("FIXME" . "<<base08>>")))
+        '(("TODO"  . "#<<base0B>>")
+          ("FIXME" . "#<<base08>>")))
       :config (global-hl-todo-mode))
   #+END_SRC
 
@@ -750,7 +760,7 @@
   #+BEGIN_SRC elisp
     (use-package form-feed
       :custom-face
-        (form-feed-line ((t (:strike-through "<<base03>>"))))
+        (form-feed-line ((t (:strike-through "#<<base03>>"))))
       :hook
       ((emacs-lisp-mode lisp-mode scheme-mode compilation-mode
          outline-mode help-mode
@@ -771,28 +781,28 @@
     (use-package base16-theme
       :init
       (setq base16-default-dark-colors
-      '(:base00 "<<base00>>"
-        :base01 "<<base01>>"
-        :base02 "<<base02>>"
-        :base03 "<<base03>>"
-        :base04 "<<base04>>"
-        :base05 "<<base05>>"
-        :base06 "<<base06>>"
-        :base07 "<<base07>>"
-        :base08 "<<base08>>"
-        :base09 "<<base09>>"
-        :base0A "<<base0A>>"
-        :base0B "<<base0B>>"
-        :base0C "<<base0C>>"
-        :base0D "<<base0D>>"
-        :base0E "<<base0E>>"
-        :base0F "<<base0F>>"))
+      '(:base00 "#<<base00>>"
+        :base01 "#<<base01>>"
+        :base02 "#<<base02>>"
+        :base03 "#<<base03>>"
+        :base04 "#<<base04>>"
+        :base05 "#<<base05>>"
+        :base06 "#<<base06>>"
+        :base07 "#<<base07>>"
+        :base08 "#<<base08>>"
+        :base09 "#<<base09>>"
+        :base0A "#<<base0A>>"
+        :base0B "#<<base0B>>"
+        :base0C "#<<base0C>>"
+        :base0D "#<<base0D>>"
+        :base0E "#<<base0E>>"
+        :base0F "#<<base0F>>"))
       :config
       (load-theme 'base16-default-dark t)
       (custom-set-faces
-        '(diff-hl-change ((t (:background "<<base0E>>" :foreground "<<base0E>>"))))
-        '(diff-hl-delete ((t (:background "<<base08>>" :foreground "<<base08>>"))))
-        '(diff-hl-insert ((t (:background "<<base0B>>" :foreground "<<base0B>>"))))
+        '(diff-hl-change ((t (:background "#<<base0E>>" :foreground "#<<base0E>>"))))
+        '(diff-hl-delete ((t (:background "#<<base08>>" :foreground "#<<base08>>"))))
+        '(diff-hl-insert ((t (:background "#<<base0B>>" :foreground "#<<base0B>>"))))
       )
     )
   #+END_SRC
@@ -810,24 +820,24 @@
 
   Set color of =org-mode= verbatim
   #+BEGIN_SRC elisp
-    (set-face-attribute 'org-verbatim nil :foreground "<<base0F>>")
+    (set-face-attribute 'org-verbatim nil :foreground "#<<base0F>>")
   #+END_SRC
 
   Set color of =org-mode= headings
   #+BEGIN_SRC elisp
     (custom-set-faces
-      '(org-level-1 ((t (:foreground "<<base08>>" :bold t :underline t))))
-      '(org-level-2 ((t (:foreground "<<base0A>>" :bold t))))
-      '(org-level-3 ((t (:foreground "<<base0D>>" :bold t))))
-      '(org-level-4 ((t (:foreground "<<base0C>>"))))
-      '(org-level-5 ((t (:foreground "<<base0B>>"))))
+      '(org-level-1 ((t (:foreground "#<<base08>>" :bold t :underline t))))
+      '(org-level-2 ((t (:foreground "#<<base0A>>" :bold t))))
+      '(org-level-3 ((t (:foreground "#<<base0D>>" :bold t))))
+      '(org-level-4 ((t (:foreground "#<<base0C>>"))))
+      '(org-level-5 ((t (:foreground "#<<base0B>>"))))
     )
   #+END_SRC
 
   Improve look of =org-mode= agenda:
   #+BEGIN_SRC elisp
     (custom-set-faces
-      '(org-agenda-date-today ((t (:foreground "<<base0A>>" :bold t :underline t))))
+      '(org-agenda-date-today ((t (:foreground "#<<base0A>>" :bold t :underline t))))
       '(org-agenda-date ((t (:underline t))))
     )
   #+END_SRC

@@ -32,7 +32,7 @@
   Your preferred terminal emulator
   #+NAME: terminal
   #+BEGIN_SRC conf
-    alacritty
+    footclient --
   #+END_SRC
 
   Your preferred web browser
@@ -66,97 +66,97 @@
    ----
    #+NAME: base00
    #+BEGIN_SRC css
-     #282828
+     282828
    #+END_SRC
 
    ---
    #+NAME: base01
    #+BEGIN_SRC css
-     #3c3836
+     3c3836
    #+END_SRC
 
    --
    #+NAME: base02
    #+BEGIN_SRC css
-     #504945
+     504945
    #+END_SRC
 
    -
    #+NAME: base03
    #+BEGIN_SRC css
-     #665c54
+     665c54
    #+END_SRC
 
    +
    #+NAME: base04
    #+BEGIN_SRC css
-     #bdae93
+     bdae93
    #+END_SRC
 
    ++
    #+NAME: base05
    #+BEGIN_SRC css
-     #d5c4a1
+     d5c4a1
    #+END_SRC
 
    +++
    #+NAME: base06
    #+BEGIN_SRC css
-     #ebdbb2
+     ebdbb2
    #+END_SRC
 
    ++++
    #+NAME: base07
    #+BEGIN_SRC css
-     #fbf1c7
+     fbf1c7
    #+END_SRC
 
    red
    #+NAME: base08
    #+BEGIN_SRC css
-     #fb4934
+     fb4934
    #+END_SRC
 
    orange
    #+NAME: base09
    #+BEGIN_SRC css
-     #fe8019
+     fe8019
    #+END_SRC
 
    yellow
    #+NAME: base0A
    #+BEGIN_SRC css
-     #fabd2f
+     fabd2f
    #+END_SRC
 
    green
    #+NAME: base0B
    #+BEGIN_SRC css
-     #b8bb26
+     b8bb26
    #+END_SRC
 
    aqua/cyan
    #+NAME: base0C
    #+BEGIN_SRC css
-     #8ec07c
+     8ec07c
    #+END_SRC
 
    blue
    #+NAME: base0D
    #+BEGIN_SRC css
-     #83a598
+     83a598
    #+END_SRC
 
    purple
    #+NAME: base0E
    #+BEGIN_SRC css
-     #d3869b
+     d3869b
    #+END_SRC
 
    brown
    #+NAME: base0F
    #+BEGIN_SRC css
-     #d65d0e
+     d65d0e
    #+END_SRC
 ** Font
    Font

@@ -21,13 +21,13 @@
   New rofi theme format:
   #+BEGIN_SRC css
     ,* {
-        red:                         <<base08>>;
-        blue:                        <<base0D>>;
-        lightfg:                     <<base06>>;
-        lightbg:                     <<base01>>;
-        foreground:                  <<base05>>;
-        background:                  <<base00>>;
-        background-color:            <<base00>>00;
+        red:                         #<<base08>>;
+        blue:                        #<<base0D>>;
+        lightfg:                     #<<base06>>;
+        lightbg:                     #<<base01>>;
+        foreground:                  #<<base05>>;
+        background:                  #<<base00>>;
+        background-color:            #<<base00>>00;
         separatorcolor:              @foreground;
         border-color:                @foreground;
         selected-normal-foreground:  @lightbg;

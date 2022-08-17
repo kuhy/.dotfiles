@@ -113,22 +113,22 @@
    :END:
    #+BEGIN_SRC css
      :root {    /* Default-dark by Chris Kempson (http://chriskempson.com) */
-         --base00: <<base00>>;
-         --base01: <<base01>>;
-         --base02: <<base02>>;
-         --base03: <<base03>>;
-         --base04: <<base04>>;
-         --base05: <<base05>>;
-         --base06: <<base06>>;
-         --base07: <<base07>>;
-         --base08: <<base08>>;
-         --base09: <<base09>>;
-         --base0A: <<base0A>>;
-         --base0B: <<base0B>>;
-         --base0C: <<base0C>>;
-         --base0D: <<base0D>>;
-         --base0E: <<base0E>>;
-         --base0F: <<base0F>>;
+         --base00: #<<base00>>;
+         --base01: #<<base01>>;
+         --base02: #<<base02>>;
+         --base03: #<<base03>>;
+         --base04: #<<base04>>;
+         --base05: #<<base05>>;
+         --base06: #<<base06>>;
+         --base07: #<<base07>>;
+         --base08: #<<base08>>;
+         --base09: #<<base09>>;
+         --base0A: #<<base0A>>;
+         --base0B: #<<base0B>>;
+         --base0C: #<<base0C>>;
+         --base0D: #<<base0D>>;
+         --base0E: #<<base0E>>;
+         --base0F: #<<base0F>>;
 
          --tridactyl-fg: var(--base05);
          --tridactyl-bg: var(--base00);
@@ -267,12 +267,12 @@
    Declaring color variables
    #+BEGIN_SRC css
      :root {
-         --bar-color: <<base01>>;
-         --bar-text-color: <<base06>>;
-         --tab-color: <<base02>>;
-         --tab-text-color: <<base05>>;
-         --tab-selected-color: <<base0D>>;
-         --tab-selected-text-color: <<base00>>;
+         --bar-color: #<<base01>>;
+         --bar-text-color: #<<base06>>;
+         --tab-color: #<<base02>>;
+         --tab-text-color: #<<base05>>;
+         --tab-selected-color: #<<base0D>>;
+         --tab-selected-text-color: #<<base00>>;
      }
    #+END_SRC
 
@@ -530,6 +530,6 @@
    Change color of scroll bar:
    #+BEGIN_SRC css
      html,body{
-         scrollbar-color: <<base03>> <<base01>> !important;
+         scrollbar-color: #<<base03>> #<<base01>> !important;
      }
    #+END_SRC

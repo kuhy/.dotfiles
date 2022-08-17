@@ -239,3 +239,21 @@
       [Install]
       WantedBy=sway-session.target
     #+END_SRC
+*** foot
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/foot.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Start foot daemon:
+    #+BEGIN_SRC conf
+      [Unit]
+      Description=Foot terminal server mode
+      Documentation=man:foot(1)
+      BindsTo=sway-session.target
+
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/foot --server
+
+      [Install]
+      WantedBy=sway-session.target
+    #+END_SRC

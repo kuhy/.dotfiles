@@ -24,10 +24,10 @@
     - [[file:system/sudo.org][sudo]]
     - [[file:system/systemd.org][systemd]]
   - Terminal
-    - [[file:term/alacritty.org][Alacritty]]
     - [[file:term/bash.org][Bash]]
     - [[file:term/bat.org][bat]]
     - [[file:term/fish.org][Fish]]
+    - [[file:term/foot.org][foot]]
     - [[file:term/git.org][Git]]
     - [[file:term/tmux.org][tmux]]
   - Web

@@ -18,40 +18,40 @@
   #+END_SRC
 ** Colors
    #+BEGIN_SRC conf
-     key-hl-color=<<base0C>>
-     bs-hl-color=<<base08>>
+     key-hl-color=#<<base0C>>
+     bs-hl-color=#<<base08>>
      #caps-lock-bs-hl-color
      #caps-lock-key-hl-color
 
-     inside-color=<<base01>>A0
-     inside-clear-color=<<base0C>>
+     inside-color=#<<base01>>A0
+     inside-clear-color=#<<base0C>>
      #inside-caps-lock-color
-     inside-ver-color=<<base0D>>
-     inside-wrong-color=<<base08>>
+     inside-ver-color=#<<base0D>>
+     inside-wrong-color=#<<base08>>
 
-     layout-bg-color=<<base00>>
-     layout-border-color=<<base00>>
-     layout-text-color=<<base00>>
+     layout-bg-color=#<<base00>>
+     layout-border-color=#<<base00>>
+     layout-text-color=#<<base00>>
 
-     line-color=<<base00>>
-     line-clear-color=<<base00>>
-     line-caps-lock-color=<<base00>>
-     line-ver-color=<<base00>>
-     line-wrong-color=<<base00>>
+     line-color=#<<base00>>
+     line-clear-color=#<<base00>>
+     line-caps-lock-color=#<<base00>>
+     line-ver-color=#<<base00>>
+     line-wrong-color=#<<base00>>
 
-     ring-color=<<base05>>
-     ring-clear-color=<<base0C>>
+     ring-color=#<<base05>>
+     ring-clear-color=#<<base0C>>
      #ring-caps-lock-color
-     ring-ver-color=<<base0D>>
-     ring-wrong-color=<<base08>>
+     ring-ver-color=#<<base0D>>
+     ring-wrong-color=#<<base08>>
 
-     separator-color=<<base00>>
+     separator-color=#<<base00>>
 
-     text-color=<<base00>>
-     text-clear-color=<<base00>>
-     text-caps-lock-color=<<base00>>
-     text-ver-color=<<base00>>
-     text-wrong-color=<<base00>>
+     text-color=#<<base00>>
+     text-clear-color=#<<base00>>
+     text-caps-lock-color=#<<base00>>
+     text-ver-color=#<<base00>>
+     text-wrong-color=#<<base00>>
    #+END_SRC
 * Script
   :PROPERTIES:

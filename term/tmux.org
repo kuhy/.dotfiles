@@ -16,9 +16,8 @@
   fix 256 color scheme
   #+BEGIN_SRC conf
     set  -g default-terminal "tmux-256color"
-    set -ag terminal-overrides ",alacritty:RGB"
+    #set -ag terminal-overrides ",alacritty:RGB"
   #+END_SRC
-
 
   Start windows and panes at 1, not 0
   #+BEGIN_SRC conf
@@ -123,8 +122,8 @@
 
   Basic status bar colors
   #+BEGIN_SRC conf
-    set -g status-fg "<<base06>>"
-    set -g status-bg "<<base01>>"
+    set -g status-fg "#<<base06>>"
+    set -g status-bg "#<<base01>>"
   #+END_SRC
 
   Left side of status bar
@@ -138,13 +137,13 @@
   #+BEGIN_SRC conf
     set -g status-right bg=default,fg=default
     set -g status-right-length 150
-    set -g status-right "#[fg=<<base01>>,bg=<<base06>>,bold] #S "
+    set -g status-right "#[fg=#<<base01>>,bg=#<<base06>>,bold] #S "
   #+END_SRC
 
   Window status
   #+BEGIN_SRC conf
     set -g window-status-format " #W "
-    set -g window-status-current-format "#[fg=<<base01>>,bg=<<base0D>>] #W "
+    set -g window-status-current-format "#[fg=#<<base01>>,bg=#<<base0D>>] #W "
   #+END_SRC
 
   Current window status
@@ -169,12 +168,12 @@
 
   Pane border
   #+BEGIN_SRC conf
-    set -g pane-border-style bg=default,fg="<<base01>>"
+    set -g pane-border-style bg=default,fg="#<<base01>>"
   #+END_SRC
 
   Active pane border
   #+BEGIN_SRC conf
-    set -g pane-active-border-style bg=default,fg="<<base0D>>"
+    set -g pane-active-border-style bg=default,fg="#<<base0D>>"
   #+END_SRC
 
   Pane number indicator
@@ -185,23 +184,23 @@
 
   Clock mode
   #+BEGIN_SRC conf
-    set -g clock-mode-colour "<<base0D>>"
+    set -g clock-mode-colour "#<<base0D>>"
     set -g clock-mode-style 12
   #+END_SRC
 
   Message
   #+BEGIN_SRC conf
-    set -g message-style bg="<<base06>>",fg="<<base01>>"
+    set -g message-style bg="#<<base06>>",fg="#<<base01>>"
   #+END_SRC
 
   Command message
   #+BEGIN_SRC conf
-    set -g message-command-style bg="<<base06>>",fg="<<base01>>"
+    set -g message-command-style bg="#<<base06>>",fg="#<<base01>>"
   #+END_SRC
 
   Mode
   #+BEGIN_SRC conf
-    set -g mode-style bg="<<base06>>",fg="<<base01>>"
+    set -g mode-style bg="#<<base06>>",fg="#<<base01>>"
   #+END_SRC
 * Plugins
   Plugins are installed using [[https://github.com/tmux-plugins/tpm][=tpm=]].

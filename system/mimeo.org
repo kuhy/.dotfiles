@@ -8,7 +8,7 @@
   :header-args: :tangle ~/.config/mimeo/default_arguments.txt :comments no :mkdirp yes :noweb tangle
   :END:
   #+BEGIN_SRC conf
-    --term 'alacritty -e %s'
+    --term '<<terminal>> %s'
   #+END_SRC
 * Associations
   :PROPERTIES:

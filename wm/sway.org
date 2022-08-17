@@ -54,17 +54,17 @@
 ** Basics
    start a tmux in terminal
    #+BEGIN_SRC conf
-         bindsym $mod+Return exec <<terminal>> -e tmux -2
+         bindsym $mod+Return exec <<terminal>> tmux -2
    #+END_SRC
 
    attach a tmux session
    #+BEGIN_SRC conf
-         bindsym $mod+u exec <<terminal>> -e tmux -2 attach
+         bindsym $mod+u exec <<terminal>> tmux -2 attach
    #+END_SRC
 
    start a terminal
    #+BEGIN_SRC conf
-         bindsym $mod+t exec <<terminal>> -e fish
+         bindsym $mod+t exec <<terminal>> fish
    #+END_SRC
 
    kill focused window
@@ -295,7 +295,7 @@
 ** Fn keys
    Create fifo for =wob=:
    #+BEGIN_SRC conf
-     exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob --border-color '<<base0D>>FF' --background-color '<<base00>>FF' --bar-color '<<base07>>FF'
+     exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob --border-color '#<<base0D>>FF' --background-color '#<<base00>>FF' --bar-color '#<<base07>>FF'
    #+END_SRC
 
    Audio
@@ -320,17 +320,17 @@
 ** Colors
    Set background color
    #+BEGIN_SRC conf
-     output * bg <<base03>> solid_color
+     output * bg #<<base03>> solid_color
    #+END_SRC
 
    #+BEGIN_SRC conf
      # Property Name         Border  BG      Text    Indicator Child Border
-     client.focused          <<base05>> <<base0D>> <<base00>> <<base0D>> <<base0D>>
-     client.focused_inactive <<base01>> <<base01>> <<base05>> <<base03>> <<base01>>
-     client.unfocused        <<base01>> <<base00>> <<base05>> <<base01>> <<base01>>
-     client.urgent           <<base08>> <<base08>> <<base00>> <<base08>> <<base08>>
-     client.placeholder      <<base00>> <<base00>> <<base05>> <<base00>> <<base00>>
-     client.background       <<base07>>
+     client.focused          #<<base05>> #<<base0D>> #<<base00>> #<<base0D>> #<<base0D>>
+     client.focused_inactive #<<base01>> #<<base01>> #<<base05>> #<<base03>> #<<base01>>
+     client.unfocused        #<<base01>> #<<base00>> #<<base05>> #<<base01>> #<<base01>>
+     client.urgent           #<<base08>> #<<base08>> #<<base00>> #<<base08>> #<<base08>>
+     client.placeholder      #<<base00>> #<<base00>> #<<base05>> #<<base00>> #<<base00>>
+     client.background       #<<base07>>
    #+END_SRC
 ** Basics
    #+BEGIN_SRC conf
