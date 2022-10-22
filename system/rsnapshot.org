@@ -1,0 +1,73 @@
+#+TITLE: rsnapshot
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/rsnapshot/config"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+#+INCLUDE: "../secrets.org"
+/A filesystem snapshot utility based on rsync/
+
+*Configuration file requires tabs between elements!*
+* General
+  Config file version
+  #+BEGIN_SRC conf
+    config_version	1.2
+  #+END_SRC
+
+  All snapshots will be stored under this root directory.
+  #+BEGIN_SRC conf
+    snapshot_root	/run/media/<<username>>/wd-elements/backups/
+  #+END_SRC
+
+  If set to 1, rsnapshot won't create =snapshot_root= directory
+  #+BEGIN_SRC conf
+    no_create_root	1
+  #+END_SRC
+
+  External program dependencies:
+  #+BEGIN_SRC conf
+    cmd_cp	/usr/bin/cp
+    cmd_rm	/usr/bin/rm
+    cmd_rsync	/usr/bin/rsync
+    cmd_ssh	/usr/bin/ssh
+    cmd_logger	/usr/bin/logger
+    cmd_du	/usr/bin/du
+    cmd_rsnapshot_diff	/usr/bin/rsnapshot-diff
+  #+END_SRC
+
+  Backup levels:
+  Must be unique and in ascending order
+  e.g. alpha, beta, gamma, etc.
+  #+BEGIN_SRC conf
+    retain	alpha	5
+  #+END_SRC
+
+  Show equivalent shell commands being executed
+  #+BEGIN_SRC conf
+    verbose	3
+  #+END_SRC
+
+  If you enable this, data will be written to the file you specify. The
+  amount of data written is controlled by the "loglevel" parameter.
+  #+BEGIN_SRC conf
+    logfile	/home/<<username>>/.rsnapshot.log
+  #+END_SRC
+
+  If enabled, rsnapshot will write a lockfile to prevent two instances
+  from running simultaneously (and messing up the =snapshot_root=).
+  If you enable this, make sure the lockfile directory is not world
+  writable. Otherwise anyone can prevent the program from running.
+  #+BEGIN_SRC conf
+    lockfile	/home/<<username>>/.rsnapshot.pid
+  #+END_SRC
+* Backup points
+  Following folders will be backed up:
+  #+BEGIN_SRC conf
+    backup	/home/<<username>>/Documents/	personal-laptop/
+    backup	/home/<<username>>/Projects/	personal-laptop/
+    backup	/home/<<username>>/.config/	personal-laptop/
+    backup	/home/<<username>>/.dotfiles/	personal-laptop/
+    backup	/home/<<username>>/.mail/	personal-laptop/
+    backup	/home/<<username>>/.password-store/	personal-laptop/
+  #+END_SRC

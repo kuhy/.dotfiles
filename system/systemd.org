@@ -243,7 +243,7 @@
     :PROPERTIES:
     :header-args: :tangle ~/.config/systemd/user/foot.service :comments no :mkdirp yes :noweb tangle
     :END:
-    Start foot daemon:
+    Start [[file:../term/foot.org][foot]] daemon:
     #+BEGIN_SRC conf
       [Unit]
       Description=Foot terminal server mode

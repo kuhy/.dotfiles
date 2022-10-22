@@ -49,6 +49,7 @@
      alias cp 'cp -vn'
      alias mnt 'udisksctl mount -b'
      alias umnt 'udisksctl unmount -b'
+     alias backup 'rsnapshot -c ~/.config/rsnapshot/config alpha'
      thefuck --alias | source
    #+END_SRC
 

@@ -19,6 +19,7 @@
   - System
     - [[file:system/gpg.org][GPG]]
     - [[file:system/mimeo.org][mimeo]]
+    - [[file:system/rsnapshot.org][rsnapshot]]
     - [[file:system/safeeyes.org][Safe Eyes]]
     - [[file:system/scripts.org][Scripts]]
     - [[file:system/sudo.org][sudo]]
