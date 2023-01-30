@@ -25,6 +25,7 @@
   #+BEGIN_SRC conf
     [local]
     media_dir = ~/Music
+    scan_follow_symlinks = true
   #+END_SRC
 * Scrobbler
   Scrobble to [[https://www.last.fm]]:
