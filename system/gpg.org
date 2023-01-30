@@ -12,3 +12,9 @@
   #+BEGIN_SRC conf
     pinentry-program <<pinentry>>
   #+END_SRC
+
+  Cache passphrase for 4 hours:
+  #+BEGIN_SRC conf
+    default-cache-ttl 14400
+    max-cache-ttl 14400
+  #+END_SRC
