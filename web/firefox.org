@@ -20,20 +20,20 @@
   #+END_SRC
 * General
   :PROPERTIES:
-  :header-args: :tangle ~/.mozilla/firefox/default/user.js :comments both :mkdirp yes :noweb tangle
+  :header-args: :tangle ~/.mozilla/firefox/default/user-overrides.js :comments both :mkdirp yes :noweb tangle
   :END:
-  make Tridactyl work on addons.mozilla.org and some other Mozilla domains
+  Make Tridactyl work on addons.mozilla.org and some other Mozilla domains
   #+BEGIN_SRC js
     user_pref("privacy.resistFingerprinting.block_mozAddonManager", true);
     user_pref("extensions.webextensions.restrictedDomains", "");
   #+END_SRC
 
-  allow stylesheets modifications (userChrome.css, userContent.css)
+  Allow stylesheets modifications (userChrome.css, userContent.css)
   #+BEGIN_SRC js
     user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
   #+END_SRC
 
-  printing with no headers and footers
+  Printing with no headers and footers:
   #+BEGIN_SRC js
     user_pref("print.print_footerleft", "");
     user_pref("print.print_footerright", "");
@@ -41,22 +41,9 @@
     user_pref("print.print_headerright", "");
   #+END_SRC
 
-  turn on caret browsing mode
+  Turn on caret browsing mode.
   #+BEGIN_SRC js
     user_pref("accessibility.browsewithcaret", true);
-  #+END_SRC
-
-  Workaround for Firefox security bug:
-  #+BEGIN_SRC js
-    // user_pref("network.http.spdy.enabled.http2", false);
-  #+END_SRC
-
-  Fix connection not secure error:
-  (Once Firefox trusts your proxy, I suggest flipping that back to false to keep
-  Firefox isolated from possible fraudulent certificates injected into the Windows
-  certificate store.)
-  #+BEGIN_SRC js
-    // userp_pref("security.enterprise_roots.enabled", true);
   #+END_SRC
 
   Disable extension recommendations.
@@ -69,6 +56,44 @@
   came from which was linked to the webpage you are going to)
   #+BEGIN_SRC js
     user_pref("Network.http.sendRefererHeader", 0);
+  #+END_SRC
+
+  Disable Pocket:
+  #+BEGIN_SRC js
+    user_pref("extensions.pocket.enabled", false);
+  #+END_SRC
+
+  Enable /compact mode/ (*note*: Choose =Compact (not supported)= from =Customize Toolbar=):
+  #+BEGIN_SRC js
+    user_pref("browser.compactmode.show", true);
+    user_pref("browser.uidensity", 1);
+  #+END_SRC
+
+  Disable /Firefox View/:
+  #+BEGIN_SRC js
+    user_pref("browser.tabs.firefox-view", false);
+  #+END_SRC
+
+  Do not show bookmarks toolbar:
+  #+BEGIN_SRC js
+    user_pref("browser.toolbars.bookmarks.visibility", "never");
+  #+END_SRC
+
+  Control /newtab/ using Tridactyl:
+  #+BEGIN_SRC js
+    user_pref("browser.newtab.extensionControlled", true);
+  #+END_SRC
+
+  Set homepage:
+  #+BEGIN_SRC js
+    user_pref("browser.startup.firstrunSkipsHomepage", false);
+    user_pref("browser.startup.page", 1);
+    user_pref("browser.startup.homepage", "https://archlinux.org/");
+  #+END_SRC
+
+  Do not remember passwords:
+  #+BEGIN_SRC js
+    user_pref("signon.rememberSignons", false);
   #+END_SRC
 * Tridactyl
 ** General
@@ -106,6 +131,25 @@
    Use browser search engine
    #+BEGIN_SRC conf
      set searchengine ""
+   #+END_SRC
+
+   Set blank page as a new tab:
+   #+BEGIN_SRC conf
+     set newtab about:blank
+   #+END_SRC
+
+   Disable numeral prefixing (via hack):
+   #+BEGIN_SRC conf
+     keymap 0 @
+     keymap 1 @
+     keymap 2 @
+     keymap 3 @
+     keymap 4 @
+     keymap 5 @
+     keymap 6 @
+     keymap 7 @
+     keymap 8 @
+     keymap 9 @
    #+END_SRC
 ** Theme
    :PROPERTIES:
@@ -264,7 +308,7 @@
    :PROPERTIES:
    :header-args: :tangle ~/.mozilla/firefox/default/chrome/userChrome.css :comments both :mkdirp yes :noweb tangle
    :END:
-   Declaring color variables
+   Declare color variables:
    #+BEGIN_SRC css
      :root {
          --bar-color: #<<base01>>;
@@ -273,46 +317,31 @@
          --tab-text-color: #<<base05>>;
          --tab-selected-color: #<<base0D>>;
          --tab-selected-text-color: #<<base00>>;
+         --warning-color: #<<base0A>>;
      }
    #+END_SRC
 
-   do not show microphone icon
+   Hide useless stuff:
    #+BEGIN_SRC css
-     #webrtcIndicator {
-         display: none;
+     #webrtcIndicator,
+     .tab-close-button,
+     .tab-icon-image,
+     #PanelUI-menu-button,
+     #downloads-button,
+     #home-button,
+     #back-button,
+     #forward-button,
+     #sidebar-button,
+     #alltabs-button,
+     #tabs-newtab-button,
+     toolbarspring,
+     #sidebar-header
+     {
+       display: none !important
      }
    #+END_SRC
 
-   hiding useless stuffs
-   #+BEGIN_SRC css
-     .titlebar-placeholder,#wrapper-alltabs-button,.tab-close-button,.tab-icon-image,#main-window :-moz-any(#back-button, #forward-button) {
-         display: none;
-     }
-     #identity-box,.urlbar-history-dropmarker,#pageActionButton {
-         display: none !important
-     }
-     .tab-throbber{
-         margin: 0!important;
-         padding: 0!important;
-     }
-     #tabbrowser-tabs .tabs-newtab-button {
-         visibility: collapse !important;
-     }
-   #+END_SRC
-
-   urlbar selection color
-   #+BEGIN_SRC css
-     ::-moz-selection {background-color: var(--tab-selected-color) !important;}
-   #+END_SRC
-
-   hides a ugly black bottom background under each unfocused tab
-   #+BEGIN_SRC css
-     #navigator-toolbox{
-         --tabs-border-color: none !important;
-     }
-   #+END_SRC
-
-   show tab numbers
+   Show tab numbers:
    #+BEGIN_SRC css
      tabs {
        counter-reset: tab-counter;
@@ -324,121 +353,88 @@
      }
    #+END_SRC
 
-
-   tab occupy all space
-   tab title font is reduced
+   Reduce tab title font:
    #+BEGIN_SRC css
      .tabbrowser-tab[fadein]:not([pinned]) {
-         max-width: 100% !important;
          font-size: 0.9em !important;
      }
    #+END_SRC
 
-   url bar font size is reduced
-   no borders
-   no shadow
-   no round edges
+   URL bar font size is reduced:
    #+BEGIN_SRC css
      #urlbar {
        font-size: 0.8em !important;
-       border: none !important;
-       box-shadow: none !important;
-       --toolbarbutton-border-radius: 0px !important;
-       color: var(--bar-color) !important;
-       text-align: center !important;
      }
    #+END_SRC
 
-   i don't really know what this do but removing it gives a weired behaviour when opening and closing tabs any analysis are welcome ^^
-   #+BEGIN_SRC css
-     .tabbrowser-tab::after, .tabbrowser-tab::before {
-        border:none !important;
-     }
-   #+END_SRC
-
-   center tab text title
-   #+BEGIN_SRC css
-     .tab-label {
-         -moz-box-flex: 1 !important;
-         text-align: center !important;
-         color : var(--tab-selected-text-color);
-     }
-   #+END_SRC
-
-   here is a serie of color background
+   Change colors and tabs appearance:
    #+BEGIN_SRC css
      .tab-line{
-         /*background-color: var(--bar-color) !important;
-         height: 1px !important;*/
-         visibility: collapse !important;
+       visibility: collapse !important;
      }
 
      .tab-background {
-         border: none !important;
-         background-attachment: none!important;
-         background-color: var(--tab-selected-color) !important;
-         background-image: none!important;
+       border: none !important;
+       background-attachment: none!important;
+       background-color: var(--tab-selected-color) !important;
+       background-image: none!important;
      }
 
      .tabbrowser-tab:not([selected]) .tab-background {
-         border: none !important;
-         background-color: var(--tab-color) !important;
+       border: none !important;
+       background-color: var(--tab-color) !important;
      }
+
      .tabbrowser-tab:not([selected]) .tab-label {
-         color : var(--tab-text-color);
+       color : var(--tab-text-color) !important;
+     }
+
+     .tabbrowser-tab[selected] .tab-label {
+       color : var(--bar-color) !important;
+     }
+
+     .tab-context-line {
+       background-color: var(--tab-text-color) !important;
      }
 
      #urlbar-background{
-         background-color: var(--tab-text-color) !important;
+       background-color: var(--tab-text-color) !important;
      }
 
      #nav-bar,#urlbar-container,#urlbar,#PanelUI-menu-button{
-         background-color: var(--bar-color) !important;
+       color : var(--tab-color) !important;
+       background-color: var(--bar-color) !important;
      }
+
      #navigator-toolbox toolbarbutton {
-         fill: var(--bar-text-color) !important;
+       fill: var(--bar-text-color) !important;
+     }
+
+     .titlebar-color{
+       color : var(--tab-text-color);
+       background-color: var(--bar-color) !important;
+     }
+
+     .tab-throbber[busy] {
+        animation: unset !important;
+        background-image: unset !important;
+        background-color: var(--warning-color) !important;
      }
    #+END_SRC
 
-   hides another ugly black bottom background under the urlbar container
-   #+BEGIN_SRC css
-     :root:-moz-lwtheme-brighttext {
-         --toolbox-border-bottom-color: none !important;
-     }
-   #+END_SRC
-
-   reducing the tabs height more
+   Reduce the tabs height more:
    #+BEGIN_SRC css
      :root #tabbrowser-tabs {
       --tab-min-height: 22px !important;
      }
    #+END_SRC
 
-   removing the useless padding and marging between elements of the urlbar etc..
+   Make the tabs hidden when there is only one tab open:
    #+BEGIN_SRC css
-     #nav-bar,#PanelUI-menu-button{
-         padding: 0px !important;
-         margin:  0px !important;
-         height: 28px !important;
-     }
-   #+END_SRC
-
-   make the tabs hidden when there is only one tab open
-   #+BEGIN_SRC css
-     /* Styles:13 ends here */
-     /* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/hide_tabs_with_one_tab.css made available under Mozilla Public License v. 2.0
-     See the above repository for updates as well as full license text. */
-
-     /* Makes tabs toolbar items zero-height initially and sets enlarge them to fill up space equal to tab-min-height set on tabs */
-     /* Firefox 65+ only */
-
      :root[sizemode="normal"] #nav-bar{ --uc-window-drag-space-width: 20px }
-
      #titlebar{ -moz-appearance: none !important; }
      #TabsToolbar{ min-height: 0px !important }
-
      #tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox, #tabbrowser-arrowscrollbox{ min-height: 0 !important; }
-
      :root:not([customizing]) #tabbrowser-tabs .tabs-newtab-button,
      :root:not([customizing]) #tabs-newtab-button,
      :root:not([customizing]) #TabsToolbar-customization-target > .toolbarbutton-1,
@@ -450,14 +446,10 @@
        -moz-box-align: stretch;
        margin: 0 !important;
      }
-
      #tabbrowser-tabs .tabbrowser-tab{ height: var(--tab-min-height) }
-
      #tabbrowser-tabs .tabbrowser-tab[first-visible-tab="true"][last-visible-tab="true"]{
        visibility: collapse !important;
      }
-
-     /* Button re-styling */
      #tabs-newtab-button:hover,
      #tabbrowser-tabs .tabs-newtab-button:hover{ background-color: var(--toolbarbutton-hover-background) }
 
@@ -467,61 +459,15 @@
        transform: scale(0.6);
        background-color: transparent !important;
      }
-     /* Extra top padding  in maximized window */
      @media (-moz-os-version: windows-win10){
        :root[sizemode="maximized"] #navigator-toolbox{ padding-top:7px !important; }
      }
-     /* Fix window controls not being clickable */
      :root[tabsintitlebar] #toolbar-menubar[autohide="true"][inactive]{
        transition: height 0ms steps(1) 80ms;
      }
      #nav-bar{
        border-inline: var(--uc-window-drag-space-width) solid var(--toolbar-bgcolor);
      }
-
-   #+END_SRC
-
-   Disable tab rounding:
-   #+BEGIN_SRC css
-     .tab-background {
-       border-radius: 0px 0px !important;
-       margin-bottom: 0px !important;
-       margin-block: 0px 0 !important;
-     }
-
-     .tabbrowser-tab:not([selected=true]):not([multiselected=true]) .tab-background {
-       background-color: color-mix(in srgb, currentColor 5%, transparent);
-     }
-
-     menupopup>menu,
-     menupopup>menuitem {
-       padding-block: 2px !important;
-     }
-
-     :root {
-       --arrowpanel-menuitem-padding: 2px !important;
-     }
-   #+END_SRC
-
-
-   Make urlbar appear more compact
-   #+BEGIN_SRC css
-     /* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/compact_urlbar_megabar.css made available under Mozilla Public License v. 2.0
-     See the above repository for updates as well as full license text. */
-     #urlbar[breakout]{
-       margin-inline-start: 0px !important;
-       width: 100% !important;
-       left: 0 !important;
-       top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
-     }
-     #urlbar[breakout]:not([open]){ bottom: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important; }
-     .urlbarView{ margin-inline: 0 !important; width: auto !important; }
-     .urlbarView-row{ padding: 0 2px !important; }
-     .urlbarView-row-inner{ padding-inline-start: 4px !important; }
-     #urlbar-background{ animation: none !important; }
-     #urlbar-input-container{ padding: 0 !important; height: 100% !important; }
-     #identity-box{ padding-block: var(--urlbar-icon-padding) }
-     .urlbarView > .search-one-offs:not([hidden]){ padding-block: 0px !important; }
    #+END_SRC
 ** Web pages
    :PROPERTIES:
