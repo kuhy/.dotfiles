@@ -1,23 +1,22 @@
 #+TITLE: rsnapshot
 #+AUTHOR: Kuhy
-#+PROPERTY: header-args+ :comments yes
-#+PROPERTY: header-args+ :mkdirp yes
-#+PROPERTY: header-args+ :tangle "~/.config/rsnapshot/config"
-#+PROPERTY: header-args+ :noweb tangle
 #+OPTIONS: prop:t
 #+INCLUDE: "../secrets.org"
 /A filesystem snapshot utility based on rsync/
+* Configuration file
+  :PROPERTIES:
+  :header-args: :tangle ~/.config/rsnapshot/config :comments both :mkdirp yes :noweb tangle
+  :END:
+  *Configuration file requires tabs between elements!*
 
-*Configuration file requires tabs between elements!*
-* General
   Config file version
   #+BEGIN_SRC conf
     config_version	1.2
   #+END_SRC
 
-  All snapshots will be stored under this root directory.
+  All snapshots will be stored under root directory defined by the script:
   #+BEGIN_SRC conf
-    snapshot_root	/run/media/<<username>>/wd-elements/backups/
+    include_conf	`/home/<<username>>/.config/rsnapshot/set_snapshot_root.sh`
   #+END_SRC
 
   If set to 1, rsnapshot won't create =snapshot_root= directory
@@ -61,13 +60,23 @@
   #+BEGIN_SRC conf
     lockfile	/home/<<username>>/.rsnapshot.pid
   #+END_SRC
-* Backup points
-  Following folders will be backed up:
-  #+BEGIN_SRC conf
-    backup	/home/<<username>>/Documents/	personal-laptop/
-    backup	/home/<<username>>/Projects/	personal-laptop/
-    backup	/home/<<username>>/.config/	personal-laptop/
-    backup	/home/<<username>>/.dotfiles/	personal-laptop/
-    backup	/home/<<username>>/.mail/	personal-laptop/
-    backup	/home/<<username>>/.password-store/	personal-laptop/
+** Backup points
+   Following folders will be backed up:
+   #+BEGIN_SRC conf
+     backup	/home/<<username>>/Documents/	personal-laptop/
+     backup	/home/<<username>>/Projects/	personal-laptop/
+     backup	/home/<<username>>/.config/	personal-laptop/
+     backup	/home/<<username>>/.dotfiles/	personal-laptop/
+     backup	/home/<<username>>/.mail/	personal-laptop/
+     backup	/home/<<username>>/.password-store/	personal-laptop/
+   #+END_SRC
+* Script
+  :PROPERTIES:
+  :header-args: :tangle ~/.config/rsnapshot/set_snapshot_root.sh :comments both :shebang "#!/bin/env bash" :mkdirp yes :noweb tangle
+  :END:
+  This script outputs location which will be used for the backup.
+
+  This is required when someone wants to backup to multiple locations.
+  #+BEGIN_SRC sh
+    printf "snapshot_root\t%s" "$RSNAPSHOT_ROOT"
   #+END_SRC
