@@ -67,7 +67,12 @@
      backup	/home/<<username>>/Projects/	personal-laptop/
      backup	/home/<<username>>/.config/	personal-laptop/
      backup	/home/<<username>>/.dotfiles/	personal-laptop/
+     backup	/home/<<username>>/.fillets-ng/	personal-laptop/
+     backup	/home/<<username>>/.gnupg/	personal-laptop/
+     backup	/home/<<username>>/.hedgewars/	personal-laptop/
+     backup	/home/<<username>>/.local/share/wesnoth/	personal-laptop/
      backup	/home/<<username>>/.mail/	personal-laptop/
+     backup	/home/<<username>>/.mozilla/firefox/default	personal-laptop/
      backup	/home/<<username>>/.password-store/	personal-laptop/
    #+END_SRC
 * Script
