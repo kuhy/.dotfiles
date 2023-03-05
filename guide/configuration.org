@@ -1,0 +1,189 @@
+#+TITLE: Post-install configuration
+#+AUTHOR: Kuhy
+/Setup system after new installation./
+* Update the system
+  #+BEGIN_SRC sh
+    sudo pacman -Syyu
+  #+END_SRC
+* Configure BTRFS snapshots
+  Install =snapper=:
+  #+BEGIN_SRC sh
+    sudo pacman -S snapper
+    sudo umount /.snapshots
+    sudo mkdir /.snapshots
+    sudo snapper -c root create-config /
+    sudo mount -o subvol=@snapshots /dev/mapper/cryptroot /.snapshots
+    sudo mount -a
+  #+END_SRC
+
+  Install =snap-pac=:
+  #+BEGIN_SRC sh
+    sudo pacman -S snap-pac
+    sudo systemctl enable --now snapper-cleanup.timer
+  #+END_SRC
+
+  Install =grub-btrfs=:
+  #+BEGIN_SRC sh
+    sudo pacman -S grub-btrfs inotify-tools
+    sudo systemctl enable --now grub-btrfsd
+  #+END_SRC
+* Install net tools
+** Install SSH
+   #+BEGIN_SRC sh
+     sudo pacman -S openssh
+   #+END_SRC
+** Setup firewall
+   #+BEGIN_SRC sh
+     sudo pacman -S ufw
+     sudo systemctl enable --now ufw
+     sudo ufw enable
+   #+END_SRC
+* Setup audio
+  Use pipewire with WirePlumber:
+  #+BEGIN_SRC sh
+    sudo pacman -S pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack
+  #+END_SRC
+* Set up dotfiles and Emacs
+  Install Emacs:
+  #+BEGIN_SRC sh
+    sudo pacman -S emacs-nativecomp
+  #+END_SRC
+  *Emacs is needed for dotfiles tangling!*
+  /Note: Flatpack version of Emacs will not see most of executables available in your system./
+
+  Do not forget to configure GPG.
+
+  Download dotfiles:
+  #+BEGIN_SRC sh
+    cd
+    git clone https://github.com/kuhy/.dotfiles
+  #+END_SRC
+
+  Tangle all files:
+  #+BEGIN_SRC sh
+    cd ~/.dotfiles
+    sudo ./dot-tangle .
+  #+END_SRC
+
+  Enable Emacs daemon:
+  #+BEGIN_SRC sh
+    systemctl --user enable --now emacs
+  #+END_SRC
+* TODO Set up udiskie
+* TODO Set up Sway
+  #+BEGIN_SRC sh
+    sudo pacman -S sway swaybg swayidle swaylock waybar foot rofi mako kanshi xorg-xwayland \
+         polkit xdg-desktop-portal-wlr grim ttf-monoid-nerd wl-clipboard
+    paru pinentry-rofi wob
+  #+END_SRC
+
+  Install program to control backlights:
+  #+BEGIN_SRC sh
+    sudo pacman -S light
+    sudo usermod -aG video <USERNAME>
+  #+END_SRC
+
+  Create a log file that will be used by Sway
+  #+BEGIN_SRC sh
+    sudo touch /var/log/sway.log
+    sudo chown <USERNAME> /var/log/sway.log
+    sudo chmod 600 /var/log/sway.log
+  #+END_SRC
+
+  Create default directories:
+  #+BEGIN_SRC sh
+    sudo pacman -S xdg-user-dirs
+    xdg-user-dirs-update
+  #+END_SRC
+
+  Enable services:
+  #+BEGIN_SRC sh
+    systemctl --user enable --now mako redshift swayidle waybar safeeyes sway-alttab \
+              kanshi autotiling foot
+  #+END_SRC
+** TODO Install tools required by failing services
+   - replace redshift with gammastep
+   - xdg-desktop-portal-?
+* Setup =flatpak=
+  Install =flatpak=:
+  #+BEGIN_SRC sh
+    sudo pacman -S flatpak
+    sudo flatpak remote-delete flathub
+    flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  #+END_SRC
+** Install applications
+*** Web
+    #+BEGIN_SRC sh
+      flatpak install org.mozilla.firefox
+      flatpak install com.brave.Browser
+      flatpak install io.freetubeapp.FreeTube
+    #+END_SRC
+*** Editors
+     #+BEGIN_SRC sh
+      flatpak install com.google.AndroidStudio
+      flatpak install org.libreoffice.LibreOffice
+      flatpak install com.visualstudio.code
+     #+END_SRC
+*** Tools
+     #+BEGIN_SRC sh
+      flatpak install com.github.tchx84.Flatseal
+      flatpak install com.usebottles.bottles
+      flatpak install org.gnome.Boxes
+      flatpak install org.gimp.GIMP
+      flatpak install org.ardour.Ardour
+     #+END_SRC
+*** Games
+     #+BEGIN_SRC sh
+      flatpak install org.wesnoth.Wesnoth
+      flatpak install net.sourceforge.Fillets
+      flatpak install org.hedgewars.Hedgewars
+     #+END_SRC
+* TODO Install antivirus
+  #+BEGIN_SRC sh
+    sudo pacman -S clamav
+  #+END_SRC
+* TODO Install password manager
+** TODO Move antivirus to distrobox
+* TODO Setup =distrobox=
+  Install =distrobox= and rootless Podman:
+  #+BEGIN_SRC sh
+    paru distrobox
+    sudo pacman -S podman fuse-overlayfs
+    # check that "sysctl kernel.unprivileged_userns_clone" = 1
+    podman system migrate
+  #+END_SRC
+** termbox
+   #+BEGIN_SRC sh
+     sudo pacman -S starship fish tmux exa bat thefuck zoxide
+     # TODO fisher update
+     # TODO sudo pacman -S xdg-utils
+     # TODO paru tmuxinator
+   #+END_SRC
+** TODO
+  - musicbox (beets, mpd, ncmpcpp, mpc...)
+  - mailbox
+  - maintenancebox (clamav, lshw, lscpu, dust...)
+  - javabox, javascriptbox...
+** TODO Create Dockerfiles for distrobox
+   - create Org file for distrobox
+* TODO Configure MIME types
+  Configure MIME types and corresponding handlers using [[file:../system/mimeo.org][mimeo]].
+  #+BEGIN_SRC sh
+    mimeo --create emacs.desktop Emacs 'emacsclient -c -a emacs %F' 'glob:text/*' 'noterm'
+    mimeo --prefer 'glob:text/*' emacs.desktop
+    mimeo --prefer 'text/org' emacs.desktop
+    mimeo --prefer 'application/x-yaml' emacs.desktop
+    mimeo --create mpv.desktop mpv 'mpv %F' 'glob:video/*' 'noterm'
+    mimeo --prefer 'glob:video/*' mpv.desktop
+    mimeo --prefer 'glob:Video/*' mpv.desktop
+    mimeo --create firefox.desktop Firefox 'firefox %U' 'glob:x-scheme-handler/*' 'noterm'
+    mimeo --prefer 'glob:x-scheme-handler/*' firefox.desktop
+    mimeo --create imv.desktop imv 'imv %F' 'glob:image/*' 'noterm'
+    mimeo --prefer 'glob:image/*' imv.desktop
+    mimeo --create zathura.desktop zathura 'zathura %F' 'application/pdf' 'noterm'
+    mimeo --prefer 'application/pdf' zathura.desktop
+    mimeo --create zathura.desktop zathura 'zathura %F' 'application/pdf' 'noterm'
+    mimeo --prefer 'application/pdf' zathura.desktop
+    mimeo --create audacity.desktop Audacity 'audacity %F' 'glob:audio/*' 'noterm'
+    mimeo --prefer 'glob:audio/*' audacity.desktop
+  #+END_SRC

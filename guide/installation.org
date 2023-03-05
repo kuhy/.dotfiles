@@ -1,0 +1,228 @@
+#+TITLE: System installation
+#+AUTHOR: Kuhy
+/Minimal Arch Linux installation/
+* Internet
+  Connect to the internet.
+
+  Start SSH (it is convenient to do installation from another PC):
+  #+BEGIN_SRC sh
+    passwd
+    systemctl start sshd.service
+    ip addr show
+  #+END_SRC
+  Now you can connect from another PC: =ssh root@<IP_OF_THE_FIRST_PC>=.
+
+  Ensure that system clock is accurate:
+  #+BEGIN_SRC sh
+    timedatectl status
+  #+END_SRC
+* Preparing the disk
+** Partitioning
+   #+BEGIN_SRC sh
+     gdisk /dev/<DISK>
+   #+END_SRC
+   (=_= = keep the default value)
+   1. Create new partition table: =o Y=
+   2. Create and EFI partition:   =n _ 0 +550M EF00=
+   3. Create a root partition:    =n _ _     _    _=
+   4. Write it to disk:           =w Y=
+** Encryption
+   Create and open an encrypted container:
+   #+BEGIN_SRC sh
+     cryptsetup luksFormat /dev/<DISK>2
+     cryptsetup open /dev/<DISK>2 cryptroot
+   #+END_SRC
+** File System creation
+   Format EFI partition:
+   #+BEGIN_SRC sh
+     mkfs.vfat -F32 -n EFI /dev/<DISK>1
+   #+END_SRC
+
+   Format the root partition:
+   #+BEGIN_SRC sh
+     mkfs.btrfs -L ROOT /dev/mapper/cryptroot
+   #+END_SRC
+** Create subvolumes
+   #+BEGIN_SRC sh
+     mount /dev/mapper/cryptroot /mnt
+     btrfs sub create /mnt/@
+     btrfs sub create /mnt/@swap
+     btrfs sub create /mnt/@home
+     btrfs sub create /mnt/@pkg
+     btrfs sub create /mnt/@log
+     btrfs sub create /mnt/@crash
+     btrfs sub create /mnt/@docker
+     btrfs sub create /mnt/@containers
+     btrfs sub create /mnt/@libvirt
+     btrfs sub create /mnt/@snapshots
+     umount /mnt
+   #+END_SRC
+** Mount the file systems
+   Mount subvolumes:
+   #+BEGIN_SRC sh
+     mountopts="noatime,nodiratime,compress=zstd,space_cache=v2,ssd"
+
+     mount -o "$mountopts",subvol=@ /dev/mapper/cryptroot /mnt
+
+     mkdir -p /mnt/{swap,home,var/cache/pacman/pkg,var/log,var/crash}
+     mkdir -p /mnt/{var/lib/docker,var/lib/containers,var/lib/libvirt/images,.snapshots,btrfs}
+
+     mount -o swap,subvol=@swap /dev/mapper/cryptroot /mnt/swap
+     mount -o "$mountopts",subvol=@home /dev/mapper/cryptroot /mnt/home
+     mount -o "$mountopts",subvol=@pkg /dev/mapper/cryptroot /mnt/var/cache/pacman/pkg
+     mount -o "$mountopts",subvol=@log /dev/mapper/cryptroot /mnt/var/log
+     mount -o "$mountopts",subvol=@crash /dev/mapper/cryptroot /mnt/var/crash
+     mount -o "$mountopts",subvol=@docker /dev/mapper/cryptroot /mnt/var/lib/docker
+     mount -o "$mountopts",subvol=@containers /dev/mapper/cryptroot /mnt/var/lib/containers
+     mount -o "$mountopts",subvol=@libvirt /dev/mapper/cryptroot /mnt/var/lib/libvirt/images
+     mount -o "$mountopts",subvol=@snapshots /dev/mapper/cryptroot /mnt/.snapshots
+
+     mount -o "$mountopts",subvolid=5 /dev/mapper/cryptroot /mnt/btrfs
+   #+END_SRC
+
+   Mount the EFI partition:
+   #+BEGIN_SRC sh
+     mkdir /mnt/efi
+     mount /dev/<DISK>1 /mnt/efi
+   #+END_SRC
+** Create swap file
+   #+BEGIN_SRC sh
+     btrfs filesystem mkswapfile --size <RAM_SIZE>g /mnt/swap/swapfile
+     swapon /mnt/swap/swapfile
+   #+END_SRC
+* Install necessary packages
+  /Note: use =amd-ucode= for AMD CPU/
+  #+BEGIN_SRC sh
+    pacstrap /mnt base linux-zen linux-zen-firmware intel-ucode mkinitcpio btrfs-progs vim networkmanager man-db man-pages texinfo
+    systemctl enable NetworkManager --root=/mnt
+  #+END_SRC
+* Configure the system
+** Generate an =fstab= file
+   #+BEGIN_SRC sh
+     genfstab -U /mnt >> /mnt/etc/fstab
+   #+END_SRC
+** Change root
+   #+BEGIN_SRC sh
+     arch-chroot /mnt
+   #+END_SRC
+** Set the timezone
+   #+BEGIN_SRC sh
+     ln -sf /usr/share/zoneinfo/<REGION>/<CITY> /etc/localtime
+     hwclock --systohc
+   #+END_SRC
+** Localization
+   *Uncomment* =en_US.UTF-8 UTF-8= and other needed locales
+   in =/etc/locale.gen= and generate locale:
+   #+BEGIN_SRC sh
+     locale-gen
+   #+END_SRC
+
+   Create =etc/locale.conf= and set the =LANG= variable:
+   #+BEGIN_SRC sh
+     echo "LANG=en_US.UTF-8" > /etc/locale.conf
+   #+END_SRC
+** Network configuration
+   Create the =hostname= file:
+   #+BEGIN_SRC sh
+     echo "<HOSTNAME>" > /etc/hostname
+   #+END_SRC
+   Add matching entries to =/etc/hosts=:
+   #+BEGIN_SRC conf
+     # /etc/hosts
+     127.0.0.1        localhost
+     ::1              localhost
+     127.0.1.1        <HOSTNAME>
+   #+END_SRC
+** Set the root password
+   #+BEGIN_SRC sh
+     passwd
+   #+END_SRC
+** Set up user
+   Create user:
+   #+BEGIN_SRC sh
+     pacman -S sudo
+     useradd -m -g wheel <USERNAME>
+     passwd <USERNAME>
+   #+END_SRC
+
+   Uncomment =%wheel ALL=(ALL:ALL) ALL= in =/etc/sudoers=.
+** Install =paru=
+  #+BEGIN_SRC sh
+    pacman -S --needed base-devel git
+    su <USERNAME>
+    cd
+    git clone https://aur.archlinux.org/paru-bin.git
+    cd paru-bin
+    makepkg -si
+    cd ..
+    rm -rf paru-bin
+    exit
+  #+END_SRC
+* Boot configuration
+** Create a keyfile and add it as LUKS key
+   /This is done to avoid having to enter the encryption passphrase twice (once for GRUB, once for initramfs.)/
+   #+BEGIN_SRC sh
+     mkdir /root/secrets && chmod 700 /root/secrets
+     dd bs=512 count=4 if=/dev/random of=root/secrets/crypto_keyfile.bin iflag=fullblock
+     chmod 600 /root/secrets/crypto_keyfile.bin
+     cryptsetup -v luksAddKey -i 1 /dev/<DISK>2 /root/secrets/crypto_keyfile.bin
+   #+END_SRC
+** Setup =initramsfs=
+   Add keyfile and hooks to =/etc/mkinicpio.conf=:
+   #+BEGIN_SRC conf
+     # /etc/mkinitcpio.conf
+     # ...
+     FILES=(/root/secrets/crypto_keyfile.bin)
+     # ...
+     HOOKS=(base keyboard udev autodetect modconf kms block keymap encrypt btrfs filesystems resume)
+     # ...
+   #+END_SRC
+   /Note: ordering matters/
+
+   Recreate the initramfs image:
+   #+BEGIN_SRC sh
+     mkinitcpio -p linux
+   #+END_SRC
+** Configure GRUB
+   Install =grub-improved-luks2=
+   (*Needed because GRUB doesn't have full support for LUKS2 yet*):
+   #+BEGIN_SRC sh
+     su <USERNAME>
+     paru grub-improved-luks2-git
+     exit
+   #+END_SRC
+
+   Set kernel parameters to unlock the LUKS partition with the keyfile using
+   =encrypt= hook and uncomment =GRUB_ENABLE_CRYPTODISK=y= to allow booting
+   from =/boot= on a LUKS encrypted partition:
+   #+BEGIN_SRC conf
+     # /etc/default/grub
+     # ...
+     GRUB_CMDLINE_LINUX="cryptdevice=UUID=<UUID_OF_ROOT_PARTITION>:cryptroot:allow-discards root=/dev/mapper/cryptroot rootflags=subvol=@ rd.luks.options=discard rw resume=/dev/mapper/cryptroot resume_offset=<SWAPFILE_OFFSET> cryptkey=rootfs:/root/secrets/crypto_keyfile.bin"
+     # ...
+     GRUB_ENABLE_CRYPTODISK=y
+     # ...
+   #+END_SRC
+   - Determine the UUID: =blkid -s UUID -o value /dev/<DISK>2=
+   - Calculate offset for the swap file: =btrfs inspect-internal map-swapfile -r /swap/swapfile=
+
+   Install GRUB to the mounted ESP for UEFI booting:
+   #+BEGIN_SRC sh
+     pacman -S efibootmgr
+     grub-install --target=x86_64-efi --efi-directory=/efi
+   #+END_SRC
+
+   Generate GRUB's configuration file:
+   #+BEGIN_SRC sh
+     grub-mkconfig -o /boot/grub/grub.cfg
+   #+END_SRC
+** Restrict =/boot= permissions
+   #+BEGIN_SRC sh
+     chmod 700 /boot
+   #+END_SRC
+* Final steps
+  #+BEGIN_SRC sh
+    exit
+    umount -R /mnt
+    reboot
+  #+END_SRC
