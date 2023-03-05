@@ -131,8 +131,8 @@
     :PROPERTIES:
     :header-args: :tangle ~/.config/systemd/user/swayidle.service :comments no :mkdirp yes :noweb tangle
     :END:
-    This will lock your screen after 300 seconds of inactivity, then turn off
-    your displays after another 300 seconds, and turn your screens back on when
+    This will lock your screen after 20 minutes of inactivity, then turn off
+    your displays after another 40 minutes, and turn your screens back on when
     resumed. It will also lock your screen before your computer goes to sleep.
     #+BEGIN_SRC conf
       [Unit]
@@ -143,10 +143,10 @@
       [Service]
       Type=simple
       ExecStart=/usr/bin/swayidle -w \
-                  timeout 300 'swaylock -f -c 000000' \
-                  timeout 600 'swaymsg "output * dpms off"' \
-                      resume 'swaymsg "output * dpms on"' \
-                  before-sleep 'sh ~/~/.config/swaylock/lock.sh'
+                  timeout 1200 'sh ~/.config/swaylock/lock.sh' \
+                  timeout 3600 'swaymsg "output * dpms off"' \
+                  resume 'swaymsg "output * dpms on"' \
+                  before-sleep 'sh ~/.config/swaylock/lock.sh'
 
       [Install]
       WantedBy=sway-session.target

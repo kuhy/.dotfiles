@@ -72,7 +72,7 @@
 * TODO Set up udiskie
 * TODO Set up Sway
   #+BEGIN_SRC sh
-    sudo pacman -S sway swaybg swayidle swaylock waybar foot rofi mako kanshi xorg-xwayland \
+    sudo pacman -S sway swaybg swayidle waybar foot rofi mako kanshi xorg-xwayland \
          polkit xdg-desktop-portal-wlr grim ttf-monoid-nerd wl-clipboard
     paru pinentry-rofi wob
   #+END_SRC
@@ -81,6 +81,11 @@
   #+BEGIN_SRC sh
     sudo pacman -S light
     sudo usermod -aG video <USERNAME>
+  #+END_SRC
+
+  Install tools required for screen locking:
+  #+BEGIN_SRC sh
+    sudo pacman -S swaylock imagemagick jq
   #+END_SRC
 
   Create a log file that will be used by Sway
