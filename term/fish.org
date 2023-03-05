@@ -157,7 +157,7 @@
    #+END_SRC
 * Fisher
   :PROPERTIES:
-  :header-args: :tangle ~/.config/fish/fishfile :comments no :mkdirp yes :noweb tangle
+  :header-args: :tangle ~/.config/fish/fish_plugins :comments no :mkdirp yes :noweb tangle
   :END:
   Fisher is fish package manager.
 ** Pure
