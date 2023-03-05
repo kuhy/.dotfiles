@@ -95,6 +95,13 @@
   #+BEGIN_SRC js
     user_pref("signon.rememberSignons", false);
   #+END_SRC
+
+  Use DNS over HTTPS via Quad9:
+  #+BEGIN_SRC js
+    user_pref("network.trr.mode", 2);
+    user_pref("network.trr.bootstrapAddress", "9.9.9.9");
+    user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
+  #+END_SRC
 * Tridactyl
 ** General
    :PROPERTIES:
