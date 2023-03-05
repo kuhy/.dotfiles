@@ -47,6 +47,7 @@
      alias deldir 'rmdirtrash'
      alias mv 'mv -vn'
      alias cp 'cp -vn'
+     alias x 'distrobox-host-exec'
      alias mnt 'udisksctl mount -b'
      alias umnt 'udisksctl unmount -b'
      alias backup 'rsnapshot -c ~/.config/rsnapshot/config alpha'
