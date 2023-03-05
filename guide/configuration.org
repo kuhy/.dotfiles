@@ -78,7 +78,8 @@
 * TODO Set up Sway
   #+BEGIN_SRC sh
     sudo pacman -S sway swaybg swayidle waybar foot rofi mako kanshi xorg-xwayland \
-         polkit xdg-desktop-portal-wlr grim ttf-monoid-nerd wl-clipboard
+         polkit xdg-desktop-portal-wlr xdg-desktop-portal-gtk grim ttf-monoid-nerd \
+         wl-clipboard
     paru pinentry-rofi wob
   #+END_SRC
 
@@ -113,7 +114,6 @@
   #+END_SRC
 ** TODO Install tools required by failing services
    - replace redshift with gammastep
-   - xdg-desktop-portal-?
 * Setup =flatpak=
   Install =flatpak=:
   #+BEGIN_SRC sh
