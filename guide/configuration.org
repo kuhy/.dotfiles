@@ -43,6 +43,11 @@
   #+BEGIN_SRC sh
     sudo pacman -S pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack
   #+END_SRC
+* Setup Bluetooth
+  Install required tools:
+  #+BEGIN_SRC sh
+    sudo pacman -S bluez bluez-utils
+  #+END_SRC
 * Set up dotfiles and Emacs
   Install Emacs:
   #+BEGIN_SRC sh
