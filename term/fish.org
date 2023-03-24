@@ -48,6 +48,8 @@
      alias mv 'mv -vn'
      alias cp 'cp -vn'
      alias x 'distrobox-host-exec'
+     alias e 'distrobox-host-exec emacsclient -n -c -a emacs'
+     alias o <<opener>>
      alias mnt 'udisksctl mount -b'
      alias umnt 'udisksctl unmount -b'
      alias backup 'rsnapshot -c ~/.config/rsnapshot/config alpha'
@@ -125,26 +127,6 @@
      set -g fish_pager_color_progress black --bold --background=blue
    #+END_SRC
 * Functions
-** Editor
-   :PROPERTIES:
-   :header-args: :tangle ~/.config/fish/functions/e.fish :comments both :mkdirp yes :noweb tangle
-   :END:
-   Start and detach =$EDITOR= from shell.
-   #+BEGIN_SRC sh
-     function e
-         bash -c "eval $VISUAL $argv" >/dev/null &; disown
-     end
-   #+END_SRC
-** Resource opener
-   :PROPERTIES:
-   :header-args: :tangle ~/.config/fish/functions/o.fish :comments both :mkdirp yes :noweb tangle
-   :END:
-   Start and detach =$EDITOR= from shell.
-   #+BEGIN_SRC sh
-     function o
-         <<opener>> $argv
-     end
-   #+END_SRC
 ** Cheat.sh
    :PROPERTIES:
    :header-args: :tangle ~/.config/fish/functions/cht.fish :comments both :mkdirp yes :noweb tangle

@@ -34,17 +34,19 @@
     (package-initialize)
   #+END_SRC
 
+  Automatically update the list of packages,
+  only if there is no package list already:
+  #+BEGIN_SRC elisp
+    (when (not package-archive-contents)
+      (package-refresh-contents))
+  #+END_SRC
+
   Bootstrap use-package.
   #+BEGIN_SRC elisp
     (unless (package-installed-p 'use-package)
       (package-refresh-contents)
       (package-install 'use-package))
     (require 'use-package)
-  #+END_SRC
-
-  Use General for keybindings:
-  #+BEGIN_SRC elisp
-    (use-package general)
   #+END_SRC
 
   Hide default welcome screen.
@@ -57,6 +59,11 @@
     (setq use-package-always-ensure t)
   #+END_SRC
 
+  Use General for keybindings:
+  #+BEGIN_SRC elisp
+    (use-package general)
+  #+END_SRC
+
   Disable =native-comp= warnings:
   #+BEGIN_SRC elisp
     (setq native-comp-async-report-warnings-errors nil)
@@ -65,8 +72,8 @@
   Setup font.
   #+BEGIN_SRC elisp
     (add-to-list 'default-frame-alist
-      '(font . "monoid"))
-    (set-face-attribute 'default t :font "monoid" :height 100)
+      '(font . "<<font>>"))
+    (set-face-attribute 'default t :font "<<font>>" :height 100)
   #+END_SRC
 
   Display relative line number
@@ -204,7 +211,7 @@
 
   Include my Org files into the agenda
   #+BEGIN_SRC elisp
-    (setq org-agenda-files '("~/Documents/notes"))
+    (setq org-agenda-files '("~/Documents/personal/notes"))
   #+END_SRC
 
   Allow to use alphabetical characters in ordered lists:
@@ -289,8 +296,8 @@
 
   Package to display a terminal in an Emacs buffer.
   #+BEGIN_SRC elisp
-    (use-package vterm
-      :custom (vterm-shell "fish"))
+    ;(use-package vterm
+    ;  :custom (vterm-shell "fish"))
   #+END_SRC
 
   Use editorconfig.
@@ -315,8 +322,8 @@
       :init
       (setq evil-want-keybinding nil)
       :config
-      (global-undo-tree-mode)
-      (evil-set-undo-system 'undo-tree)
+      ;(global-undo-tree-mode)
+      ;(evil-set-undo-system 'undo-tree)
       (evil-mode))
   #+END_SRC
 
@@ -385,20 +392,30 @@
   #+BEGIN_SRC elisp
     (use-package notmuch
       :config
-      (setq notmuch-fcc-dirs '(("<<email>>" . "personal/sent")))
+      (setq notmuch-fcc-dirs '(("<<email>>" . "personal/Sent")))
       (setq notmuch-show-logo nil)
+      (setq +notmuch-sync-backend 'mbsync)
+
+      ;; use msmtp
+      (setq message-send-mail-function 'message-send-mail-with-sendmail)
+      (setq sendmail-program "/usr/bin/msmtp")
+      (setq mail-specify-envelope-from t)
+      (setq mail-envelope-from 'header)
+      (setq message-sendmail-envelope-from 'header)
+
+      ;; set email directories
+      (setq message-auto-save-directory "~/.mail/personal/Draft")
+      (setq message-kill-buffer-on-exit t)
+      (setq message-directory "~/.mail/personal/Sent")
+
+      ;; set my mail address
+      (setq user-mail-address "<<email>>")
     )
   #+END_SRC
 
   =Git= interface.
   #+BEGIN_SRC elisp
     (use-package magit)
-  #+END_SRC
-
-  =Magit= support for =evil-mode=.
-  #+BEGIN_SRC elisp
-    (use-package evil-magit
-      :after (evil magit))
   #+END_SRC
 
   Package for highlighting uncommitted changes.
@@ -418,7 +435,7 @@
 
   Use mode that comes with =supercollider= package (on Arch Linux)
   #+BEGIN_SRC elisp
-    (require 'sclang)
+    ;(require 'sclang)
   #+END_SRC
 
   LaTeX
@@ -517,8 +534,6 @@
       (lsp-ui-sideline-enable nil)
       (lsp-ui-doc-delay 1.5)
       :commands lsp-ui-mode)
-
-    (use-package company-lsp :commands company-lsp)
   #+END_SRC
 
   Debug adapter protocol
@@ -631,8 +646,8 @@
      :hook (prog-mode . hes-mode))
   #+END_SRC
 
-  Icon fonts for emacs.  Needs manual installation of the fonts: =M-x
-  all-the-icons-install-fonts=
+  Icon fonts for Emacs.
+  *Needs manual installation of the fonts:* =M-x all-the-icons-install-fonts=
   #+BEGIN_SRC elisp
     (use-package all-the-icons)
   #+END_SRC
@@ -665,15 +680,15 @@
 
   Pop-up shell
   #+BEGIN_SRC elisp
-    (use-package shell-pop
-      :hook (
-      (shell-pop-in-after . hide-mode-line-mode)
-      (shell-pop-in-after . centaur-tabs-local-mode))
-      :bind ("C-:" . shell-pop)
-      :custom
-      (shell-pop-window-size 25)
-      (shell-pop-shell-type '("vterm" "*vterm*" (lambda nil (vterm))))
-    )
+    ;(use-package shell-pop
+    ;  :hook (
+    ;  (shell-pop-in-after . hide-mode-line-mode)
+    ;  (shell-pop-in-after . centaur-tabs-local-mode))
+    ;  :bind ("C-:" . shell-pop)
+    ;  :custom
+    ;  (shell-pop-window-size 25)
+    ;  (shell-pop-shell-type '("vterm" "*vterm*" (lambda nil (vterm))))
+    ;)
   #+END_SRC
 
   Visually distinguish active windows

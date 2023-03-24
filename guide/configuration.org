@@ -157,8 +157,7 @@
 * TODO Setup =distrobox=
   Install =distrobox= and rootless Podman:
   #+BEGIN_SRC sh
-    paru distrobox
-    sudo pacman -S podman fuse-overlayfs
+    sudo pacman -S podman fuse-overlayfs distrobox
     # check that "sysctl kernel.unprivileged_userns_clone" = 1
     podman system migrate
   #+END_SRC
