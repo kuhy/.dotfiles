@@ -16,7 +16,7 @@
      "layer": "top",
      "modules-left": ["sway/workspaces", "sway/mode"],
      "modules-center": ["mpd"],
-     "modules-right": ["tray", "clock", "network", "backlight", "pulseaudio", "memory", "cpu", "battery"],
+     "modules-right": ["tray", "bluetooth", "clock", "network", "backlight", "pulseaudio", "memory", "cpu", "battery"],
    #+END_SRC
 ** Sway workspaces
    #+BEGIN_SRC js
@@ -49,6 +49,17 @@
      "tray": {
          "icon-size": 15,
          "spacing": 10
+     },
+   #+END_SRC
+** Bluetooth
+   #+BEGIN_SRC js
+     "bluetooth": {
+         "format": "",
+         "format-off": "",
+         "format-disabled": "",
+         "format-on": "",
+         "format-connected": " {num_connections}",
+         "tooltip": false
      },
    #+END_SRC
 ** Clock
@@ -163,7 +174,7 @@
          border-bottom: 3px solid #<<base0D>>;
      }
 
-     #mode, #tray, #clock, #network, #backlight, #pulseaudio, #memory, #cpu {
+     #mode, #tray, #bluetooth, #clock, #network, #backlight, #pulseaudio, #memory, #cpu {
          padding: 0 10px;
          margin: 0 5px;
          border-bottom: 3px solid #<<base00>>;
