@@ -34,12 +34,13 @@
   - Web
     - [[file:web/firefox.org][Firefox]]
   - Window manager
+    - [[file:wm/fuzzel.org][fuzzel]]
     - [[file:wm/kanshi.org][kanshi]]
     - [[file:wm/mako.org][mako]]
-    - [[file:wm/rofi.org][Rofi]]
     - [[file:wm/sway.org][Sway]]
     - [[file:wm/swaylock.org][swaylock]]
     - [[file:wm/waybar.org][Waybar]]
+    - [[file:wm/wob.org][wob]]
 * How does it work?
   Every part of my system is configured using some [[https://orgmode.org/][Org Mode]] file. Each file contains textual
   description alongside code blocks containing the actual configuration. These code

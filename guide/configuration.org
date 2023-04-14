@@ -79,7 +79,7 @@
   #+BEGIN_SRC sh
     sudo pacman -S sway swaybg swayidle waybar foot rofi mako kanshi xorg-xwayland \
          polkit xdg-desktop-portal-wlr xdg-desktop-portal-gtk grim ttf-monoid-nerd \
-         wl-clipboard slurp
+         wl-clipboard slurp fuzzel
     paru pinentry-rofi wob
   #+END_SRC
 
@@ -110,7 +110,7 @@
   Enable services:
   #+BEGIN_SRC sh
     systemctl --user enable --now mako redshift swayidle waybar safeeyes sway-alttab \
-              kanshi autotiling foot
+              kanshi autotiling foot wob
   #+END_SRC
 ** TODO Install tools required by failing services
    - replace redshift with gammastep

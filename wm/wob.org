@@ -1,0 +1,19 @@
+#+TITLE: wob
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/wob/wob.ini"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+#+INCLUDE: "../variables.org"
+/A lightweight overlay progress bar for wlroots based Wayland compositors/
+* Appearance
+  Change colors:
+  #+BEGIN_SRC conf
+    border_color = <<base0D>>
+    background_color = <<base00>>
+    bar_color = <<base07>>
+
+    [style.muted]
+    bar_color = <<base0A>>
+  #+END_SRC

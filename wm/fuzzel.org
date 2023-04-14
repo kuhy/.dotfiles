@@ -1,0 +1,26 @@
+#+TITLE: fuzzel
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/fuzzel/fuzzel.ini"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+#+INCLUDE: "../variables.org"
+/Wayland-native application launcher, similar to rofi's drun mode./
+* Main
+  #+BEGIN_SRC conf
+    [main]
+    font=<<font>>:size=12
+    dpi-aware=no
+  #+END_SRC
+* Colors
+  #+BEGIN_SRC conf
+    [colors]
+    background=<<base00>>ff
+    text=<<base05>>ff
+    match=<<base0D>>ff
+    selection=<<base03>>ff
+    selection-text=<<base06>>ff
+    selection-match=<<base0D>>ff
+    border=<<base05>>ff
+  #+END_SRC

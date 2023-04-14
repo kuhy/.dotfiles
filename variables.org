@@ -38,7 +38,7 @@
   Your preferred web browser
   #+NAME: web_browser
   #+BEGIN_SRC conf
-    firefox
+    org.mozilla.firefox
   #+END_SRC
 
   Your preferred file browser

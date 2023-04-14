@@ -52,19 +52,14 @@
   #+END_SRC
 * Key bindings
 ** Basics
-   start a tmux in terminal
+   start a Distrobox in terminal
    #+BEGIN_SRC conf
-         bindsym $mod+Return exec <<terminal>> tmux -2
-   #+END_SRC
-
-   attach a tmux session
-   #+BEGIN_SRC conf
-         bindsym $mod+u exec <<terminal>> tmux -2 attach
+         bindsym $mod+Return exec <<terminal>> distrobox enter termbox -e fish
    #+END_SRC
 
    start a terminal
    #+BEGIN_SRC conf
-         bindsym $mod+t exec <<terminal>> fish
+         bindsym $mod+t exec <<terminal>>
    #+END_SRC
 
    kill focused window
@@ -137,17 +132,7 @@
 ** Rofi scripts
    start your app launcher
    #+BEGIN_SRC conf
-         bindsym $mod+f1 exec sh ~/.config/rofi/run.sh
-   #+END_SRC
-
-   open file from home directory
-   #+BEGIN_SRC conf
-         bindsym $mod+f2 exec sh ~/.config/rofi/find.sh
-   #+END_SRC
-
-   switch window
-   #+BEGIN_SRC conf
-         bindsym $mod+f3 exec sh ~/.config/rofi/window.sh
+         bindsym $mod+f1 exec fuzzel
    #+END_SRC
 ** Moving around
    Move your focus around
@@ -183,30 +168,30 @@
 ** Workspaces
    switch to workspace
    #+BEGIN_SRC conf
-         bindsym $mod+1 workspace 1
-         bindsym $mod+2 workspace 2
-         bindsym $mod+3 workspace 3
-         bindsym $mod+4 workspace 4
-         bindsym $mod+5 workspace 5
-         bindsym $mod+6 workspace 6
-         bindsym $mod+7 workspace 7
-         bindsym $mod+8 workspace 8
-         bindsym $mod+9 workspace 9
-         bindsym $mod+0 workspace 10
+         bindsym $mod+1 workspace number 1
+         bindsym $mod+2 workspace number 2
+         bindsym $mod+3 workspace number 3
+         bindsym $mod+4 workspace number 4
+         bindsym $mod+5 workspace number 5
+         bindsym $mod+6 workspace number 6
+         bindsym $mod+7 workspace number 7
+         bindsym $mod+8 workspace number 8
+         bindsym $mod+9 workspace number 9
+         bindsym $mod+0 workspace number 10
    #+END_SRC
 
    move focused container to workspace
    #+BEGIN_SRC conf
-         bindsym $mod+Shift+1 move container to workspace 1
-         bindsym $mod+Shift+2 move container to workspace 2
-         bindsym $mod+Shift+3 move container to workspace 3
-         bindsym $mod+Shift+4 move container to workspace 4
-         bindsym $mod+Shift+5 move container to workspace 5
-         bindsym $mod+Shift+6 move container to workspace 6
-         bindsym $mod+Shift+7 move container to workspace 7
-         bindsym $mod+Shift+8 move container to workspace 8
-         bindsym $mod+Shift+9 move container to workspace 9
-         bindsym $mod+Shift+0 move container to workspace 10
+         bindsym $mod+Shift+1 move container to workspace number 1
+         bindsym $mod+Shift+2 move container to workspace number 2
+         bindsym $mod+Shift+3 move container to workspace number 3
+         bindsym $mod+Shift+4 move container to workspace number 4
+         bindsym $mod+Shift+5 move container to workspace number 5
+         bindsym $mod+Shift+6 move container to workspace number 6
+         bindsym $mod+Shift+7 move container to workspace number 7
+         bindsym $mod+Shift+8 move container to workspace number 8
+         bindsym $mod+Shift+9 move container to workspace number 9
+         bindsym $mod+Shift+0 move container to workspace number 10
    #+END_SRC
    Note: workspaces can have any name you want, not just numbers.
    We just use 1-10 as the default.
@@ -295,20 +280,21 @@
 ** Fn keys
    Create fifo for =wob=:
    #+BEGIN_SRC conf
-     exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob --border-color '#<<base0D>>FF' --background-color '#<<base00>>FF' --bar-color '#<<base07>>FF'
+     set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
    #+END_SRC
 
    Audio
    #+BEGIN_SRC conf
-     bindsym XF86AudioRaiseVolume exec amixer sset Master 10%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
-     bindsym XF86AudioLowerVolume exec amixer sset Master 10%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
-     bindsym XF86AudioMute exec amixer sset Master toggle
+     set $print_volume wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/^Volume: \([01]\)\.\(.*\).*$/\1\2/;s/\[MUTED\]/muted/' > $WOBSOCK
+     bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && $print_volume
+     bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $print_volume
+     bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && $print_volume
    #+END_SRC
 
    Monitor brightness (https://github.com/haikarainen/light)
    #+BEGIN_SRC conf
-     bindsym XF86MonBrightnessUp exec light -A 10 & light & light -G | cut -d'.' -f1 > $SWAYSOCK.wob
-     bindsym XF86MonBrightnessDown exec light -U 10 & light & light -G | cut -d'.' -f1 > $SWAYSOCK.wob
+     bindsym XF86MonBrightnessUp exec light -A 10 & light & light -G | cut -d'.' -f1 > $WOBSOCK
+     bindsym XF86MonBrightnessDown exec light -U 10 & light & light -G | cut -d'.' -f1 > $WOBSOCK
    #+END_SRC
 
    Keyboard brightness
