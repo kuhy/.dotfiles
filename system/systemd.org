@@ -109,20 +109,20 @@
       [Install]
       WantedBy=sway-session.target
     #+END_SRC
-*** Redshift
+*** wlsunset
     :PROPERTIES:
-    :header-args: :tangle ~/.config/systemd/user/redshift.service :comments no :mkdirp yes :noweb tangle
+    :header-args: :tangle ~/.config/systemd/user/wlsunset.service :comments no :mkdirp yes :noweb tangle
     :END:
-    Start Redshift
+    Start wlsunset
     #+BEGIN_SRC conf
       [Unit]
-      Description=Application that adjusts the computer display's color temperature
-      Documentation=man:redshift(1)
+      Description=Day/night gamma adjustments for Wayland compositors
+      Documentation=man:wlsunset(1)
       PartOf=graphical-session.target
 
       [Service]
       Type=simple
-      ExecStart=/usr/bin/redshift -l <<gps_location>> -m wayland
+      ExecStart=/usr/bin/wlsunset -l <<latitude>> -L <<longitude>>
 
       [Install]
       WantedBy=sway-session.target

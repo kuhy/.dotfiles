@@ -48,7 +48,7 @@
   #+BEGIN_SRC sh
     sudo pacman -S bluez bluez-utils
   #+END_SRC
-* Set up dotfiles and Emacs
+* TODO Set up dotfiles and Emacs
   Install Emacs:
   #+BEGIN_SRC sh
     sudo pacman -S emacs-nativecomp
@@ -75,12 +75,12 @@
     systemctl --user enable --now emacs
   #+END_SRC
 * TODO Set up udiskie
-* TODO Set up Sway
+* Set up Sway
   #+BEGIN_SRC sh
     sudo pacman -S sway swaybg swayidle waybar foot rofi mako kanshi xorg-xwayland \
          polkit xdg-desktop-portal-wlr xdg-desktop-portal-gtk grim ttf-monoid-nerd \
          wl-clipboard slurp fuzzel
-    paru pinentry-rofi wob sworkstyle
+    paru pinentry-rofi wob sworkstyle wlsunset
   #+END_SRC
 
   Install program to control backlights:
@@ -109,11 +109,9 @@
 
   Enable services:
   #+BEGIN_SRC sh
-    systemctl --user enable --now mako redshift swayidle waybar safeeyes sway-alttab \
+    systemctl --user enable --now mako wlsunset swayidle waybar safeeyes sway-alttab \
               kanshi autotiling foot wob sworkstyle
   #+END_SRC
-** TODO Install tools required by failing services
-   - replace redshift with gammastep
 * Setup =flatpak=
   Install =flatpak=:
   #+BEGIN_SRC sh
@@ -163,7 +161,7 @@
   #+END_SRC
 ** termbox
    #+BEGIN_SRC sh
-     sudo pacman -S starship fish tmux exa bat thefuck zoxide
+     sudo pacman -S starship fish tmux exa bat thefuck zoxide fd
      # TODO fisher update
      # TODO sudo pacman -S xdg-utils
      # TODO paru tmuxinator
@@ -173,6 +171,7 @@
   - mailbox
   - maintenancebox (clamav, lshw, lscpu, dust...)
   - javabox, javascriptbox...
+  - emacsbox
 ** TODO Create Dockerfiles for distrobox
    - create Org file for distrobox
 * TODO Configure MIME types
