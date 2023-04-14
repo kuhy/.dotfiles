@@ -257,3 +257,20 @@
       [Install]
       WantedBy=sway-session.target
     #+END_SRC
+*** sworkstyle
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/sworkstyle.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Start sworkstyle daemon:
+    #+BEGIN_SRC conf
+      [Unit]
+      Description=Map workspace name to icons defined depending on the windows inside of the workspace
+      BindsTo=sway-session.target
+
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/sworkstyle
+
+      [Install]
+      WantedBy=sway-session.target
+    #+END_SRC

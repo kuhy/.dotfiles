@@ -80,7 +80,7 @@
     sudo pacman -S sway swaybg swayidle waybar foot rofi mako kanshi xorg-xwayland \
          polkit xdg-desktop-portal-wlr xdg-desktop-portal-gtk grim ttf-monoid-nerd \
          wl-clipboard slurp fuzzel
-    paru pinentry-rofi wob
+    paru pinentry-rofi wob sworkstyle
   #+END_SRC
 
   Install program to control backlights:
@@ -110,7 +110,7 @@
   Enable services:
   #+BEGIN_SRC sh
     systemctl --user enable --now mako redshift swayidle waybar safeeyes sway-alttab \
-              kanshi autotiling foot wob
+              kanshi autotiling foot wob sworkstyle
   #+END_SRC
 ** TODO Install tools required by failing services
    - replace redshift with gammastep
