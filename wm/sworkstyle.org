@@ -1,0 +1,30 @@
+#+TITLE: sworkstyle
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/sworkstyle/config.toml"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+/This program will dynamically rename your workspaces to indicate which programs are running in each workspace/
+* General
+  Fallback icon
+  #+BEGIN_SRC conf
+    fallback = ''
+  #+END_SRC
+* Matching
+  #+BEGIN_SRC conf
+    [matching]
+    'firefox' = ''
+    'Chromium-browser' = ''
+    'Microsoft-edge' = '󰇩'
+    'Brave-browser' = '󰖟'
+
+    'Emacs' = ''
+    'Code' = '󰨞'
+    'jetbrains-idea-ce' = ''
+
+    'foot' = ''
+
+    'gnome-boxes' = ''
+    'Gimp' = ''
+  #+END_SRC

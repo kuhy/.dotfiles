@@ -14,9 +14,10 @@
 ** Layout
    #+BEGIN_SRC js
      "layer": "top",
+     "margin-bottom": 1,
      "modules-left": ["sway/workspaces", "sway/mode"],
-     "modules-center": ["mpd"],
-     "modules-right": ["tray", "bluetooth", "clock", "network", "backlight", "pulseaudio", "memory", "cpu", "battery"],
+     "modules-center": ["clock"],
+     "modules-right": ["tray", "mpd", "network", "bluetooth", "pulseaudio", "backlight", "cpu", "memory", "battery"],
    #+END_SRC
 ** Sway workspaces
    #+BEGIN_SRC js
@@ -65,8 +66,7 @@
 ** Clock
    #+BEGIN_SRC js
      "clock": {
-         "format": " {:%H:%M}",
-         "format-alt": " {:%a, %d.%m. %H:%M}",
+         "format": "{:%H:%M   %u   %d.%m.}",
          "tooltip": false
      },
    #+END_SRC
@@ -165,16 +165,26 @@
 ** Modules
    #+BEGIN_SRC css
      #workspaces button {
-         padding: 0 5px;
+         padding: 0 12px;
          background: transparent;
          border-bottom: 3px solid #<<base00>>;
+     }
+
+     #workspaces button.visible {
+         border-bottom: 3px solid #<<base04>>;
      }
 
      #workspaces button.focused {
          border-bottom: 3px solid #<<base0D>>;
      }
 
-     #mode, #tray, #bluetooth, #clock, #network, #backlight, #pulseaudio, #memory, #cpu {
+     #mode, #tray, #clock, #network, #backlight, #pulseaudio, #memory, #cpu {
+         padding: 0 10px;
+         margin: 0 5px;
+         border-bottom: 3px solid #<<base00>>;
+     }
+
+     #bluetooth.on, #bluetooth.connected {
          padding: 0 10px;
          margin: 0 5px;
          border-bottom: 3px solid #<<base00>>;

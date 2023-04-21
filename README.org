@@ -39,6 +39,8 @@
     - [[file:wm/mako.org][mako]]
     - [[file:wm/sway.org][Sway]]
     - [[file:wm/swaylock.org][swaylock]]
+    - [[file:wm/swaysome.org][swaysome]]
+    - [[file:wm/sworkstyle.org][sworkstyle]]
     - [[file:wm/waybar.org][Waybar]]
     - [[file:wm/wob.org][wob]]
 * How does it work?

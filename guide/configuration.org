@@ -80,7 +80,7 @@
     sudo pacman -S sway swaybg swayidle waybar foot rofi mako kanshi xorg-xwayland \
          polkit xdg-desktop-portal-wlr xdg-desktop-portal-gtk grim ttf-monoid-nerd \
          wl-clipboard slurp fuzzel
-    paru pinentry-rofi wob sworkstyle wlsunset
+    paru pinentry-rofi wob sworkstyle wlsunset swaysome-git
   #+END_SRC
 
   Install program to control backlights:

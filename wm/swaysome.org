@@ -1,0 +1,95 @@
+#+TITLE: swaysome
+#+AUTHOR: Kuhy
+#+PROPERTY: header-args+ :comments yes
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "~/.config/sway/config.d/swaysome.conf"
+#+PROPERTY: header-args+ :noweb tangle
+#+OPTIONS: prop:t
+/swaysome provides a different way to manage your multiple outputs with the sway windows manager/
+* Keybindings
+  Change focus between workspaces
+  #+BEGIN_SRC conf
+    unbindsym $mod+0
+    unbindsym $mod+1
+    unbindsym $mod+2
+    unbindsym $mod+3
+    unbindsym $mod+4
+    unbindsym $mod+5
+    unbindsym $mod+6
+    unbindsym $mod+7
+    unbindsym $mod+8
+    unbindsym $mod+9
+    bindsym $mod+1 exec "swaysome focus 1"
+    bindsym $mod+2 exec "swaysome focus 2"
+    bindsym $mod+3 exec "swaysome focus 3"
+    bindsym $mod+4 exec "swaysome focus 4"
+    bindsym $mod+5 exec "swaysome focus 5"
+    bindsym $mod+6 exec "swaysome focus 6"
+    bindsym $mod+7 exec "swaysome focus 7"
+    bindsym $mod+8 exec "swaysome focus 8"
+    bindsym $mod+9 exec "swaysome focus 9"
+  #+END_SRC
+
+  Move containers between workspaces
+  #+BEGIN_SRC conf
+    unbindsym $mod+Shift+0
+    unbindsym $mod+Shift+1
+    unbindsym $mod+Shift+2
+    unbindsym $mod+Shift+3
+    unbindsym $mod+Shift+4
+    unbindsym $mod+Shift+5
+    unbindsym $mod+Shift+6
+    unbindsym $mod+Shift+7
+    unbindsym $mod+Shift+8
+    unbindsym $mod+Shift+9
+    bindsym $mod+Shift+1 exec "swaysome move 1"
+    bindsym $mod+Shift+2 exec "swaysome move 2"
+    bindsym $mod+Shift+3 exec "swaysome move 3"
+    bindsym $mod+Shift+4 exec "swaysome move 4"
+    bindsym $mod+Shift+5 exec "swaysome move 5"
+    bindsym $mod+Shift+6 exec "swaysome move 6"
+    bindsym $mod+Shift+7 exec "swaysome move 7"
+    bindsym $mod+Shift+8 exec "swaysome move 8"
+    bindsym $mod+Shift+9 exec "swaysome move 9"
+  #+END_SRC
+
+  Focus workspace groups
+  #+BEGIN_SRC conf
+    bindsym $mod+Ctrl+1 exec "swaysome focus-group 1"
+    bindsym $mod+Ctrl+2 exec "swaysome focus-group 2"
+    bindsym $mod+Ctrl+3 exec "swaysome focus-group 3"
+    bindsym $mod+Ctrl+4 exec "swaysome focus-group 4"
+    bindsym $mod+Ctrl+5 exec "swaysome focus-group 5"
+    bindsym $mod+Ctrl+6 exec "swaysome focus-group 6"
+    bindsym $mod+Ctrl+7 exec "swaysome focus-group 7"
+    bindsym $mod+Ctrl+8 exec "swaysome focus-group 8"
+    bindsym $mod+Ctrl+9 exec "swaysome focus-group 9"
+  #+END_SRC
+
+  Move containers to other workspace groups
+  #+BEGIN_SRC conf
+    bindsym $mod+Ctrl+Shift+1 exec "swaysome move-to-group 1"
+    bindsym $mod+Ctrl+Shift+2 exec "swaysome move-to-group 2"
+    bindsym $mod+Ctrl+Shift+3 exec "swaysome move-to-group 3"
+    bindsym $mod+Ctrl+Shift+4 exec "swaysome move-to-group 4"
+    bindsym $mod+Ctrl+Shift+5 exec "swaysome move-to-group 5"
+    bindsym $mod+Ctrl+Shift+6 exec "swaysome move-to-group 6"
+    bindsym $mod+Ctrl+Shift+7 exec "swaysome move-to-group 7"
+    bindsym $mod+Ctrl+Shift+8 exec "swaysome move-to-group 8"
+    bindsym $mod+Ctrl+Shift+9 exec "swaysome move-to-group 9"
+  #+END_SRC
+
+  Move focused container to next output
+  #+BEGIN_SRC conf
+    bindsym $mod+o exec "swaysome next-output"
+  #+END_SRC
+
+  Move focused container to previous output
+  #+BEGIN_SRC conf
+    bindsym $mod+Shift+o exec "swaysome prev-output"
+  #+END_SRC
+* Initialization
+  Init workspaces for every screen
+  #+BEGIN_SRC conf
+    exec "swaysome init 1"
+  #+END_SRC

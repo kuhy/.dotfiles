@@ -129,7 +129,7 @@
    #+BEGIN_SRC conf
          bindsym $mod+Shift+s exec sh ~/.config/swaylock/lock.sh
    #+END_SRC
-** Rofi scripts
+** App launcher
    start your app launcher
    #+BEGIN_SRC conf
          bindsym $mod+f1 exec fuzzel
@@ -164,6 +164,11 @@
          bindsym $mod+Shift+Down move down
          bindsym $mod+Shift+Up move up
          bindsym $mod+Shift+Right move right
+   #+END_SRC
+
+   switch output
+   #+BEGIN_SRC conf
+         bindsym $mod+space focus output right
    #+END_SRC
 ** Workspaces
    switch to workspace
@@ -206,8 +211,8 @@
 
    Switch the current container between different layout styles
    #+BEGIN_SRC conf
-         bindsym $mod+s layout stacking
-         bindsym $mod+c layout toggle split
+         #bindsym $mod+s layout stacking
+         #bindsym $mod+c layout toggle split
    #+END_SRC
 
    Make the current focus fullscreen
@@ -217,17 +222,17 @@
 
    Toggle the current focus between tiling and floating mode
    #+BEGIN_SRC conf
-         bindsym $mod+Shift+space floating toggle
+         #bindsym $mod+Shift+space floating toggle
    #+END_SRC
 
    Swap focus between the tiling area and the floating area
    #+BEGIN_SRC conf
-         bindsym $mod+space focus mode_toggle
+         #bindsym $mod+space focus mode_toggle
    #+END_SRC
 
    move focus to the parent container
    #+BEGIN_SRC conf
-         bindsym $mod+p focus parent
+         #bindsym $mod+p focus parent
    #+END_SRC
 ** Scratchpad
    Sway has a "scratchpad", which is a bag of holding for windows.
@@ -285,10 +290,10 @@
 
    Audio
    #+BEGIN_SRC conf
-     set $print_volume wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/^Volume: \([01]\)\.\(.*\).*$/\1\2/;s/\[MUTED\]/muted/' > $WOBSOCK
-     bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && $print_volume
-     bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $print_volume
-     bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && $print_volume
+     set $wob_volume wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/^Volume: \([01]\)\.\(.*\).*$/\1\2/;s/\[MUTED\]/muted/' > $WOBSOCK
+     bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && $wob_volume
+     bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $wob_volume
+     bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && $wob_volume
    #+END_SRC
 
    Monitor brightness (https://github.com/haikarainen/light)
@@ -333,4 +338,8 @@
   Start the =sway-session.target= which will trigger the execution of daemons related to Sway.
   #+BEGIN_SRC conf
     exec "systemctl --user import-environment; systemctl --user start sway-session.target"
+  #+END_SRC
+* Imports
+  #+BEGIN_SRC conf
+    include ~/.config/sway/config.d/*.conf
   #+END_SRC
