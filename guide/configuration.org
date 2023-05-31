@@ -48,6 +48,18 @@
   #+BEGIN_SRC sh
     sudo pacman -S bluez bluez-utils
   #+END_SRC
+* Configure power management
+  Install and enable TLP:
+  #+BEGIN_SRC sh
+    sudo pacman -S tlp tlp-rdw powertop
+    sudo systemctl enable tlp NetworkManager-dispatcher
+  #+END_SRC
+
+  You should also mask the following services to avoid conflicts and
+  assure proper operation of TLP’s Radio Device Switching options:
+  #+BEGIN_SRC sh
+    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
+  #+END_SRC
 * TODO Set up dotfiles and Emacs
   Install Emacs:
   #+BEGIN_SRC sh
