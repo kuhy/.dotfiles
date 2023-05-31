@@ -73,8 +73,8 @@
 ** Network
    #+BEGIN_SRC js
      "network": {
-         "format-wifi": "直 {essid} {signalStrength}%",
-         "format-disconnected": "睊 off"
+         "format-wifi": "󰖩 {essid} {signalStrength}%",
+         "format-disconnected": "󰖪 off"
      },
    #+END_SRC
 ** Backlight
@@ -82,7 +82,7 @@
      "backlight": {
          "device": "intel_backlight",
          "format": "{icon} {percent}%",
-         "format-icons": ["", "", ""],
+         "format-icons": ["󰃞", "󰃟", "󰃠"],
          "states": {
              "high": 90,
          },
@@ -95,7 +95,7 @@
          "format": "{icon} {volume}%",
          "format-muted": " {volume}%",
          "format-icons": {
-             "headphone": "",
+             "headphone": "󰋋",
              "default": ["", "", ""]
          },
          "states": {
@@ -109,7 +109,7 @@
    #+BEGIN_SRC js
      "memory": {
          "interval": 30,
-         "format": " {percentage}%",
+         "format": "󰍛 {percentage}%",
          "states": {
              "critical": 95,
              "warning": 90
@@ -155,7 +155,7 @@
      * {
          border: none;
          border-radius: 0;
-         font-family: Monoid Nerd Font;
+         font-family: <<font>>;
          font-size: 13px;
          min-height: 20px;
          background: #<<base00>>;
