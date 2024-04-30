@@ -19,6 +19,7 @@
   - System
     - [[file:system/gpg.org][GPG]]
     - [[file:system/mimeo.org][mimeo]]
+    - [[file:system/podman.org][Podman]]
     - [[file:system/rsnapshot.org][rsnapshot]]
     - [[file:system/safeeyes.org][Safe Eyes]]
     - [[file:system/scripts.org][Scripts]]
@@ -70,4 +71,4 @@
 
   Unfortunately, built-in function =org-babel-tangle= which is responsible for tangling, does not
   work correctly with =#+INCLUDE= statements and encrypted files. Because of that, I created a
-  [[file:system/scripts.org][simple script]] which overcomes those shortcomings.
+  [[file:dot-tangle][simple script]] which overcomes those shortcomings.
