@@ -22,9 +22,15 @@
     'Emacs' = ''
     'Code' = '󰨞'
     'jetbrains-idea-ce' = ''
+    'libreoffice-writer' = '󰈬'
+
+    '/npm/' = ''
 
     'foot' = ''
+    'footclient' = ''
 
     'gnome-boxes' = ''
-    'Gimp' = ''
+    'org.remmina.Remmina' = '󰢹'
+    '/GNU Image Manipulation Program/' = ''
+    'FreeTube' = ''
   #+END_SRC
