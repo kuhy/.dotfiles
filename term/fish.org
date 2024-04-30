@@ -48,7 +48,7 @@
      alias mv 'mv -vn'
      alias cp 'cp -vn'
      alias x 'distrobox-host-exec'
-     alias e 'distrobox-host-exec emacsclient -n -c -a emacs'
+     alias e 'distrobox-host-exec flatpak run --command=emacsclient org.gnu.emacs -n -c -a emacs -d $DISPLAY'
      alias o <<opener>>
      alias mnt 'udisksctl mount -b'
      alias umnt 'udisksctl unmount -b'

@@ -54,7 +54,7 @@
 ** Basics
    start a Distrobox in terminal
    #+BEGIN_SRC conf
-         bindsym $mod+Return exec <<terminal>> distrobox enter termbox -e fish
+         bindsym $mod+Return exec <<terminal>> distrobox enter termbox
    #+END_SRC
 
    start a terminal
@@ -79,12 +79,12 @@
 
    start emacs
    #+BEGIN_SRC conf
-         bindsym $mod+e exec eval $VISUAL
+         bindsym $mod+e exec flatpak run --command=emacsclient org.gnu.emacs -n -c -a emacs
    #+END_SRC
 
    open =org-agenda=
    #+BEGIN_SRC conf
-         bindsym $mod+a exec emacsclient -ce '(my-org-agenda)'
+         bindsym $mod+a exec flatpak run --command=emacsclient org.gnu.emacs -ce '(my-org-agenda)'
    #+END_SRC
 
    start YouTube player
@@ -294,6 +294,7 @@
      bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && $wob_volume
      bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $wob_volume
      bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && $wob_volume
+     # wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
    #+END_SRC
 
    Monitor brightness (https://github.com/haikarainen/light)

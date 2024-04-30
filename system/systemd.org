@@ -48,12 +48,15 @@
      [Unit]
      Description=Emacs text editor
      Documentation=info:emacs man:emacs(1)
+     Wants=network-online.target
 
      [Service]
-     Type=forking
-     ExecStart=%h/.local/bin/emacs --daemon
-     ExecStop=%h/.local/bin/emacsclient --eval "(kill-emacs)"
-     Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+     #Type=forking
+     ExecStart=/usr/bin/flatpak run org.gnu.emacs --fg-daemon
+     #ExecStart=/usr/bin/flatpak run org.gnu.emacs --daemon
+     ExecStop=/usr/bin/flatpak run --command=emacsclient org.gnu.emacs --eval "(kill-emacs)"
+     Environment=FLATPAK_ENABLE_SDK_EXT=texlive,openjdk21
+     #Environment=SSH_AUTH_SOCK=%t/keyring/ssh
      Restart=on-failure
 
      [Install]

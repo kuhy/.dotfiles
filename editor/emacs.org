@@ -224,6 +224,11 @@
     (setq org-tags-column 0)
   #+END_SRC
 
+  Do not indent properties:
+  #+BEGIN_SRC elisp
+    (setq org-property-format "%s %s")
+  #+END_SRC
+
   Calendar for =org-mode=
   #+BEGIN_SRC elisp
     ;(use-package calfw-org)
@@ -294,6 +299,11 @@
     (use-package hide-mode-line)
   #+END_SRC
 
+  Use Unix Pass within =auth-source=.
+  #+BEGIN_SRC elisp
+    (use-package auth-source-pass
+      :init (auth-source-pass-enable))
+  #+END_SRC
   Package to display a terminal in an Emacs buffer.
   #+BEGIN_SRC elisp
     ;(use-package vterm
@@ -438,7 +448,11 @@
     ;(require 'sclang)
   #+END_SRC
 
-  LaTeX
+  Set path to TeX Live (use Flatpak SDK)
+  #+BEGIN_SRC elisp
+    (setenv "PATH" "/usr/lib/sdk/texlive/bin/x86_64-linux/:$PATH" t)
+  #+END_SRC
+  LaTeX package
   #+BEGIN_SRC elisp
     (use-package tex
       :defer t

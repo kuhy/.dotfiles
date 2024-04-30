@@ -151,12 +151,17 @@
       flatpak install org.gnome.Boxes
       flatpak install org.gimp.GIMP
       flatpak install org.ardour.Ardour
+      flatpak install org.remmina.Remmina
      #+END_SRC
 *** Games
      #+BEGIN_SRC sh
       flatpak install org.wesnoth.Wesnoth
       flatpak install net.sourceforge.Fillets
       flatpak install org.hedgewars.Hedgewars
+     #+END_SRC
+*** SDKs
+     #+BEGIN_SRC sh
+       flatpak install org.freedesktop.Sdk.Extension.texlive
      #+END_SRC
 * TODO Install antivirus
   #+BEGIN_SRC sh
