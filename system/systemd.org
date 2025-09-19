@@ -277,3 +277,21 @@
       [Install]
       WantedBy=sway-session.target
     #+END_SRC
+*** cliphist
+    :PROPERTIES:
+    :header-args: :tangle ~/.config/systemd/user/cliphist.service :comments no :mkdirp yes :noweb tangle
+    :END:
+    Use cliphist (clipboard history manager):
+    #+BEGIN_SRC conf
+      [Unit]
+      Description=Listen for clipboard changes and sent them to cliphist
+      BindsTo=sway-session.target
+
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/wl-paste --watch cliphist store
+
+      [Install]
+      WantedBy=sway-session.target
+    #+END_SRC
+
