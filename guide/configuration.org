@@ -91,7 +91,7 @@
   #+BEGIN_SRC sh
     sudo pacman -S sway swaybg swayidle waybar foot rofi mako kanshi xorg-xwayland \
          polkit xdg-desktop-portal-wlr xdg-desktop-portal-gtk grim ttf-monoid-nerd \
-         wl-clipboard slurp fuzzel
+         wl-clipboard cliphist slurp fuzzel wf-recorder v4l2loopback-dkms
     paru pinentry-rofi wob sworkstyle wlsunset swaysome-git
   #+END_SRC
 
@@ -191,6 +191,13 @@
   - emacsbox
 ** TODO Create Dockerfiles for distrobox
    - create Org file for distrobox
+* TODO Setup security keys
+  Install required tools:
+  #+BEGIN_SRC sh
+    sudo pacman -S pcsclite ccid pam-u2f
+    sudo systemctl enable pcscd
+  #+END_SRC
+  Setup U2F for =sudo=: [[https://wiki.archlinux.org/title/Universal_2nd_Factor]]
 * TODO Configure MIME types
   Configure MIME types and corresponding handlers using [[file:../system/mimeo.org][mimeo]].
   #+BEGIN_SRC sh
