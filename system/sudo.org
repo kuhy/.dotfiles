@@ -6,6 +6,11 @@
   :PROPERTIES:
   :header-args: :tangle /etc/sudoers :comments both :mkdirp yes :noweb tangle :tangle-mode (identity #o440)
   :END:
+  Do not cache =sudo= ability:
+  #+BEGIN_SRC conf
+    Defaults timestamp_timeout=0
+  #+END_SRC
+
   Make =sudo= insult user for each incorrect password attempt
   #+BEGIN_SRC conf
     Defaults insults
@@ -19,4 +24,9 @@
   Allow members of group wheel to execute any command
   #+BEGIN_SRC conf
     %wheel ALL=(ALL) ALL
+  #+END_SRC
+
+  Read drop-in files from /etc/sudoers.d:
+  #+BEGIN_SRC conf
+    @includedir /etc/sudoers.d
   #+END_SRC
