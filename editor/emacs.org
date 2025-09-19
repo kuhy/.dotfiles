@@ -478,6 +478,11 @@
     )
   #+END_SRC
 
+  Dockerfile support
+  #+BEGIN_SRC elisp
+    (use-package dockerfile-mode)
+  #+END_SRC
+
   YAML support:
   #+BEGIN_SRC elisp
     (use-package yaml-mode)
@@ -497,6 +502,17 @@
   #+BEGIN_SRC elisp
     (use-package plantuml-mode
       :custom (org-plantuml-jar-path (expand-file-name "/usr/share/java/plantuml/plantuml.jar"))
+    )
+  #+END_SRC
+
+  typst support:
+  #+BEGIN_SRC elisp
+    (add-to-list 'treesit-language-source-alist
+      '(typst "https://github.com/uben0/tree-sitter-typst"))
+    (treesit-install-language-grammar 'typst)
+
+    (use-package typst-ts-mode
+      :ensure (:type git :host sourcehut :repo "meow_king/typst-ts-mode" :files (:defaults "*.el"))
     )
   #+END_SRC
 
