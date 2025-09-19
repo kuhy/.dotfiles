@@ -1,0 +1,46 @@
+FROM archlinux:latest
+RUN pacman --noconfirm -Syu ansible \
+                atool \
+                atuin \
+                bat \
+                detox \
+                dos2unix \
+                expac \
+                eza \
+                fd \
+                fish \
+                git \
+                gocryptfs \
+                httpie \
+                imagemagick \
+                imv \
+                jq \
+                just \
+                man-db \
+                man-pages \
+                oath-toolkit \
+                openssh \
+                pass \
+                progress \
+                pwgen \
+                python-pipx \
+                rsync \
+                sshfs \
+                starship \
+                sudo \
+                thefuck \
+                tmux \
+                traceroute \
+                translate-shell \
+                vim \
+                whois \
+                wl-clipboard \
+                xdg-utils \
+                yt-dlp \
+                yubikey-manager \
+                zathura-pdf-mupdf \
+                zoxide
+
+RUN pipx install trezor trezor-agent
+
+RUN chsh -s /usr/bin/fish kuhy

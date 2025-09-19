@@ -1,0 +1,1 @@
+sudo pacman -Syu pipewire-jack ardour x42-plugins-lv2 distrho-ports-lv2 carla
