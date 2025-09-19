@@ -88,6 +88,16 @@
   #+BEGIN_SRC conf
     bindsym $mod+Shift+o exec "swaysome prev-output"
   #+END_SRC
+
+  Move focused workspace group to next output
+  #+BEGIN_SRC conf
+    bindsym $mod+Alt+o exec "swaysome workspace-group-next-output"
+  #+END_SRC
+
+  Move focused workspace group to previous output
+  #+BEGIN_SRC conf
+    bindsym $mod+Alt+Shift+o exec "swaysome workspace-group-prev-output"
+  #+END_SRC
 * Initialization
   Init workspaces for every screen
   #+BEGIN_SRC conf
