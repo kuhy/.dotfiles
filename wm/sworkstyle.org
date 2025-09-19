@@ -15,7 +15,7 @@
   #+BEGIN_SRC conf
     [matching]
     'firefox' = ''
-    'Chromium-browser' = ''
+    'Io.github.ungoogled_software.ungoogled_chromium' = ''
     'Microsoft-edge' = '󰇩'
     'Brave-browser' = '󰖟'
 
