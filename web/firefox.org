@@ -5,7 +5,7 @@
 /Standalone web browser from Mozilla/
 * Profiles
   :PROPERTIES:
-  :header-args: :tangle ~/.mozilla/firefox/profiles.ini :comments both :mkdirp yes :noweb tangle
+  :header-args: :tangle ~/.var/app/org.mozilla.firefox/.mozilla/firefox/profiles.ini :comments both :mkdirp yes :noweb tangle
   :END:
   Use only one profile called "default".
   #+BEGIN_SRC conf
@@ -20,7 +20,7 @@
   #+END_SRC
 * General
   :PROPERTIES:
-  :header-args: :tangle ~/.mozilla/firefox/default/user-overrides.js :comments both :mkdirp yes :noweb tangle
+  :header-args: :tangle ~/.var/app/org.mozilla.firefox/.mozilla/firefox/default/user-overrides.js :comments both :mkdirp yes :noweb tangle
   :END:
   Make Tridactyl work on addons.mozilla.org and some other Mozilla domains
   #+BEGIN_SRC js
@@ -313,7 +313,7 @@
 * Styles
 ** User interface
    :PROPERTIES:
-   :header-args: :tangle ~/.mozilla/firefox/default/chrome/userChrome.css :comments both :mkdirp yes :noweb tangle
+   :header-args: :tangle ~/.var/app/org.mozilla.firefox/.mozilla/firefox/default/chrome/userChrome.css :comments both :mkdirp yes :noweb tangle
    :END:
    Declare color variables:
    #+BEGIN_SRC css
@@ -476,9 +476,16 @@
        border-inline: var(--uc-window-drag-space-width) solid var(--toolbar-bgcolor);
      }
    #+END_SRC
+
+   Hide close button:
+   #+BEGIN_SRC css
+     .titlebar-close {
+       display:none !important;
+     }
+   #+END_SRC
 ** Web pages
    :PROPERTIES:
-   :header-args: :tangle ~/.mozilla/firefox/default/chrome/userContent.css :comments both :mkdirp yes :noweb tangle
+   :header-args: :tangle ~/.var/app/org.mozilla.firefox/.mozilla/firefox/default/chrome/userContent.css :comments both :mkdirp yes :noweb tangle
    :END:
    Change color of scroll bar:
    #+BEGIN_SRC css
